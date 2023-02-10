@@ -16,23 +16,23 @@ export default [
     type: "television",
   },
   {
-    title: "lamp-salon",
-    type: "lamp",
+    title: "oven-kitchen",
+    type: "oven",
   },
   {
-    title: "fridge-kitchen",
-    type: "fridge",
+    title: "airConditioner-sherry",
+    type: "airConditioner",
   },
   {
     title: "television-room",
     type: "television",
   },
   {
-    title: "lamp-room",
-    type: "lamp",
+    title: "stove-kitchen",
+    type: "stove",
   },
   {
-    title: "fridge-room",
-    type: "fridge",
+    title: "Add device",
+    type: "plus",
   },
 ];

@@ -7,7 +7,7 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     borderColor: "black",
-    flexBasis: "40%",
+    flexBasis: "30%",
   },
   item_name: {
     fontSize: 15,

@@ -12,12 +12,13 @@ export default {
     television: require("../../assets/TV.jpg"),
     lamp: require("../../assets/lamp.jpg"),
     fridge: require("../../assets/fridge.jpg"),
-    oven: "oven",
+    oven: require("../../assets/oven.jpg"),
     watch: require("../../assets/watch.jpg"),
-    air_Conditioner: "air-Conditioner",
-    stove: "stove",
+    airConditioner: require("../../assets/airConditioner.png"),
+    stove: require("../../assets/stove.jpg"),
+    plus: require("../../assets/plus.jpg"),
   },
-   INDEXTYPES: {
+  INDEXTYPES: {
     1: "television",
     2: "lamp",
     3: "fridge",

@@ -11,6 +11,7 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
         ))}
       </View>
     </View>
+
     // <View style={styles.container}>
     //   <View style={styles.rowDevices}>
     //     <Item name={"Tv"} type={"television"} navigation={navigation} />
