@@ -17,7 +17,7 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 15,
-    marginRight: 10,
+    marginRight: 10
   },
   Input: {
     height: 40,
@@ -33,4 +33,8 @@ export default StyleSheet.create({
   scrollView: {
     marginHorizontal: 10,
   },
+
+
+
+
 });
