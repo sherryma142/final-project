@@ -1,5 +1,8 @@
 import styles from "./AddNew.style";
 import React, { useState } from "react";
+import {SelectList} from 'react-native-dropdown-select-list';
+import constants from "../../constants/itemTypes";
+
 import {
   TextInput,
   Text,
@@ -8,12 +11,26 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
+  Button,
+  Alert
 } from "react-native";
 
 export const AddNew = () => {
   const [name, setName] = useState("");
   const [normalConsumption, setNormalConsumptio] = useState("");
   const [improperConsumption, setImproperConsumption] = useState("");
+  const [selected, setSelected] = useState("");
+
+  const data = [
+    {key: 1, value: constants.INDEXTYPES[1]},
+    {key: 2, value: constants.INDEXTYPES[2]},
+    {key: 3, value: constants.INDEXTYPES[3]},
+    {key: 4, value: constants.INDEXTYPES[4]},
+    {key: 5, value: constants.INDEXTYPES[5]},
+    {key: 6, value: constants.INDEXTYPES[6]},
+    {key: 7, value: constants.INDEXTYPES[7]},
+];
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,25 +46,20 @@ export const AddNew = () => {
             onChangeText={(text) => setName(text)}
             // onSubmitEditing={() => alert(`Welcome to ${message}`)}
           />
-          <TextInput
-            style={styles.labelsStyle}
-            placeholder="device type:"
-            value={name}
-            onChangeText={(text) => setName(text)}
-            // onSubmitEditing={() => alert(`Welcome to ${message}`)}
-          />
+         <Text style={styles.labelsStyle}>Device type:</Text>
+
+          <SelectList data={data} setSelected={setSelected}     />
+
           <Text style={styles.labelsStyle}>Image:</Text>
 
           <Image
-            source={{
-              uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Light_bulb_icon_tips.svg/1200px-Light_bulb_icon_tips.svg.png",
-            }}
-            style={{
-              width: 60,
-              height: 60,
+              source={constants.IMAGES[constants.INDEXTYPES[selected]]}
+              style={{
+              width: 80,
+              height: 80,
               resizeMode: "contain",
-              marginTop: -30,
-              marginLeft: 100,
+              marginTop: -20,
+              marginLeft: 200,
               marginBottom: 15,
             }}
           />
@@ -67,6 +79,14 @@ export const AddNew = () => {
             value={improperConsumption}
             onChangeText={(text) => setImproperConsumption(text)}
           />
+
+           <Button
+            title="ADD DEVICE"
+            color="green"
+            onPress={() => Alert.alert('device added')}
+            />
+
+
         </ScrollView>
       </View>
     </SafeAreaView>

@@ -17,4 +17,13 @@ export default {
     air_Conditioner: "air-Conditioner",
     stove: "stove",
   },
+   INDEXTYPES: {
+    1: "television",
+    2: "lamp",
+    3: "fridge",
+    4: "oven",
+    5: "watch",
+    6: "air-Conditioner",
+    7: "stove",
+  },
 };
