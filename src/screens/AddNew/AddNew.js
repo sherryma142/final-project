@@ -1,6 +1,6 @@
 import styles from "./AddNew.style";
 import React, { useState } from "react";
-import {SelectList} from 'react-native-dropdown-select-list';
+import { SelectList } from "react-native-dropdown-select-list";
 import constants from "../../constants/itemTypes";
 
 import {
@@ -12,7 +12,7 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
-  Alert
+  Alert,
 } from "react-native";
 
 export const AddNew = () => {
@@ -22,15 +22,14 @@ export const AddNew = () => {
   const [selected, setSelected] = useState("");
 
   const data = [
-    {key: 1, value: constants.INDEXTYPES[1]},
-    {key: 2, value: constants.INDEXTYPES[2]},
-    {key: 3, value: constants.INDEXTYPES[3]},
-    {key: 4, value: constants.INDEXTYPES[4]},
-    {key: 5, value: constants.INDEXTYPES[5]},
-    {key: 6, value: constants.INDEXTYPES[6]},
-    {key: 7, value: constants.INDEXTYPES[7]},
-];
-
+    { key: 1, value: constants.INDEXTYPES[1] },
+    { key: 2, value: constants.INDEXTYPES[2] },
+    { key: 3, value: constants.INDEXTYPES[3] },
+    { key: 4, value: constants.INDEXTYPES[4] },
+    { key: 5, value: constants.INDEXTYPES[5] },
+    { key: 6, value: constants.INDEXTYPES[6] },
+    { key: 7, value: constants.INDEXTYPES[7] },
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,15 +45,15 @@ export const AddNew = () => {
             onChangeText={(text) => setName(text)}
             // onSubmitEditing={() => alert(`Welcome to ${message}`)}
           />
-         <Text style={styles.labelsStyle}>Device type:</Text>
+          <Text style={styles.labelsStyle}>Device type:</Text>
 
-          <SelectList data={data} setSelected={setSelected}     />
+          <SelectList data={data} setSelected={setSelected} />
 
           <Text style={styles.labelsStyle}>Image:</Text>
 
           <Image
-              source={constants.IMAGES[constants.INDEXTYPES[selected]]}
-              style={{
+            source={constants.IMAGES[constants.INDEXTYPES[selected]]}
+            style={{
               width: 80,
               height: 80,
               resizeMode: "contain",
@@ -80,13 +79,11 @@ export const AddNew = () => {
             onChangeText={(text) => setImproperConsumption(text)}
           />
 
-           <Button
+          <Button
             title="ADD DEVICE"
             color="green"
-            onPress={() => Alert.alert('device added')}
-            />
-
-
+            onPress={() => Alert.alert("device added")}
+          />
         </ScrollView>
       </View>
     </SafeAreaView>

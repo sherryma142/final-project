@@ -7,7 +7,13 @@ export const Item = ({ name, type, navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.item_name}>{name}</Text>
-      <TouchableHighlight onPress={() => navigation.navigate("AddNew")}>
+      <TouchableHighlight
+        onPress={() =>
+          type === "plus"
+            ? navigation.navigate("AddNew")
+            : navigation.navigate("Details")
+        }
+      >
         <Image source={constants.IMAGES[type]} style={styles.item_image} />
       </TouchableHighlight>
     </View>

@@ -12,6 +12,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     alignContent: "center",
-    flexBasis: "30%",
+    marginHorizontal: "1%",
+    flexWrap: "wrap",
   },
 });
