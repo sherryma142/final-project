@@ -7,8 +7,8 @@ import itemsMock from "../../mocks/itemsMock";
 // rnfe
 
 const Home = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
+  return(
+  <View style={styles.container}>
       <Text style={styles.hadder}>SaveEnergy</Text>
       <Text style={styles.liveShow}>Live Show</Text>
       <View>
@@ -31,26 +31,7 @@ const Home = ({ navigation }) => {
       <ButtonKitten style={styles.Button} size="medium">
         Statistics
       </ButtonKitten>
-      {/* <Button>SaveEnergy</Button> */}
-      {/* <View style={styles.rowDevices}>
-        <Item name={"Tv"} type={"television"} navigation={navigation} />
-        <Item name={"Lamp"} type={"lamp"} navigation={navigation} />
-        <Item name={"Fridge"} type={"fridge"} navigation={navigation} />
       </View>
-      <View style={styles.rowDevices}>
-        <Item name={"Tv"} type={"television"} navigation={navigation} />
-        <Item name={"Lamp"} type={"lamp"} navigation={navigation} />
-        <Item name={"Fridge"} type={"fridge"} navigation={navigation} />
-      </View> */}
-
-      {/* <ListOfItems list={list} /> */}
-      {/* <SpecialButton /> */}
-      {/* 
-      {list.map((item) => (
-        <Item title={title} />
-      ))}
-      {list.length < 9 && <Item title="add new" onPress={addNewItem} />} */}
-    </View>
   );
 };
 
