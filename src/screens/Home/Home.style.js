@@ -6,12 +6,14 @@ export default StyleSheet.create({
     backgroundColor: "pink",
     alignItems: "center",
     justifyContent: "flex-start",
+    flexWrap: "wrap"
   },
   hadder: {
     fontSize: 60,
     paddingTop: 30,
     alignItems: "flex-start",
     justifyContent: "center",
+    
   },
   liveShow: {},
   liveShowImage: {
