@@ -1,11 +1,11 @@
 import { View, Text,Switch,ScrollView,Button,Alert } from "react-native";
 import React,{useState} from "react";
-import styles from "./SafeChild.style";
+import styles from "./SleepMode.style";
 import itemsMock from "../../mocks/itemsMock";
 import DevicesNameContainer from "../../components/devicesNameContainer/DevicesNameContainer";
 
 
-const SafeChild = () => {
+const SleepMode = () => {
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -14,7 +14,7 @@ const SafeChild = () => {
     
   <View style={styles.container}>
      <ScrollView style={styles.scrollView}>
-     <Text style={styles.header}>Safe Child</Text>
+     <Text style={styles.header}>Sleep Mode</Text>
       <Text style={styles.labelsStyle}>On/Off this option: </Text>
       <Switch
         trackColor={{false: 'red', true: 'green'}}
@@ -27,7 +27,7 @@ const SafeChild = () => {
         <DevicesNameContainer listOfItems={itemsMock} />
       </View>
       <Button
-            title="Connect devices to safe child mode"
+            title="Connect devices to sleep mode"
             color="green"
             onPress={() => Alert.alert("connect succesfully")}
           />
@@ -36,4 +36,4 @@ const SafeChild = () => {
   );
 };
 
-export default SafeChild;
+export default SleepMode;

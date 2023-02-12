@@ -2,18 +2,15 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "flex-start",
+      flex: 1,
+      backgroundColor: 'coral',
+      justifyContent: 'flex-start',
       },
       itemTypes: {
-        alignItems: "flex-start",
-        justifyContent: "center",
-        flexDirection: "row",
-        alignContent: "center",
+        flexDirection: "column",
         fontSize: 18,
         fontWeight: "bold",
-        marginBottom: 15,
-        marginRight: 10
+        flexWrap:"wrap"
+        
       },
     })
