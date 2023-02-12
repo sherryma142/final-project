@@ -5,12 +5,6 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "flex-start",
   },
-  hadder: {
-    fontSize: 60,
-    paddingTop: 60,
-    alignItems: "flex-start",
-    justifyContent: "center",
-  },
-  liveShow: {},
 });

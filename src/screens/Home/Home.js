@@ -4,33 +4,32 @@ import styles from "./Home.style";
 import { Button as ButtonKitten } from "@ui-kitten/components";
 import DevicesContainer from "../../components/devicesContainer/DevicesContainer";
 import itemsMock from "../../mocks/itemsMock";
+import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
 // rnfe
 
 const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.hadder}>SaveEnergy</Text>
-      <Text style={styles.liveShow}>Live Show</Text>
-      <View>
-        <TouchableHighlight onPress={() => navigation.navigate("LiveShow")}>
-          <Image
-            source={require("../../../assets/download.png")}
-            style={styles.liveShowImage}
-          />
-        </TouchableHighlight>
-      </View>
+      <Text>LiveShow</Text>
+
+      <LiveShowComponent navigation={navigation}></LiveShowComponent>
+
       <View style={styles.container}>
         <DevicesContainer listOfItems={itemsMock} navigation={navigation} />
       </View>
-      <ButtonKitten style={styles.Button} size="medium">
-        Safe Chiled Mode
-      </ButtonKitten>
-      <ButtonKitten style={styles.Button} size="medium">
-        Sleep Mode
-      </ButtonKitten>
-      <ButtonKitten style={styles.Button} size="medium">
-        Statistics
-      </ButtonKitten>
+      <View style={styles.Buttons}>
+        <ButtonKitten style={styles.Button} size="medium">
+          Safe Chiled Mode
+        </ButtonKitten>
+        <ButtonKitten style={styles.Button} size="medium">
+          Sleep Mode
+        </ButtonKitten>
+        <ButtonKitten style={styles.Button} size="medium">
+          Statistics
+        </ButtonKitten>
+      </View>
+
       {/* <Button>SaveEnergy</Button> */}
       {/* <View style={styles.rowDevices}>
         <Item name={"Tv"} type={"television"} navigation={navigation} />
