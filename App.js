@@ -7,7 +7,7 @@ import Home from "./src/screens/Home/Home";
 import LiveShow from "./src/screens/LiveShow/LiveShow";
 import AddNew from "./src/screens/AddNew/AddNew";
 import Details from "./src/screens/Details/Details";
-import SafeChild from "./src/screens/SafeChild/SafeChild";
+import SafeChild from "./src/screens/safeChild/SafeChild";
 import SleepMode from "./src/screens/SleepMode/SleepMode";
 import Settings from "./src/screens/Settings/Settings";
 
