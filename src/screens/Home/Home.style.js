@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { SlideInRight } from "react-native-reanimated";
 
 export default StyleSheet.create({
   container: {
@@ -6,12 +7,14 @@ export default StyleSheet.create({
     backgroundColor: "pink",
     alignItems: "center",
     justifyContent: "flex-start",
+    flexWrap: "wrap"
   },
   hadder: {
     fontSize: 60,
     paddingTop: 30,
     alignItems: "flex-start",
     justifyContent: "center",
+    
   },
   liveShow: {},
   Buttons: {
@@ -20,4 +23,5 @@ export default StyleSheet.create({
     marginBottom: 10,
     paddingBottom: 100,
   },
+
 });
