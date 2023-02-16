@@ -31,8 +31,4 @@ export default [
     title: "stove-kitchen",
     type: "stove",
   },
-  {
-    title: "Add device",
-    type: "plus",
-  },
 ];

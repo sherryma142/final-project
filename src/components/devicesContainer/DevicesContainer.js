@@ -9,26 +9,11 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
         {listOfItems.map((item) => (
           <Item name={item.title} type={item.type} navigation={navigation} />
         ))}
+        {listOfItems.length < 9 && (
+          <Item name="add new" type="plus" navigation={navigation} />
+        )}
       </View>
     </View>
-
-    // <View style={styles.container}>
-    //   <View style={styles.rowDevices}>
-    //     <Item name={"Tv"} type={"television"} navigation={navigation} />
-    //     <Item name={"Lamp"} type={"lamp"} navigation={navigation} />
-    //     <Item name={"Fridge"} type={"fridge"} navigation={navigation} />
-    //   </View>
-    //   <View style={styles.rowDevices}>
-    //     <Item name={"Tv"} type={"television"} navigation={navigation} />
-    //     <Item name={"Lamp"} type={"lamp"} navigation={navigation} />
-    //     <Item name={"Fridge"} type={"fridge"} navigation={navigation} />
-    //   </View>
-    //   <View style={styles.rowDevices}>
-    //     <Item name={"Tv"} type={"television"} navigation={navigation} />
-    //     <Item name={"Lamp"} type={"lamp"} navigation={navigation} />
-    //     <Item name={"Fridge"} type={"fridge"} navigation={navigation} />
-    //   </View>
-    // </View>
   );
 };
 

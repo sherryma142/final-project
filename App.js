@@ -2,7 +2,7 @@ import { ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import { View, StyleSheet, Image } from "react-native";
 import Home from "./src/screens/Home/Home";
 import LiveShow from "./src/screens/LiveShow/LiveShow";
 import AddNew from "./src/screens/AddNew/AddNew";
@@ -10,6 +10,8 @@ import Details from "./src/screens/Details/Details";
 import SafeChild from "./src/screens/safeChild/SafeChild";
 import SleepMode from "./src/screens/SleepMode/SleepMode";
 import Settings from "./src/screens/Settings/Settings";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Button } from "react-native-elements";
 import Statistics from "./src/screens/Statistics/Statistics";
 import DeviceStatistic from "./src/screens/DeviceStatistic/DeviceStatistic";
 
@@ -36,3 +38,9 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 50,
+  },
+});
