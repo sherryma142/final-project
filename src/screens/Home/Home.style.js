@@ -21,6 +21,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     marginBottom: 10,
+    paddingTop: 20,
     paddingBottom: 80,
   },
 });

@@ -2,6 +2,7 @@ import styles from "./AddNew.style";
 import React, { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 import constants from "../../constants/itemTypes";
+import axios from "axios";
 
 import {
   TextInput,
@@ -15,13 +16,16 @@ import {
   Alert,
 } from "react-native";
 
-export const AddNew = () => {
+export const AddNew = ({ route}) => {
+  //const [data, setData] = useState();
+
+  const {index}=route.params;
   const [name, setName] = useState("");
   const [normalConsumption, setNormalConsumptio] = useState("");
   const [improperConsumption, setImproperConsumption] = useState("");
   const [selected, setSelected] = useState("");
 
-  const data = [
+  const data1 = [
     { key: 1, value: constants.INDEXTYPES[1] },
     { key: 2, value: constants.INDEXTYPES[2] },
     { key: 3, value: constants.INDEXTYPES[3] },
@@ -40,14 +44,14 @@ export const AddNew = () => {
 
           <TextInput
             style={styles.labelsStyle}
-            placeholder="enter your name here"
+            placeholder="enter device name here"
             value={name}
             onChangeText={(text) => setName(text)}
             // onSubmitEditing={() => alert(`Welcome to ${message}`)}
           />
           <Text style={styles.labelsStyle}>Device type:</Text>
 
-          <SelectList data={data} setSelected={setSelected} />
+          <SelectList data={data1} setSelected={setSelected} />
 
           <Text style={styles.labelsStyle}>Image:</Text>
 
@@ -66,7 +70,7 @@ export const AddNew = () => {
           <Text style={styles.labelsStyle}>Normal power consumption:</Text>
           <TextInput
             style={[styles.labelsStyle]}
-            placeholder="enter normal power consumption here"
+            placeholder="enter min power consumption here"
             value={normalConsumption}
             onChangeText={(text) => setNormalConsumptio(text)}
           />
@@ -74,7 +78,7 @@ export const AddNew = () => {
           <Text style={styles.labelsStyle}>Improper power consumption:</Text>
           <TextInput
             style={[styles.labelsStyle]}
-            placeholder="enter improper power consumption here"
+            placeholder="enter max power consumption here"
             value={improperConsumption}
             onChangeText={(text) => setImproperConsumption(text)}
           />
@@ -82,7 +86,16 @@ export const AddNew = () => {
           <Button
             title="ADD DEVICE"
             color="green"
-            onPress={() => Alert.alert("device added")}
+            onPress={() => {
+              let type=constants.INDEXTYPES[selected];
+
+              console.log(index);
+              axios.get(`http://192.168.1.112:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`)
+              .then((response) => {
+                console.log(response.data);
+              })
+            }
+            }
           />
         </ScrollView>
       </View>

@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableHighlight, Button } from "react-native";
-import React from "react";
+import { View, Text, ScrollView, TouchableHighlight, Button } from "react-native";
+import React,{useEffect, useState} from "react";
 import styles from "./Home.style";
 import {
   Button as ButtonKitten,
@@ -9,11 +9,22 @@ import DevicesContainer from "../../components/devicesContainer/DevicesContainer
 import itemsMock from "../../mocks/itemsMock";
 import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import axios from "axios";
 
 // rnfe
 
 const Home = ({ navigation }) => {
+  const [data, setData] = useState([]);
+
+  axios.get(`http://192.168.1.112:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`)
+  .then((response) => {
+    setData(response.data);
+  })
+
+
   return (
+    <ScrollView >  
+
     <View style={styles.container}>
       <Ionicons
         style={styles.settings}
@@ -28,17 +39,11 @@ const Home = ({ navigation }) => {
       <LiveShowComponent navigation={navigation}></LiveShowComponent>
 
       <View style={styles.container}>
-        <DevicesContainer listOfItems={itemsMock} navigation={navigation} />
+
+    
+
+        <DevicesContainer listOfItems={data} navigation={navigation} />
       </View>
-      <ButtonKitten onPress={() => navigation.navigate("SafeChild")} style={styles.Button} size="medium">
-        Safe Child Mode
-      </ButtonKitten> 
-      <ButtonKitten onPress={() => navigation.navigate("SleepMode")} style={styles.Button} size="medium">
-        Sleep Mode
-      </ButtonKitten>
-      <ButtonKitten onPress={() => navigation.navigate("Statistics")} style={styles.Button} size="medium">
-        Statistics
-      </ButtonKitten>
       <View style={styles.Buttons}>
         <ButtonKitten
           onPress={() => navigation.navigate("SafeChild")}
@@ -54,11 +59,17 @@ const Home = ({ navigation }) => {
         >
           Sleep Mode
         </ButtonKitten>
-        <ButtonKitten style={styles.Button} size="medium">
+        <ButtonKitten style={styles.Button}
+         size="medium"
+         onPress={() => navigation.navigate("Statistics")}
+         >
           Statistics
         </ButtonKitten>
       </View>
     </View>
+
+    </ScrollView>  
+
   );
 };
 
