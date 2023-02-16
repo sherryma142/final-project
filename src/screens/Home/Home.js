@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableHighlight } from "react-native";
+import { View, Text, Image, TouchableHighlight, Button } from "react-native";
 import React from "react";
 import styles from "./Home.style";
 import {
@@ -16,6 +16,8 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Ionicons
+        style={styles.settings}
+        ignoredStyles={["styles.container"]}
         name="settings"
         size={32}
         onPress={() => navigation.navigate("Settings")}
@@ -28,23 +30,25 @@ const Home = ({ navigation }) => {
       <View style={styles.container}>
         <DevicesContainer listOfItems={itemsMock} navigation={navigation} />
       </View>
-      <ButtonKitten
-        onPress={() => navigation.navigate("SafeChild")}
-        style={styles.Button}
-        size="medium"
-      >
-        Safe Child Mode
-      </ButtonKitten>
-      <ButtonKitten
-        onPress={() => navigation.navigate("SleepMode")}
-        style={styles.Button}
-        size="medium"
-      >
-        Sleep Mode
-      </ButtonKitten>
-      <ButtonKitten style={styles.Button} size="medium">
-        Statistics
-      </ButtonKitten>
+      <View style={styles.Buttons}>
+        <ButtonKitten
+          onPress={() => navigation.navigate("SafeChild")}
+          style={styles.Button}
+          size="medium"
+        >
+          Safe Child Mode
+        </ButtonKitten>
+        <ButtonKitten
+          onPress={() => navigation.navigate("SleepMode")}
+          style={styles.Button}
+          size="medium"
+        >
+          Sleep Mode
+        </ButtonKitten>
+        <ButtonKitten style={styles.Button} size="medium">
+          Statistics
+        </ButtonKitten>
+      </View>
     </View>
   );
 };

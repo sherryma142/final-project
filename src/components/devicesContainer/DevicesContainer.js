@@ -10,11 +10,7 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
           <Item name={item.title} type={item.type} navigation={navigation} />
         ))}
         {listOfItems.length < 9 && (
-          <Item
-            name="add new"
-            type="plus"
-            onPress={() => navigation.navigate("AddNew")}
-          />
+          <Item name="add new" type="plus" navigation={navigation} />
         )}
       </View>
     </View>
