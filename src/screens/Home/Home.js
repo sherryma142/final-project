@@ -33,7 +33,7 @@ const Home = ({ navigation }) => {
       <ButtonKitten onPress={() => navigation.navigate("SleepMode")} style={styles.Button} size="medium">
         Sleep Mode
       </ButtonKitten>
-      <ButtonKitten style={styles.Button} size="medium">
+      <ButtonKitten onPress={() => navigation.navigate("Statistics")} style={styles.Button} size="medium">
         Statistics
       </ButtonKitten>
       </View>
