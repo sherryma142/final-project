@@ -26,7 +26,6 @@ export default StyleSheet.create({
     fontSize: 18,
     alignItems: "center",
     fontWeight: "bold",
-    paddingTop:20,
     backgroundColor: "cornflowerblue",
   
   },

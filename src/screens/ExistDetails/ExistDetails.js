@@ -1,4 +1,4 @@
-import styles from "./Details.style";
+import styles from "./ExistDetails.style";
 import React, { useState } from "react";
 import constants from "../../constants/itemTypes";
 import axios from "axios";
@@ -58,25 +58,7 @@ let type=data["type:"];
 
           <Text style={styles.labelsStyle}>Improper power consumption:</Text>
           <Text style={[styles.labelsStyle]}>{data["max electricity volt:"]}</Text>
-
-  
-                <Button
-                title="REMOVE DEVICE"
-                color="red"
-                onPress={() =>{
-                  console.log(index)
-                  axios.delete(`http://192.168.1.112:9464/workshop/mainScreen/RemoveExistPlug?i_UIndex=${index}`)
-                  .then((response) => {
-                    Alert.alert("device deleted")})
-                  .catch(error => {
-                      console.log(error);
-                  });
-                }
-                    
-
-                  }
-                /> 
-          
+ 
         </ScrollView>
       </View>
     </SafeAreaView>
