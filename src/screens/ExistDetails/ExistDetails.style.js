@@ -1,33 +1,30 @@
 import { StyleSheet } from "react-native";
-import { SlideInRight } from "react-native-reanimated";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "pink",
-    alignItems: "flex-end",
+    flexDirection: "column",
     justifyContent: "flex-start",
-    flexWrap: "wrap"
   },
-  hadder: {
+  header: {
     fontSize: 30,
     fontWeight: "bold",
     color: "green",
     marginBottom: 15,
     justifyContent: "center",
-    
   },
-  liveShow: {},
-  liveShowImage: {
-    width: 40,
-    height: 40,
-    paddingBottom: 10,
-  },
-   labelsStyle: {
+  labelsStyle: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 15,
+    marginRight: 10,
   },
-  button:{ marginHorizontal: 20, color: 'black' }
-
+  textLabel: {
+    marginTop: -40,
+    marginRight: 80,
+    marginBottom: 15,
+  },
+  scrollView: {
+    marginHorizontal: 10,
+  },
 });

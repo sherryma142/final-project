@@ -13,7 +13,7 @@ export const Item = ({ name, type, navigation,index }) => {
         onPress={() =>
           type === "plus"
             ? navigation.navigate("AddNew",{index:index})
-            : navigation.navigate("Details")
+            : navigation.navigate("Details",{index:index})
         }
       >
         <Image source={constants.IMAGES[type]} style={styles.item_image} />

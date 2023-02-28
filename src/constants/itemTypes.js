@@ -1,12 +1,12 @@
 export default {
   TYPES: {
-    TV: "television",
-    LAMP: "lamp",
-    FRIDGE: "fridge",
-    OVEN: "oven",
-    WATCH: "watch",
-    AIR_CONDITIONER: "air-Conditioner",
-    STOVE: "stove",
+    television: "television",
+    lamp: "lamp",
+    fridge: "fridge",
+    oven: "oven",
+    watch: "watch",
+    air_Conditioner: "air-Conditioner",
+    stove: "stove",
   },
   IMAGES: {
     television: require("../../assets/TV.jpg"),
@@ -27,4 +27,6 @@ export default {
     6: "air-Conditioner",
     7: "stove",
   },
+
+
 };

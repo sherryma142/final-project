@@ -9,14 +9,14 @@ import React from "react";
 import styles from "./LiveShow.style";
 import { Item } from "../../components/item/Item";
 import constants from "../../constants/itemTypes";
-import DevicesContainer from "../../components/devicesContainer/DevicesContainer";
+import OnlyDevicesContainer from "../../components/onlyDevicesContainer/OnlyDevicesContainer";
 import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
 const LiveShow = ({ route, navigation }) => {
-  const { itemsMock } = route.params;
+  const { data } = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.liveShow}>
-        <DevicesContainer listOfItems={itemsMock} navigation={navigation} />
+        <OnlyDevicesContainer listOfItems={data} navigation={navigation} />
       </View>
     </View>
   );

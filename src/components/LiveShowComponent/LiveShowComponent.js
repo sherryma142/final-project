@@ -1,12 +1,11 @@
 import { View, Text, TouchableHighlight, Image } from "react-native";
 import React from "react";
 import styles from "./LiveShowComponent.style";
-import itemsMock from "../../mocks/itemsMock";
 
-const LiveShowComponent = ({ navigation }) => {
+const LiveShowComponent = ({listOfItems, navigation }) => {
   return (
     <TouchableHighlight
-      onPress={() => navigation.navigate("LiveShow", { itemsMock: itemsMock })}
+      onPress={() => navigation.navigate("LiveShow", { data: listOfItems })}
     >
       <Image
         source={require("../../../assets/download.png")}

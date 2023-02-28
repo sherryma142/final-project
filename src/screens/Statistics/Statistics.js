@@ -1,18 +1,13 @@
-import { View, Text, Image, TouchableHighlight,Dimensions,useState } from "react-native";
+import { View, Text, Image, TouchableHighlight,Dimensions,useState ,Button} from "react-native";
 import React from "react";
 import styles from "./Statistics.style";
 import { Button as ButtonKitten,BottomNavigation } from "@ui-kitten/components";
 import DevicesNamesButtons from "../../components/DevicesNamesButtons/DevicesNamesButtons";
-import itemsMock from "../../mocks/itemsMock";
 // rnfe
 
 
-const Statistics = ({  navigation }) => {
-  // const [data, setData] = useState();
-  // const response =  fetch('localhost:9464/workshop/statisticsScreen/GetStatisticsForAllDevicesTogether');
-  // const json =  response.json();
-  // setData(json);
-
+const Statistics = ({  route, navigation }) => {
+  const {data} =route.params;
     return(
     
     <View style={styles.container}>
@@ -21,9 +16,17 @@ const Statistics = ({  navigation }) => {
 
     <View style={styles.container}>
        
-        <DevicesNamesButtons listOfItems={itemsMock} navigation={navigation} />
+        <DevicesNamesButtons listOfItems={data} navigation={navigation} />
       </View>
 
+      <Button
+              style={styles.button}
+              title="statistics for all devices"
+              onPress= {() => { 
+                navigation.navigate("AllDevicesStatistic");
+          }}
+
+            />
     </View>
     );
   };

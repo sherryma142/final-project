@@ -93,7 +93,10 @@ export const AddNew = ({ route}) => {
               axios.get(`http://192.168.1.112:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`)
               .then((response) => {
                 console.log(response.data);
+                Alert.alert("Device added succesfuly");
+
               })
+            
             }
             }
           />

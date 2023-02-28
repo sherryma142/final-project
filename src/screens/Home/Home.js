@@ -36,24 +36,23 @@ const Home = ({ navigation }) => {
       <Text style={styles.hadder}>SaveEnergy</Text>
       <Text>LiveShow</Text>
 
-      <LiveShowComponent navigation={navigation}></LiveShowComponent>
+      <LiveShowComponent listOfItems={data} navigation={navigation}></LiveShowComponent>
 
       <View style={styles.container}>
 
-    
-
-        <DevicesContainer listOfItems={data} navigation={navigation} />
+  
+            <DevicesContainer listOfItems={data} navigation={navigation} />
       </View>
       <View style={styles.Buttons}>
         <ButtonKitten
-          onPress={() => navigation.navigate("SafeChild")}
+          onPress={() => navigation.navigate("SafeChild",{data:data})}
           style={styles.Button}
           size="medium"
         >
           Safe Child Mode
         </ButtonKitten>
         <ButtonKitten
-          onPress={() => navigation.navigate("SleepMode")}
+          onPress={() => navigation.navigate("SleepMode",{data:data})}
           style={styles.Button}
           size="medium"
         >
@@ -61,7 +60,7 @@ const Home = ({ navigation }) => {
         </ButtonKitten>
         <ButtonKitten style={styles.Button}
          size="medium"
-         onPress={() => navigation.navigate("Statistics")}
+         onPress={() => navigation.navigate("Statistics",{data:data})}
          >
           Statistics
         </ButtonKitten>

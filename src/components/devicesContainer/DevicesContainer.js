@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Item } from "../item/Item";
 import styles from "./DevicesContainer.style";
+
 const DevicesContainer = ({ listOfItems, navigation }) => {
 
   return (
