@@ -18,7 +18,7 @@ import {
 const [data, setData] = useState([]);
 
     React.useEffect(() => {
-        axios.get(`http://192.168.1.112:9464/workshop/statisticsScreen/GetElectricityConsumptionForAllDevicesTogether`)
+        axios.get(`http://192.168.1.112:9464/workshop/statisticsScreen/SimulateAnnualElectricityForAllPlugs`)
               .then((response) => {
                 setData(response.data);
               });
