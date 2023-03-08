@@ -16,10 +16,10 @@ import {
   Alert,
 } from "react-native";
 
-export const AddNew = ({ route}) => {
+export const AddNew = ({ route, navigation }) => {
   //const [data, setData] = useState();
 
-  const {index}=route.params;
+  const { index } = route.params;
   const [name, setName] = useState("");
   const [normalConsumption, setNormalConsumptio] = useState("");
   const [improperConsumption, setImproperConsumption] = useState("");
@@ -87,18 +87,23 @@ export const AddNew = ({ route}) => {
             title="ADD DEVICE"
             color="green"
             onPress={() => {
-              let type=constants.INDEXTYPES[selected];
+              let type = constants.INDEXTYPES[selected];
 
               console.log(index);
-              axios.get(`http://192.168.1.112:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`)
-              .then((response) => {
-                console.log(response.data);
-                Alert.alert("Device added succesfuly");
-
-              })
-            
-            }
-            }
+              axios
+                .get(
+                  `http://192.168.1.220:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`
+                )
+                .then((response) => {
+                  console.log(response.data);
+                  Alert.alert("Device add", "Device added succesfuly", [
+                    {
+                      text: "OK",
+                      onPress: () => navigation.navigate("Home"),
+                    },
+                  ]);
+                });
+            }}
           />
         </ScrollView>
       </View>

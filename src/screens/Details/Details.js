@@ -15,21 +15,23 @@ import {
   Alert,
 } from "react-native";
 
-export const Details = ({route}) => {
-  const {index}=route.params;
+export const Details = ({ route, navigation }) => {
+  const { index } = route.params;
 
   const [data, setData] = useState([]);
 
-
   React.useEffect(() => {
-  axios.get(`http://192.168.1.112:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`)
-  .then((response) => {
-    setData(response.data);
-  })
-},[]);
+    axios
+      .get(
+        `http://192.168.1.220:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+      )
+      .then((response) => {
+        setData(response.data);
+        console.log(data);
+      });
+  }, []);
 
-
-let type=data["type:"];
+  let type = data["type:"];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -42,7 +44,6 @@ let type=data["type:"];
           <Text style={styles.labelsStyle}>{data["type:"]}</Text>
           <Text style={styles.labelsStyle}>Image:</Text>
           <Image
-          
             source={constants.IMAGES[constants.TYPES[type]]}
             style={{
               width: 80,
@@ -54,29 +55,37 @@ let type=data["type:"];
             }}
           />
           <Text style={styles.labelsStyle}>Normal power consumption:</Text>
-          <Text style={[styles.labelsStyle]}>{data["min electricity volt:"]}</Text>
+          <Text style={[styles.labelsStyle]}>
+            {data["min electricity volt:"]}
+          </Text>
 
           <Text style={styles.labelsStyle}>Improper power consumption:</Text>
-          <Text style={[styles.labelsStyle]}>{data["max electricity volt:"]}</Text>
+          <Text style={[styles.labelsStyle]}>
+            {data["max electricity volt:"]}
+          </Text>
 
-  
-                <Button
-                title="REMOVE DEVICE"
-                color="red"
-                onPress={() =>{
-                  console.log(index)
-                  axios.delete(`http://192.168.1.112:9464/workshop/mainScreen/RemoveExistPlug?i_UIndex=${index}`)
-                  .then((response) => {
-                    Alert.alert("device deleted")})
-                  .catch(error => {
-                      console.log(error);
-                  });
-                }
-                    
-
-                  }
-                /> 
-          
+          <Button
+            title="REMOVE DEVICE"
+            color="red"
+            onPress={() => {
+              console.log(index);
+              axios
+                .delete(
+                  `http://192.168.1.220:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
+                )
+                .then((response) => {
+                  Alert.alert("Device delete", "Device deleted succesfuly", [
+                    {
+                      text: "OK",
+                      onPress: () => navigation.navigate("Home"),
+                    },
+                  ]);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }}
+          />
         </ScrollView>
       </View>
     </SafeAreaView>

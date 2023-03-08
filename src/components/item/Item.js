@@ -3,17 +3,22 @@ import React from "react";
 import styles from "./Item.style";
 import constants from "../../constants/itemTypes";
 
-export const Item = ({ name, type, navigation,index }) => {
+export const Item = ({ name, type, navigation, index }) => {
   //console.log({index});
   return (
-  
     <View style={styles.container}>
       <Text style={styles.item_name}>{name}</Text>
       <TouchableHighlight
         onPress={() =>
           type === "plus"
-            ? navigation.navigate("AddNew",{index:index})
-            : navigation.navigate("Details",{index:index})
+            ? navigation.navigate("AddNew", {
+                index: index,
+                navigation: navigation,
+              })
+            : navigation.navigate("Details", {
+                index: index,
+                navigation: navigation,
+              })
         }
       >
         <Image source={constants.IMAGES[type]} style={styles.item_image} />

@@ -5,10 +5,9 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
-    alignItems: "flex-end",
+    // alignItems: "flex-end",
     borderColor: "black",
     flexBasis: "10%",
-
   },
   item_name: {
     fontWeight: "bold",
@@ -27,11 +26,10 @@ export default StyleSheet.create({
     alignItems: "center",
     fontWeight: "bold",
     backgroundColor: "cornflowerblue",
-  
   },
   separator: {
     marginVertical: 8,
-    borderBottomColor: '#737373',
+    borderBottomColor: "#737373",
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });

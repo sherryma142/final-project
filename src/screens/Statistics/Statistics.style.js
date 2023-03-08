@@ -5,29 +5,33 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "pink",
-    alignItems: "flex-end",
+    //alignItems: "flex-end",
     justifyContent: "flex-start",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   hadder: {
     fontSize: 30,
     fontWeight: "bold",
     color: "green",
-    marginBottom: 15,
-    justifyContent: "center",
-    
   },
-  liveShow: {},
-  liveShowImage: {
-    width: 40,
-    height: 40,
-    paddingBottom: 10,
-  },
-   labelsStyle: {
+
+  labelsStyle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 15,
   },
-  button:{ marginHorizontal: 20, color: 'black' }
-
+  button: {
+    //marginHorizontal: 100,
+    color: "black",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    flexWrap: "wrap",
+  },
+  Buttons: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginBottom: 10,
+    paddingTop: 20,
+    paddingBottom: 80,
+  },
 });
