@@ -21,6 +21,7 @@ import AllDevicesStatistic from "./src/screens/AllDevicesStatistic/AllDevicesSta
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   return (
     <NavigationContainer>
       <ApplicationProvider {...eva} theme={eva.light}>

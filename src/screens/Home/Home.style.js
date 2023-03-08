@@ -24,4 +24,9 @@ export default StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 80,
   },
+  button:{
+    flex: 1,
+    justifyContent: "flex-start",
+    marginleft: 10,
+  }
 });

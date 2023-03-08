@@ -65,7 +65,7 @@ let type=data["type:"];
                 color="red"
                 onPress={() =>{
                   console.log(index)
-                  axios.delete(`http://192.168.1.112:9464/workshop/mainScreen/RemoveExistPlug?i_UIndex=${index}`)
+                  axios.delete(`http://192.168.1.112:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`)
                   .then((response) => {
                     Alert.alert("device deleted")})
                   .catch(error => {

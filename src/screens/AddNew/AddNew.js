@@ -18,7 +18,6 @@ import {
 
 export const AddNew = ({ route}) => {
   //const [data, setData] = useState();
-
   const {index}=route.params;
   const [name, setName] = useState("");
   const [normalConsumption, setNormalConsumptio] = useState("");
@@ -88,13 +87,16 @@ export const AddNew = ({ route}) => {
             color="green"
             onPress={() => {
               let type=constants.INDEXTYPES[selected];
-
-              console.log(index);
-              axios.get(`http://192.168.1.112:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`)
-              .then((response) => {
+//192.168.1.112
+             // console.log(index);
+             axios.get(`http://192.168.1.112:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`)
+             .then((response) => {
                 console.log(response.data);
                 Alert.alert("Device added succesfuly");
 
+              })
+              .catch((e) =>  {
+                console.log(e);
               })
             
             }

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableHighlight, Button } from "react-native";
+import { View, Text, ScrollView, PermissionsAndroid, Button } from "react-native";
 import React,{useEffect, useState} from "react";
 import styles from "./Home.style";
 import {
@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
     setData(response.data);
   })
 
-
+  
   return (
     <ScrollView >  
 
@@ -33,6 +33,18 @@ const Home = ({ navigation }) => {
         size={32}
         onPress={() => navigation.navigate("Settings")}
       />
+
+      
+      <ButtonKitten
+          // onPress={() =>
+             
+          //   }
+          style={styles.button}
+          size="medium"
+        >
+          get location
+        </ButtonKitten>
+      
       <Text style={styles.hadder}>SaveEnergy</Text>
       <Text>LiveShow</Text>
 
