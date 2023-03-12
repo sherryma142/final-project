@@ -21,7 +21,6 @@ import axios from "axios";
 
 const Home = ({ navigation }) => {
   const [data, setData] = useState([]);
-
   axios
     .get(
       `http://192.168.1.220:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
@@ -42,12 +41,10 @@ const Home = ({ navigation }) => {
         />
         <Text style={styles.hadder}>SaveEnergy</Text>
         <Text>LiveShow</Text>
-
         <LiveShowComponent
           listOfItems={data}
           navigation={navigation}
         ></LiveShowComponent>
-
         <View style={styles.container}>
           <DevicesContainer listOfItems={data} navigation={navigation} />
         </View>
