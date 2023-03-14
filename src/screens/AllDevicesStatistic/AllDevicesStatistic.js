@@ -24,7 +24,7 @@ const DeviceStatistic = () => {
   React.useEffect(() => {
     axios
       .get(
-        `http://192.168.1.220:9464/workshop/statisticsScreen/SimulateAnnualElectricityForAllPlugs`
+        `http://192.168.1.251:9464/workshop/statisticsScreen/SimulateAnnualElectricityForAllPlugs`
       )
       .then((response) => {
         setData(response.data);
