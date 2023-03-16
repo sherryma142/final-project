@@ -20,7 +20,7 @@ export const ExistItem = ({ name, type, navigation, index }) => {
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);
     axios.get(
-      `http://192.168.1.112:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+      `http://192.168.1.220:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
     );
   };
 

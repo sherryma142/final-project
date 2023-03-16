@@ -3,40 +3,53 @@ import React, { useState, useEffect } from "react";
 import styles from "./SafeChild.style";
 import SafeChildDevicesContainer from "../../components/safeChildDevicesContainer/SafeChildDevicesContainer";
 import * as Location from "expo-location";
-import * as geolib from "geolib";
+import { getDistance, getPreciseDistance } from "geolib";
+import axios from "axios";
 
 const SafeChild = ({ route }) => {
   const { data } = route.params;
-
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const [initialLocation, setInitialLocation] = useState({
+    coords: {
+      accuracy: 24.940620582782653,
+      altitude: 46.58914566040039,
+      altitudeAccuracy: 4.18025541305542,
+      heading: -1,
+      latitude: 31.972288252154485,
+      longitude: 34.7609471008618,
+      speed: -1,
+    },
+    timestamp: 1678822979401.422,
+  });
   const [location, setLocation] = useState(null);
-  const [initialLocation, setInitialLocation] = useState(null);
+
+  const [intervalId, setIntervalId] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert("Permission to access location was denied");
-        return;
-      }
+    const id = setInterval(() => {
+      getLocation();
+    }, 5000);
 
-      let initialLocation = await Location.getCurrentPositionAsync({});
-      setInitialLocation(initialLocation);
-      console.log(initialLocation);
-      setLocation(initialLocation);
+    setIntervalId(id);
 
-      let watchId = Location.watchPositionAsync(
-        {
-          accuracy: Location.Accuracy.Low,
-          timeInterval: 2000,
-          distanceInterval: 0.5, // distance interval in meters
-        },
-        (newLocation) => {
-          let distance = geolib.getDistance(
-            newLocation.coords,
-            initialLocation
-          );
+    return () => clearInterval(id);
+  }, []);
+
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    setLocation(location);
+    console.log("location", location);
+    var distance = calculateDistance(
+      initialLocation.coords.latitude,
+      initialLocation.coords.longitude,
+      location.coords.latitude,
+      location.coords.longitude
+    );
 
           if (distance > 0.5) {
             setLocation("new location: " , newLocation);
@@ -52,30 +65,35 @@ const SafeChild = ({ route }) => {
           }
         }
       );
-      return () => {
-        Location.clearWatch(watchId);
-      };
-    })();
-  }, []);
-  const EARTH_RADIUS = 6371; // Earth's radius in km
+      clearInterval(intervalId);
+    }
+  };
+  function calculateDistance(lattitude1, longittude1, lattitude2, longittude2) {
+    const toRadian = (n) => (n * Math.PI) / 180;
 
-  function calculateDistance(lat1, lon1, lat2, lon2) {
-    const dLat = (lat2 - lat1) * (Math.PI / 180);
-    const dLon = (lon2 - lon1) * (Math.PI / 180);
+    let lat2 = lattitude2;
+    let lon2 = longittude2;
+    let lat1 = lattitude1;
+    let lon1 = longittude1;
 
-    const a =
+    console.log(lat1, lon1 + "===" + lat2, lon2);
+    let R = 6371; // km
+    let x1 = lat2 - lat1;
+    let dLat = toRadian(x1);
+    let x2 = lon2 - lon1;
+    let dLon = toRadian(x2);
+    let a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * (Math.PI / 180)) *
-        Math.cos(lat2 * (Math.PI / 180)) *
+      Math.cos(toRadian(lat1)) *
+        Math.cos(toRadian(lat2)) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    const distance = EARTH_RADIUS * c; // Distance in km
-    const distanceMeters = distance * 1000; // Distance in meters
-    return distanceMeters;
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let d = R * c;
+    console.log("distance==?", d);
+    return d;
   }
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
