@@ -21,9 +21,10 @@ import axios from "axios";
 
 const Home = ({ navigation }) => {
   const [data, setData] = useState([]);
+
   axios
     .get(
-      `http://192.168.1.251:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
+      `http://192.168.1.112:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
     )
     .then((response) => {
       setData(response.data);
@@ -40,17 +41,12 @@ const Home = ({ navigation }) => {
           onPress={() => navigation.navigate("Settings")}
         />
         <Text style={styles.hadder}>SaveEnergy</Text>
-        <Text>LiveShow</Text>
-        <LiveShowComponent
-          listOfItems={data}
-          navigation={navigation}
-        ></LiveShowComponent>
-        <View style={styles.container}>
+          <View style={styles.container}>
           <DevicesContainer listOfItems={data} navigation={navigation} />
         </View>
         <View style={styles.Buttons}>
           <ButtonKitten
-            onPress={() => navigation.navigate("SafeChild", { data: data })}
+            onPress={() => navigation.navigate("SafeChild", { data: data ,navigation: navigation})}
             style={styles.Button}
             size="medium"
           >

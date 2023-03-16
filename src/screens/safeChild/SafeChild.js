@@ -5,9 +5,11 @@ import SafeChildDevicesContainer from "../../components/safeChildDevicesContaine
 import * as Location from "expo-location";
 import { getDistance, getPreciseDistance } from "geolib";
 import axios from "axios";
+import { State } from "react-native-gesture-handler";
 
-const SafeChild = ({ route }) => {
+const SafeChild = ({ route,navigation }) => {
   const { data } = route.params;
+  const [fetdata, setData] = useState([]);
   const [initialLocation, setInitialLocation] = useState({
     coords: {
       accuracy: 24.940620582782653,
@@ -22,23 +24,45 @@ const SafeChild = ({ route }) => {
   });
   const [location, setLocation] = useState(null);
 
-  const [intervalId, setIntervalId] = useState(null);
+  const [intervalId, setIntervalId] = useState();
+  const [isFound,setIsFound]= useState(false);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      getLocation();
-    }, 5000);
+  
+      if(!isFound)
+      {
+            const id = setInterval(() => {
+            console.log(id)
+            if(getLocation()===1)
+            {
+              clearInterval(id);
+              setIsFound(true);
+            }
+          }, 5000);
 
-    setIntervalId(id);
+          setIntervalId(id);
+      }
+      else{
+        clearInterval(id);
+      }
 
     return () => clearInterval(id);
-  }, []);
+  }, [isFound]);
+
+  const stopMonthChange = (id) => {
+    clearInterval(id)
+    console.log(id);
+    if(id===null)
+    {
+      return;
+    }
+  }
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       console.log("Permission to access location was denied");
-      return;
+      return 0;
     }
 
     let location = await Location.getCurrentPositionAsync({});
@@ -53,13 +77,17 @@ const SafeChild = ({ route }) => {
 
     console.log("distance:", distance);
     if (distance > 0.01) {
+
       Alert.alert(
         "safe chiled mode",
         "Did you went outside? do you want to turn off all the registerd devices in safe chiled mode?",
         [
           {
             text: "No",
-            onPress: () => console.log("Cancel Pressed"),
+            onPress: () => {
+              console.log("Cancel Pressed");
+              stopMonthChange(intervalId);
+            },
             style: "cancel",
           },
           {
@@ -67,16 +95,22 @@ const SafeChild = ({ route }) => {
             onPress: () => {
               axios
                 .get(
-                  `http://192.168.1.251:9464/workshop/mainScreen/clickedOnExitAreaButton`
+                  `http://192.168.1.112:9464/workshop/mainScreen/clickedOnExitAreaButton`
                 )
                 .then((response) => {
                   setData(response.data);
                 });
+
+               // navigation.navigate("Home")
+                setIsFound(true);
+                stopMonthChange(intervalId);
             },
+            
           },
         ]
       );
-      clearInterval(intervalId);
+      clearInterval(intervalId);  
+      return 1;
     }
   };
   function calculateDistance(lattitude1, longittude1, lattitude2, longittude2) {

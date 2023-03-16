@@ -14,6 +14,7 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
             type={item.type}
             navigation={navigation}
             index={item.index}
+            status={item.status}
           />
         ))}
 
@@ -23,6 +24,7 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
             type="plus"
             navigation={navigation}
             index={listOfItems.length}
+            status={"plus"}
           />
         )}
       </View>
