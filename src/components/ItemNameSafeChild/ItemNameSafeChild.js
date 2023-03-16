@@ -10,29 +10,29 @@ export const ItemNameSafeChild = ({ name, index }) => {
 
   axios
     .get(
-      `http://192.168.1.220:9464/workshop/mainScreen/checkIfPlugRegisteredToSafeMode?i_UiIndex=${index}`
+      `http://192.168.1.112:9464/workshop/mainScreen/checkIfPlugRegisteredToSafeMode?i_UiIndex=${index}`
     )
     .then((response) => {
       setData(response.data);
       setIsEnabled(data);
     });
 
-  console.log(data);
+ // console.log(data);
 
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);
-    console.log(isEnabled);
+    //console.log(isEnabled);
     !isEnabled
       ? axios
           .get(
-            `http://192.168.1.220:9464/workshop/mainScreen/RegisterPlugToSafeMode?i_UiIndex=${index}`
+            `http://192.168.1.112:9464/workshop/mainScreen/RegisterPlugToSafeMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("added");
           })
       : axios
           .delete(
-            `http://192.168.1.220:9464/workshop/mainScreen/RemovePlugFromSleepMode?i_UIndex=${index}`
+            `http://192.168.1.112:9464/workshop/mainScreen/RemovePlugFromSleepMode?i_UIndex=${index}`
           )
           .then((response) => {
             console.log("removed");

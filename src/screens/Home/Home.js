@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
   const [data, setData] = useState([]);
   axios
     .get(
-      `http://192.168.1.220:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
+      `http://192.168.1.112:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
     )
     .then((response) => {
       setData(response.data);

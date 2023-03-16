@@ -39,10 +39,10 @@ const SafeChild = ({ route }) => {
           );
 
           if (distance > 0.5) {
-            setLocation(newLocation);
+            setLocation("new location: " , newLocation);
             console.log(`You are ${distance} meters away from initialLocation`);
 
-            console.log(location);
+            console.log(location.coords.latitude);
             console.log(
               `${location.coords.latitude}, ${location.coords.longitude}`
             );
