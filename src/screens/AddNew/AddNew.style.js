@@ -33,6 +33,11 @@ export default StyleSheet.create({
   scrollView: {
     marginHorizontal: 10,
   },
+  button:{
+    paddingBottom:15,
+   
+
+  }
 
 
 
