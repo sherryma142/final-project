@@ -6,11 +6,11 @@ import axios from "axios";
 
 export const ItemNameSleepMode = ({ name, index }) => {
   const [data, setData] = useState();
-  const [isEnabled, setIsEnabled] = useState(data);
+  const [isEnabled, setIsEnabled] = useState(false);
 
   axios
     .get(
-      `http://192.168.1.112:9464/workshop/mainScreen/checkIfPlugRegisteredToSleepMode?i_UiIndex=${index}`
+      `http://192.168.1.143:9464/workshop/mainScreen/checkIfPlugRegisteredToSleepMode?i_UiIndex=${index}`
     )
     .then((response) => {
       setData(response.data);
@@ -25,17 +25,18 @@ export const ItemNameSleepMode = ({ name, index }) => {
     !isEnabled
       ? axios
           .get(
-            `http://192.168.1.112:9464/workshop/mainScreen/RegisterPlugToSleepMode?i_UiIndex=${index}`
+            `http://192.168.1.143:9464/workshop/mainScreen/RegisterPlugToSleepMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("added");
           })
       : axios
           .delete(
-            `http://192.168.1.112:9464/workshop/mainScreen/RemovePlugFromSleepMode?i_UIndex=${index}`
+            `http://192.168.1.143:9464/workshop/mainScreen/RemovePlugFromSleepMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("removed");
+            setIsEnabled(false);
           });
   };
 

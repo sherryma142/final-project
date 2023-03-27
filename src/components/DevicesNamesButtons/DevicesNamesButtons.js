@@ -3,20 +3,21 @@ import React from "react";
 import { ItemButtons } from "../ItemButtons/ItemButtons";
 import styles from "./DevicesNamesButtons.style";
 
-const DevicesNamesButtons = ({ listOfItems , navigation}) => {
-  
+const DevicesNamesButtons = ({ listOfItems, navigation }) => {
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.rowDevices}>
-        
-        {listOfItems.map((item,index) => (
-          <ItemButtons name={item.title} type={item.type} navigation={navigation} index={index}/>
-        ))
-        }
+        {listOfItems.map((item, index) => (
+          <ItemButtons
+            name={item.title}
+            type={item.type}
+            navigation={navigation}
+            index={item.index}
+          />
+        ))}
       </View>
     </View>
   );
-
 };
 
 export default DevicesNamesButtons;

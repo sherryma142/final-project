@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "pink",
+    backgroundColor: "red",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "space-evenly",
   },
   rowDevices: {
     alignItems: "flex-start",
@@ -14,7 +14,5 @@ export default StyleSheet.create({
     alignContent: "center",
     marginHorizontal: "2%",
     flexWrap: "wrap",
-
   },
-
 });

@@ -6,33 +6,37 @@ import axios from "axios";
 
 export const ItemNameSafeChild = ({ name, index }) => {
   const [data, setData] = useState();
-  const [isEnabled, setIsEnabled] = useState(data);
+  const [isEnabled, setIsEnabled] = useState(false);
 
   axios
     .get(
-      `http://192.168.1.112:9464/workshop/mainScreen/checkIfPlugRegisteredToSafeMode?i_UiIndex=${index}`
+      `http://192.168.1.143:9464/workshop/mainScreen/checkIfPlugRegisteredToSafeMode?i_UiIndex=${index}`
     )
     .then((response) => {
+      console.log("data", response.data);
       setData(response.data);
-      setIsEnabled(data);
+      setIsEnabled(response.data);
     });
 
   console.log(data);
 
   const toggleRememberPin = () => {
+    console.log("before", isEnabled);
     setIsEnabled((previousState) => !previousState);
-    console.log(isEnabled);
+    console.log("after", isEnabled);
+    console.log(index);
+
     !isEnabled
       ? axios
           .get(
-            `http://192.168.1.112:9464/workshop/mainScreen/RegisterPlugToSafeMode?i_UiIndex=${index}`
+            `http://192.168.1.143:9464/workshop/mainScreen/RegisterPlugToSafeMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("added");
           })
       : axios
           .delete(
-            `http://192.168.1.112:9464/workshop/mainScreen/RemovePlugFromSleepMode?i_UIndex=${index}`
+            `http://192.168.1.143:9464/workshop/mainScreen/RemovePlugFromSafeMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("removed");

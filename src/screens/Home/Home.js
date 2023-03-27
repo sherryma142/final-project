@@ -4,6 +4,7 @@ import {
   ScrollView,
   TouchableHighlight,
   Button,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import styles from "./Home.style";
@@ -24,11 +25,55 @@ const Home = ({ navigation }) => {
 
   axios
     .get(
-      `http://192.168.1.112:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
+      `http://192.168.1.143:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
     )
     .then((response) => {
       setData(response.data);
     });
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     sendData();
+  //   }, 2000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  // const sendData = () => {
+  //   axios
+  //     .get(
+  //       `http://192.168.1.143:9464/workshop/statisticsScreen/GetElectricityConsumptionInLiveForSingleUsage?i_UiIndex=0`
+  //     )
+  //     .then((response) => {
+  //       setData(response.data);
+  //       console.log(data);
+  //       if (data === -1) {
+  //         Alert.alert(
+  //           "WARNNING",
+  //           "One of your devices has reached a higher than normal power consumption.\n do you want to turn this device?",
+  //           [
+  //             {
+  //               text: "No",
+  //               onPress: () => {
+  //                 console.log("Cancel Pressed");
+  //               },
+  //               style: "cancel",
+  //             },
+  //             {
+  //               text: "Yes",
+  //               onPress: () => {
+  //                 axios
+  //                   .get(
+  //                     `http://192.168.1.143:9464/workshop/mainScreen/clickedOnExitAreaButton`
+  //                   )
+  //                   .then((response) => {
+  //                     setData(response.data);
+  //                   });
+  //               },
+  //             },
+  //           ]
+  //         );
+  //       }
+  //     });
+  // };
 
   return (
     <ScrollView>
@@ -41,12 +86,17 @@ const Home = ({ navigation }) => {
           onPress={() => navigation.navigate("Settings")}
         />
         <Text style={styles.hadder}>SaveEnergy</Text>
-          <View style={styles.container}>
+        <View style={styles.container}>
           <DevicesContainer listOfItems={data} navigation={navigation} />
         </View>
         <View style={styles.Buttons}>
           <ButtonKitten
-            onPress={() => navigation.navigate("SafeChild", { data: data ,navigation: navigation})}
+            onPress={() =>
+              navigation.navigate("SafeChild", {
+                data: data,
+                navigation: navigation,
+              })
+            }
             style={styles.Button}
             size="medium"
           >
