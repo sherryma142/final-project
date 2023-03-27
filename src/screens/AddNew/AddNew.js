@@ -14,15 +14,20 @@ import {
   SafeAreaView,
   Button,
   Alert,
+  TouchableOpacity
 } from "react-native";
 
+import {
+  Button as ButtonKitten,
+  BottomNavigation,
+} from "@ui-kitten/components";
+
 export const AddNew = ({ route, navigation }) => {
-  //const [data, setData] = useState();
 
   const { index } = route.params;
   const [name, setName] = useState("");
-  const [normalConsumption, setNormalConsumptio] = useState("");
-  const [improperConsumption, setImproperConsumption] = useState("");
+  const [normalConsumption, setNormalConsumptio] = useState(240);
+  const [improperConsumption, setImproperConsumption] = useState(260);
   const [selected, setSelected] = useState("");
 
   const data1 = [
@@ -34,6 +39,12 @@ export const AddNew = ({ route, navigation }) => {
     { key: 6, value: constants.INDEXTYPES[6] },
     { key: 7, value: constants.INDEXTYPES[7] },
   ];
+
+  const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
+
+  const toggleAdvancedSettings = () => {
+    setShowAdvancedSettings(!showAdvancedSettings);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,22 +78,37 @@ export const AddNew = ({ route, navigation }) => {
             }}
           />
 
-          <Text style={styles.labelsStyle}>Normal power consumption:</Text>
-          <TextInput
-            style={[styles.labelsStyle]}
-            placeholder="enter min power consumption here"
-            value={normalConsumption}
-            onChangeText={(text) => setNormalConsumptio(text)}
-          />
+      
+      <View style={styles.button}>
+      <Button 
+        title={showAdvancedSettings ? "Hide Advanced Settings" : "Show Advanced Settings"}
+         onPress={toggleAdvancedSettings} 
+         color="gray"
+         />
+              {showAdvancedSettings && (
+                <View>
+                      <Text style={styles.labelsStyle}>min power consumption:</Text>
+                      <TextInput
+                        style={[styles.labelsStyle]}
+                        placeholder="240"
+                        value={normalConsumption}
+                        onChangeText={(text) => setNormalConsumptio(text)}
+                      />
 
-          <Text style={styles.labelsStyle}>Improper power consumption:</Text>
-          <TextInput
-            style={[styles.labelsStyle]}
-            placeholder="enter max power consumption here"
-            value={improperConsumption}
-            onChangeText={(text) => setImproperConsumption(text)}
-          />
-
+                      <Text  style={styles.labelsStyle}>max power consumption:</Text>
+                      <TextInput
+                        style={[styles.labelsStyle]}
+                        placeholder="260"
+                        value={improperConsumption}
+                        onChangeText={(text) => setImproperConsumption(text)}
+                      />
+                
+                </View>
+              )}
+  
+              
+      </View>
+        
           <Button
             title="ADD DEVICE"
             color="green"
