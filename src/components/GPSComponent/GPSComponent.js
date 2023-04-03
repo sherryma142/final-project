@@ -6,7 +6,7 @@ import {
   Button,
   Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
 // rnfe
@@ -14,7 +14,7 @@ import * as Location from "expo-location";
 const GPSComponent = ({ route }) => {
   const { data } = route.params;
   const [fetdata, setData] = useState([]);
-  const [initialLocation, setInitialLocation] = useState({
+  const initialLocation = {
     coords: {
       accuracy: 24.940620582782653,
       altitude: 46.58914566040039,
@@ -24,24 +24,22 @@ const GPSComponent = ({ route }) => {
       longitude: 34.7609471008618,
       speed: -1,
     },
-    timestamp: 1678822979401.422,
-  });
+  };
   const [location, setLocation] = useState(null);
 
-  const [intervalId, setIntervalId] = useState();
+  const intervalRef = useRef(null); // create a mutable reference to the interval ID
   const [isFound, setIsFound] = useState(false);
-
   useEffect(() => {
     if (!isFound) {
-      const id = setInterval(() => {}, 5000);
-      if (getLocation() === 1) {
-        clearInterval(id);
-        setIsFound(true);
-      }
-      setIntervalId(id);
+      intervalRef.current = setInterval(() => {
+        if (getLocation() === 1) {
+          clearInterval(intervalRef.current); // clear the interval using the mutable reference
+          setIsFound(true);
+        }
+      }, 5000);
     }
 
-    return () => clearInterval(id);
+    return () => clearInterval(intervalRef.current); // clear the interval on unmount using the mutable reference
   }, [isFound]);
 
   const checkDevicesON = (data) => {
@@ -62,7 +60,6 @@ const GPSComponent = ({ route }) => {
 
     let location = await Location.getCurrentPositionAsync({});
     setLocation(location);
-    console.log("location", location);
     var distance = calculateDistance(
       initialLocation.coords.latitude,
       initialLocation.coords.longitude,
@@ -71,7 +68,8 @@ const GPSComponent = ({ route }) => {
     );
 
     console.log("distance:", distance);
-    if (distance > 0.01 && checkDevicesON(data)) {
+    if (distance > 0.02) {
+      // add && checkDevicesON(data)
       Alert.alert(
         "safe chiled mode",
         "Did you went outside? do you want to turn off all the registerd devices in safe chiled mode?",
@@ -89,7 +87,7 @@ const GPSComponent = ({ route }) => {
             onPress: () => {
               axios
                 .get(
-                  `http://192.168.1.143:9464/workshop/mainScreen/clickedOnExitAreaButton`
+                  `http://192.168.1.162:9464/workshop/mainScreen/clickedOnExitAreaButton`
                 )
                 .then((response) => {
                   setData(response.data);
@@ -98,11 +96,19 @@ const GPSComponent = ({ route }) => {
           },
         ]
       );
-    }
-    console.log(isFound);
-    //stopMonthChange(intervalId);
+      //setIsFound(true);
+      setIsFound(true);
+      console.log(isFound);
 
-    return 1;
+      return 1;
+    } else {
+      //setIsFound(false);
+      console.log(isFound);
+
+      return 0;
+    }
+
+    //stopMonthChange(intervalId);
   };
   function calculateDistance(lattitude1, longittude1, lattitude2, longittude2) {
     const toRadian = (n) => (n * Math.PI) / 180;

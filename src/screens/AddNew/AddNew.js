@@ -14,7 +14,7 @@ import {
   SafeAreaView,
   Button,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 
 import {
@@ -23,7 +23,6 @@ import {
 } from "@ui-kitten/components";
 
 export const AddNew = ({ route, navigation }) => {
-
   const { index } = route.params;
   const [name, setName] = useState("");
   const [normalConsumption, setNormalConsumptio] = useState(240);
@@ -78,37 +77,37 @@ export const AddNew = ({ route, navigation }) => {
             }}
           />
 
-      
-      <View style={styles.button}>
-      <Button 
-        title={showAdvancedSettings ? "Hide Advanced Settings" : "Show Advanced Settings"}
-         onPress={toggleAdvancedSettings} 
-         color="gray"
-         />
-              {showAdvancedSettings && (
-                <View>
-                      <Text style={styles.labelsStyle}>min power consumption:</Text>
-                      <TextInput
-                        style={[styles.labelsStyle]}
-                        placeholder="240"
-                        value={normalConsumption}
-                        onChangeText={(text) => setNormalConsumptio(text)}
-                      />
+          <View style={styles.button}>
+            <Button
+              title={
+                showAdvancedSettings
+                  ? "Hide Advanced Settings"
+                  : "Show Advanced Settings"
+              }
+              onPress={toggleAdvancedSettings}
+              color="gray"
+            />
+            {showAdvancedSettings && (
+              <View>
+                <Text style={styles.labelsStyle}>min power consumption:</Text>
+                <TextInput
+                  style={[styles.labelsStyle]}
+                  placeholder="240"
+                  value={normalConsumption}
+                  onChangeText={(text) => setNormalConsumptio(text)}
+                />
 
-                      <Text  style={styles.labelsStyle}>max power consumption:</Text>
-                      <TextInput
-                        style={[styles.labelsStyle]}
-                        placeholder="260"
-                        value={improperConsumption}
-                        onChangeText={(text) => setImproperConsumption(text)}
-                      />
-                
-                </View>
-              )}
-  
-              
-      </View>
-        
+                <Text style={styles.labelsStyle}>max power consumption:</Text>
+                <TextInput
+                  style={[styles.labelsStyle]}
+                  placeholder="260"
+                  value={improperConsumption}
+                  onChangeText={(text) => setImproperConsumption(text)}
+                />
+              </View>
+            )}
+          </View>
+
           <Button
             title="ADD DEVICE"
             color="green"
@@ -118,7 +117,7 @@ export const AddNew = ({ route, navigation }) => {
               console.log(index);
               axios
                 .get(
-                  `http://192.168.1.143:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`
+                  `http://192.168.1.162:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`
                 )
                 .then((response) => {
                   console.log(response.data);

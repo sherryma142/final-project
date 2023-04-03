@@ -25,7 +25,7 @@ export const Details = ({ route, navigation }) => {
   React.useEffect(() => {
     axios
       .get(
-        `http://192.168.1.143:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+        `http://192.168.1.162:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
       )
       .then((response) => {
         setData(response.data);
@@ -37,7 +37,7 @@ export const Details = ({ route, navigation }) => {
 
   axios
     .get(
-      `http://192.168.1.143:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+      `http://192.168.1.162:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
     )
     .then((response) => {
       setStatusData(response.data["status:"] === "on");
@@ -47,7 +47,7 @@ export const Details = ({ route, navigation }) => {
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);
     axios.get(
-      `http://192.168.1.143:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+      `http://192.168.1.162:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
     );
   };
   return (
@@ -99,7 +99,7 @@ export const Details = ({ route, navigation }) => {
               console.log(index);
               axios
                 .delete(
-                  `http://192.168.1.143:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
+                  `http://192.168.1.162:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
                 )
                 .then((response) => {
                   Alert.alert("Device delete", "Device deleted succesfuly", [

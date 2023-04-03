@@ -20,7 +20,7 @@ const Settings = () => {
       <ButtonKitten
         onPress={() =>
           axios
-            .get(`http://192.168.1.143:9464/workshop/mainScreen/close_app`)
+            .get(`http://192.168.1.162:9464/workshop/mainScreen/close_app`)
             .then((response) => {
               Alert.alert("all devices removed");
             })
@@ -38,7 +38,7 @@ const Settings = () => {
         onPress={() =>
           axios
             .get(
-              `http://192.168.1.143:9464/workshop/mainScreen/clickedOnSleepButton`
+              `http://192.168.1.162:9464/workshop/mainScreen/clickedOnSleepButton`
             )
             .then((response) => {
               Alert.alert("sleep on");
@@ -56,7 +56,7 @@ const Settings = () => {
       <ButtonKitten
         onPress={() =>
           axios
-            .get(`http://192.168.1.143:9464/workshop/mainScreen/close_app`)
+            .get(`http://192.168.1.162:9464/workshop/mainScreen/close_app`)
             .then((response) => {
               Alert.alert(response.data);
             })
@@ -72,7 +72,7 @@ const Settings = () => {
       <ButtonKitten
         onPress={() =>
           axios
-            .get(`http://192.168.1.143:9464/workshop/mainScreen/close_app`)
+            .get(`http://192.168.1.162:9464/workshop/mainScreen/close_app`)
             .then((response) => {
               Alert.alert(response.data);
             })
@@ -96,7 +96,7 @@ const Settings = () => {
         onPress={() =>
           axios
             .get(
-              `http://192.168.1.143:9464/workshop/mainScreen/SimulateInvalidElectricityConsumption`
+              `http://192.168.1.162:9464/workshop/mainScreen/SimulateInvalidElectricityConsumption`
             )
             .then((response) => {
               Alert.alert("simulate consumption success");
