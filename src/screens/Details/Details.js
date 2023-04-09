@@ -1,5 +1,5 @@
 import styles from "./Details.style";
-import React, { useState } from "react";
+import React, { useState , useRef} from "react";
 import constants from "../../constants/itemTypes";
 import axios from "axios";
 
@@ -25,7 +25,7 @@ export const Details = ({ route, navigation }) => {
   React.useEffect(() => {
     axios
       .get(
-        `http://192.168.1.162:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+        `http://192.168.1.112:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
       )
       .then((response) => {
         setData(response.data);
@@ -37,7 +37,7 @@ export const Details = ({ route, navigation }) => {
 
   axios
     .get(
-      `http://192.168.1.162:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+      `http://192.168.1.112:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
     )
     .then((response) => {
       setStatusData(response.data["status:"] === "on");
@@ -47,8 +47,28 @@ export const Details = ({ route, navigation }) => {
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);
     axios.get(
-      `http://192.168.1.162:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+      `http://192.168.1.112:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
     );
+
+
+    // const intervalRef = useRef(null); // create a mutable reference to the interval ID
+    // const [isFound, setIsFound] = useState(false);
+
+    // if(value)
+    // {
+    //   useEffect(() => {
+    //     if (!isFound) {
+    //       intervalRef.current = setInterval(() => {
+    //         // if (getLocation() === 1) {
+    //         //   clearInterval(intervalRef.current); // clear the interval using the mutable reference
+    //         //   setIsFound(true);
+    //         // }
+    //       }, 1000);
+    //     }
+    //     return () => clearInterval(intervalRef.current); // clear the interval on unmount using the mutable reference
+    //   }, [isFound]);
+    // }
+
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -99,7 +119,7 @@ export const Details = ({ route, navigation }) => {
               console.log(index);
               axios
                 .delete(
-                  `http://192.168.1.162:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
+                  `http://192.168.1.112:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
                 )
                 .then((response) => {
                   Alert.alert("Device delete", "Device deleted succesfuly", [

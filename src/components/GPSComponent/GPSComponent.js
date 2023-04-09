@@ -68,7 +68,7 @@ const GPSComponent = ({ route }) => {
     );
 
     console.log("distance:", distance);
-    if (distance > 0.02) {
+    if (distance > 24.163) {
       // add && checkDevicesON(data)
       Alert.alert(
         "safe chiled mode",
@@ -87,7 +87,7 @@ const GPSComponent = ({ route }) => {
             onPress: () => {
               axios
                 .get(
-                  `http://192.168.1.162:9464/workshop/mainScreen/clickedOnExitAreaButton`
+                  `http://192.168.1.112:9464/workshop/mainScreen/clickedOnExitAreaButton`
                 )
                 .then((response) => {
                   setData(response.data);

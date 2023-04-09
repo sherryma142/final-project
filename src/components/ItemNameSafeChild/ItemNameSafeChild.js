@@ -10,7 +10,7 @@ export const ItemNameSafeChild = ({ name, index }) => {
 
   axios
     .get(
-      `http://192.168.1.162:9464/workshop/mainScreen/checkIfPlugRegisteredToSafeMode?i_UiIndex=${index}`
+      `http://192.168.1.112:9464/workshop/mainScreen/checkIfPlugRegisteredToSafeMode?i_UiIndex=${index}`
     )
     .then((response) => {
       setData(response.data);
@@ -25,14 +25,14 @@ export const ItemNameSafeChild = ({ name, index }) => {
     !isEnabled
       ? axios
           .get(
-            `http://192.168.1.162:9464/workshop/mainScreen/RegisterPlugToSafeMode?i_UiIndex=${index}`
+            `http://192.168.1.112:9464/workshop/mainScreen/RegisterPlugToSafeMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("added");
           })
       : axios
           .delete(
-            `http://192.168.1.162:9464/workshop/mainScreen/RemovePlugFromSafeMode?i_UiIndex=${index}`
+            `http://192.168.1.112:9464/workshop/mainScreen/RemovePlugFromSafeMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("removed");

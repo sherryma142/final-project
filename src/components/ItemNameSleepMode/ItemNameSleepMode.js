@@ -10,7 +10,7 @@ export const ItemNameSleepMode = ({ name, index }) => {
 
   axios
     .get(
-      `http://192.168.1.162:9464/workshop/mainScreen/checkIfPlugRegisteredToSleepMode?i_UiIndex=${index}`
+      `http://192.168.1.112:9464/workshop/mainScreen/checkIfPlugRegisteredToSleepMode?i_UiIndex=${index}`
     )
     .then((response) => {
       setData(response.data);
@@ -23,14 +23,14 @@ export const ItemNameSleepMode = ({ name, index }) => {
     !isEnabled
       ? axios
           .get(
-            `http://192.168.1.162:9464/workshop/mainScreen/RegisterPlugToSleepMode?i_UiIndex=${index}`
+            `http://192.168.1.112:9464/workshop/mainScreen/RegisterPlugToSleepMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("added");
           })
       : axios
           .delete(
-            `http://192.168.1.162:9464/workshop/mainScreen/RemovePlugFromSleepMode?i_UiIndex=${index}`
+            `http://192.168.1.112:9464/workshop/mainScreen/RemovePlugFromSleepMode?i_UiIndex=${index}`
           )
           .then((response) => {
             console.log("removed");

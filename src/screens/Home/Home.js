@@ -17,21 +17,27 @@ import itemsMock from "../../mocks/itemsMock";
 import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
-
+import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
 // rnfe
 
 const Home = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [consumptionData, setConsumptionData] = useState();
   const [isFound, setIsFound] = useState(false);
+  const [isNotEmpty,setIsNotEmpty] = useState(false);
 
   axios
     .get(
-      `http://192.168.1.162:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
+      `http://192.168.1.112:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
     )
     .then((response) => {
       setData(response.data);
+      if(data.length>0)
+      {
+        setIsNotEmpty(true);
+      }
     });
+
+
 
   // useEffect(() => {
   //   if (!isFound) {
@@ -48,55 +54,11 @@ const Home = ({ navigation }) => {
   //   return () => clearInterval(id);
   // }, [isFound]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      sendData();
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const sendData = () => {
-    axios
-      .get(
-        `http://192.168.1.162:9464/workshop/statisticsScreen/GetElectricityConsumptionInLiveForSingleUsage?i_UiIndex=0`
-      )
-      .then((response) => {
-        //console.log(response.data);
-        setConsumptionData(response.data);
-        //console.log(consumptionData);
-        if (consumptionData === 520) {
-          Alert.alert(
-            "WARNNING",
-            "One of your devices has reached a higher than normal power consumption.\n do you want to turn this device?",
-            [
-              {
-                text: "No",
-                onPress: () => {
-                  console.log("Cancel Pressed");
-                },
-                style: "cancel",
-              },
-              {
-                text: "Yes",
-                onPress: () => {
-                  axios
-                    .get(
-                      `http://192.168.1.162:9464/workshop/mainScreen/clickedOnExitAreaButton`
-                    )
-                    .then((response) => {
-                      setConsumptionData(response.data);
-                    });
-                },
-              },
-            ]
-          );
-          return 1;
-        }
-        return 0;
-      });
-  };
+ 
 
   return (
+  
+   
     <ScrollView>
       <View style={styles.container}>
         <Ionicons
@@ -138,6 +100,9 @@ const Home = ({ navigation }) => {
             Statistics
           </ButtonKitten>
         </View>
+    {
+      isNotEmpty && <InvalidConsumptionComponent />
+    }
       </View>
     </ScrollView>
   );
