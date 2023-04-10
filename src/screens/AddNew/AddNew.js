@@ -124,7 +124,7 @@ export const AddNew = ({ route, navigation }) => {
                   Alert.alert("Device add", "Device added succesfuly", [
                     {
                       text: "OK",
-                      onPress: () => navigation.navigate("Home"),
+                      onPress: () => navigation.Fnavigate("Home"),
                     },
                   ]);
                 });
