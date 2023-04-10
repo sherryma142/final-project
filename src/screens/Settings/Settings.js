@@ -7,8 +7,9 @@ import {
 } from "@ui-kitten/components";
 import axios from "axios";
 
-const Settings = () => {
+const Settings = ({navigation}) => {
   const [isEnabled, setIsEnabled] = useState(true);
+  const [ind, setIndex] = useState(0);
 
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);
@@ -99,7 +100,15 @@ const Settings = () => {
               `http://192.168.1.112:9464/workshop/mainScreen/SimulateInvalidElectricityConsumption`
             )
             .then((response) => {
-              Alert.alert("simulate consumption success");
+              console.log("response index :",response.data);
+              // setIndex(response.data);
+              // console.log("index from settings " , ind );
+              Alert.alert("simulate", "simulate consumption success", [
+                {
+                  text: "OK",
+                  onPress: () => navigation.navigate("Home",{index: response.data}),
+                },
+              ]);
             })
             .catch((e) => {
               console.log(e);

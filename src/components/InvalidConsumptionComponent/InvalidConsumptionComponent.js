@@ -6,12 +6,14 @@ import {
     Button,
     Alert,
   } from "react-native";
-  import React, { useEffect, useState, useRef } from "react";
+  import React, { useEffect, useState, useRef,useCallback } from "react";
   import axios from "axios";
   import * as Location from "expo-location";
   // rnfe
   
-  const InvalidConsumptionComponent = () => {
+  import { debounce } from 'lodash';
+  const InvalidConsumptionComponent = ({index}) => {
+    
     const [consumptionData, setConsumptionData] = useState(0);
     const intervalRef = useRef(null); // create a mutable reference to the interval ID
     const [isFound, setIsFound] = useState(false);
@@ -19,7 +21,7 @@ import {
         useEffect(() => {
         if (!isFound) {
             intervalRef.current = setInterval(() => {
-            if (sendData() === 1) {
+            if (sendData(index) === 1) {
                 clearInterval(intervalRef.current); // clear the interval using the mutable reference
                 setIsFound(true);
             }
@@ -29,12 +31,16 @@ import {
         return () => clearInterval(intervalRef.current); // clear the interval on unmount using the mutable reference
         }, [isFound]);
 
-      const sendData = () => {
+
+      const sendData = (index) => {
+        console.log("index from invalid : ", index);
+
         axios
           .get(
-            `http://192.168.1.112:9464/workshop/statisticsScreen/GetElectricityConsumptionInLiveForSingleUsage?i_UiIndex=0`
+            `http://192.168.1.112:9464/workshop/statisticsScreen/GetLastElectricityUsageForPlugByType?i_UiIndex=${index}&i_StatisticsType=single`
           )
           .then((response) => {
+           
             console.log("res data: " , response.data);
             setConsumptionData(response.data);
             console.log(consumptionData);
@@ -55,7 +61,7 @@ import {
                     onPress: () => {
                       axios
                         .get(
-                            `http://192.168.1.112:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=0`
+                            `http://192.168.1.112:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
                         )
                         .then((response) => {
                             console.log(response.data)
@@ -73,12 +79,21 @@ import {
             else{
                 console.log("sherry")
             }
+            // axios
+            // .get(
+            //     `http://192.168.1.112:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
+            // )
+            // .then((response) => {
+            //     console.log(response.data)
+            // });
+            
             console.log(isFound);
             return 0;
           });
       };
   
     return <View></View>;
+
   };
   
   export default InvalidConsumptionComponent;
