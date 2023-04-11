@@ -34,4 +34,10 @@ export default StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 80,
   },
+  CheckBoxContainer: {
+    flexDirection: "row",
+  },
+  checkbox: {
+    alignSelf: "center",
+  },
 });

@@ -18,25 +18,24 @@ import LiveShowComponent from "../../components/LiveShowComponent/LiveShowCompon
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
+import SampleConsumption from "../SampleConsumption/SampleConsumption";
 // rnfe
 
-const Home = ({ index, navigation }) => {
-
+const Home = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [isNotEmpty,setIsNotEmpty] = useState(true);
+  const [isNotEmpty, setIsNotEmpty] = useState(true);
 
   axios
     .get(
-      `http://192.168.1.112:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
+      `http://192.168.1.184:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
     )
     .then((response) => {
-     // console.log(response.data)
+      // console.log(response.data)
       setData(response.data);
     });
- 
-   // console.log("index from home:",index);
+
+  // console.log("index from home:",index);
   return (
-  
     <ScrollView>
       <View style={styles.container}>
         <Ionicons
@@ -45,9 +44,8 @@ const Home = ({ index, navigation }) => {
           name="settings"
           size={32}
           onPress={() =>
-             navigation.navigate("Settings" , {navigation:navigation })
-            
-            }
+            navigation.navigate("Settings", { navigation: navigation })
+          }
         />
         <Text style={styles.hadder}>SaveEnergy</Text>
         <View style={styles.container}>
@@ -80,22 +78,20 @@ const Home = ({ index, navigation }) => {
           >
             Statistics
           </ButtonKitten>
- 
+
           <ButtonKitten
-            onPress={() => {
-              console.log("press");
-              
-            }}
+            onPress={() =>
+              navigation.navigate("SampleConsumption", {
+                data: data,
+                navigation: navigation,
+              })
+            }
             style={styles.Button}
             size="medium"
           >
             Sample consamption
           </ButtonKitten>
-          {
-                isNotEmpty && <InvalidConsumptionComponent index={index} />
-              }  
         </View>
-    
       </View>
     </ScrollView>
   );

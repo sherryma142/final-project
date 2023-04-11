@@ -1,5 +1,5 @@
 import styles from "./Details.style";
-import React, { useState , useRef} from "react";
+import React, { useState, useRef } from "react";
 import constants from "../../constants/itemTypes";
 import axios from "axios";
 
@@ -19,13 +19,15 @@ import {
 export const Details = ({ route, navigation }) => {
   const { index } = route.params;
   const [data, setData] = useState([]);
-
+  const [timerStarted, setTimerStarted] = useState(false);
+  const [timerExpired, setTimerExpired] = useState(false);
+  const [timerId, setTimerId] = useState(null);
   const [status, setStatusData] = useState([]);
   const [isEnabled, setIsEnabled] = useState(data);
   React.useEffect(() => {
     axios
       .get(
-        `http://192.168.1.112:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+        `http://192.168.1.184:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
       )
       .then((response) => {
         setData(response.data);
@@ -37,7 +39,7 @@ export const Details = ({ route, navigation }) => {
 
   axios
     .get(
-      `http://192.168.1.112:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+      `http://192.168.1.184:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
     )
     .then((response) => {
       setStatusData(response.data["status:"] === "on");
@@ -45,30 +47,48 @@ export const Details = ({ route, navigation }) => {
     });
 
   const toggleRememberPin = () => {
+    console.log("1", isEnabled);
     setIsEnabled((previousState) => !previousState);
+    console.log("2", isEnabled);
     axios.get(
-      `http://192.168.1.112:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+      `http://192.168.1.184:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
     );
-
-
-    // const intervalRef = useRef(null); // create a mutable reference to the interval ID
-    // const [isFound, setIsFound] = useState(false);
-
-    // if(value)
-    // {
-    //   useEffect(() => {
-    //     if (!isFound) {
-    //       intervalRef.current = setInterval(() => {
-    //         // if (getLocation() === 1) {
-    //         //   clearInterval(intervalRef.current); // clear the interval using the mutable reference
-    //         //   setIsFound(true);
-    //         // }
-    //       }, 1000);
-    //     }
-    //     return () => clearInterval(intervalRef.current); // clear the interval on unmount using the mutable reference
-    //   }, [isFound]);
-    // }
-
+    console.log("3", isEnabled);
+    if (!timerStarted && !isEnabled) {
+      console.log("starting timer");
+      setTimerStarted(true);
+      const id = setTimeout(() => {
+        // timer expired, show popup to turn off the device
+        setTimerExpired(true);
+        Alert.alert(
+          "Device turn off",
+          "The device has been on for 10 seconds. Do you want to turn it off?",
+          [
+            {
+              text: "Cancel",
+              onPress: () => {},
+            },
+            {
+              text: "OK",
+              onPress: () => {
+                axios
+                  .get(
+                    `http://192.168.1.184:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+                  )
+                  .then((response) => {
+                    console.log(response.data);
+                    setIsEnabled(false);
+                    setTimerExpired(false);
+                  });
+              },
+            },
+          ]
+        );
+      }, 10000);
+      setTimerId(id);
+    } else if (timerStarted && !isEnabled) {
+      // cancel the timer if it has already b
+    }
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -119,7 +139,7 @@ export const Details = ({ route, navigation }) => {
               console.log(index);
               axios
                 .delete(
-                  `http://192.168.1.112:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
+                  `http://192.168.1.184:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
                 )
                 .then((response) => {
                   Alert.alert("Device delete", "Device deleted succesfuly", [

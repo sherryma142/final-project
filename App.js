@@ -16,17 +16,16 @@ import { Button } from "react-native-elements";
 import Statistics from "./src/screens/Statistics/Statistics";
 import DeviceStatistic from "./src/screens/DeviceStatistic/DeviceStatistic";
 import AllDevicesStatistic from "./src/screens/AllDevicesStatistic/AllDevicesStatistic";
-
+import SampleConsumption from "./src/screens/SampleConsumption/SampleConsumption";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   return (
     <NavigationContainer>
       <ApplicationProvider {...eva} theme={eva.light}>
         <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="LiveShow" component={LiveShow} />
           <Stack.Screen name="AddNew" component={AddNew} />
           <Stack.Screen name="Details" component={Details} />
@@ -36,8 +35,14 @@ export default function App() {
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="Statistics" component={Statistics} />
           <Stack.Screen name="DeviceStatistic" component={DeviceStatistic} />
-          <Stack.Screen name="AllDevicesStatistic" component={AllDevicesStatistic} />
-
+          <Stack.Screen
+            name="AllDevicesStatistic"
+            component={AllDevicesStatistic}
+          />
+          <Stack.Screen
+            name="SampleConsumption"
+            component={SampleConsumption}
+          />
         </Stack.Navigator>
       </ApplicationProvider>
     </NavigationContainer>
