@@ -23,7 +23,7 @@ export const Details = ({ route }) => {
   React.useEffect(() => {
     axios
       .get(
-        `http://192.168.1.184:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+        `http://192.168.1.143:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
       )
       .then((response) => {
         setData(response.data);

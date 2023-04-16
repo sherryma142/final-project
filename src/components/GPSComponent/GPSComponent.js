@@ -87,7 +87,7 @@ const GPSComponent = ({ route }) => {
             onPress: () => {
               axios
                 .get(
-                  `http://192.168.1.184:9464/workshop/mainScreen/clickedOnExitAreaButton`
+                  `http://192.168.1.143:9464/workshop/mainScreen/clickedOnExitAreaButton`
                 )
                 .then((response) => {
                   setData(response.data);

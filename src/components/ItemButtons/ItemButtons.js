@@ -4,7 +4,13 @@ import styles from "./ItemButtons.style";
 import constants from "../../constants/itemTypes";
 const Separator = () => <View style={styles.separator} />;
 
-export const ItemButtons = ({ name, type, navigation, index }) => {
+export const ItemButtons = ({
+  name,
+  type,
+  navigation,
+  index,
+  typeStatistics,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.item_name}>{name}</Text>
@@ -14,7 +20,7 @@ export const ItemButtons = ({ name, type, navigation, index }) => {
           navigation.navigate("DeviceStatistic", {
             name: name,
             index: index,
-            typeStatistics: 0,
+            typeStatistics: typeStatistics,
           });
         }}
       >

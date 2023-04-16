@@ -5,7 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./AllDevicesStatistic.style";
 import axios from "axios";
 
@@ -17,76 +17,26 @@ import {
   ContributionGraph,
   StackedBarChart,
 } from "react-native-chart-kit";
+import AllDeviceStatisticsYearly from "../../components/AllDeviceStatisticsYearly/AllDeviceStatisticsYearly";
+import AllDeviceStatisticsWeekly from "../../components/AllDeviceStatisticsWeekly/AllDeviceStatisticsWeekly";
+const AllDevicesStatistic = ({ route, navigation }) => {
+  const { typeStatistics } = route.params;
+  console.log("sherry", typeStatistics);
+  const [isYearly, setIsYearly] = useState(false);
+  const [isWeekly, setIsWeekly] = useState(false);
 
-const DeviceStatistic = () => {
-  const [data, setData] = useState([]);
-
-  React.useEffect(() => {
-    axios
-      .get(
-        `http://192.168.1.184:9464/workshop/statisticsScreen/SimulateAnnualElectricityForAllPlugs`
-      )
-      .then((response) => {
-        setData(response.data);
-      });
-  }, []);
+  useEffect(() => {
+    if (typeStatistics === 1) {
+      setIsWeekly(true);
+    } else setIsYearly(true);
+  }, [typeStatistics]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.item_title}>All devices statistics</Text>
-
-      <ScrollView horizontal={true}>
-        <BarChart
-          data={{
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ],
-            datasets: [
-              {
-                data: data,
-              },
-            ],
-          }}
-          width={Dimensions.get("window").width} // from react-native
-          height={400}
-          verticalLabelRotation={40}
-          chartConfig={{
-            backgroundColor: "#FF3399",
-            backgroundGradientFrom: "#99FFFF",
-            backgroundGradientTo: "#FF3399",
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#ffa726",
-            },
-          }}
-          bezier
-          style={{
-            //marginVertical: 2,
-            // borderRadius: 2,
-            paddingTop: 40,
-            height: 400,
-          }}
-        />
-      </ScrollView>
+    <View>
+      {isYearly && <AllDeviceStatisticsYearly />}
+      {isWeekly && <AllDeviceStatisticsWeekly />}
     </View>
   );
 };
 
-export default DeviceStatistic;
+export default AllDevicesStatistic;

@@ -13,44 +13,46 @@ import {
   BottomNavigation,
 } from "@ui-kitten/components";
 import DevicesNamesButtons from "../../components/DevicesNamesButtons/DevicesNamesButtons";
-import { CheckBox } from "react-native-elements/dist/checkbox/CheckBox";
+import { SelectList } from "react-native-dropdown-select-list";
+
 // rnfe
 
 const Statistics = ({ route, navigation }) => {
   const [isYearlySelected, setYearlySelection] = useState(false);
   const [isDailySelected, setDailySelection] = useState(false);
   const [isWeeklySelected, setWeeklySelection] = useState(false);
+  const [selected, setSelected] = useState("");
   const { data } = route.params;
   return (
     <View style={styles.container}>
       <Text style={styles.hadder}>Statistics</Text>
       <Text style={styles.labelsStyle}>choose device:</Text>
-      <DevicesNamesButtons listOfItems={data} navigation={navigation} />
+      <DevicesNamesButtons
+        listOfItems={data}
+        navigation={navigation}
+        typeStatistics={selected}
+      />
       <View style={styles.CheckBoxContainer}>
-        <CheckBox
-          value={isYearlySelected}
-          onValueChange={(value) => setYearlySelection(value)}
-          style={styles.checkbox}
+        <SelectList
+          data={[
+            { key: 0, value: "Yearly" },
+            { key: 1, value: "Weekly" },
+          ]}
+          setSelected={(val) => {
+            setSelected(val);
+            console.log(val);
+          }}
         />
-        <Text>Yearly</Text>
-        <CheckBox
-          value={isDailySelected}
-          onValueChange={(value) => setDailySelection(value)}
-          style={styles.checkbox}
-        />
-        <Text>Dayly</Text>
-        <CheckBox
-          value={isWeeklySelected}
-          onValueChange={(value) => setWeeklySelection(value)}
-          style={styles.checkbox}
-        />
-        <Text>Weekly</Text>
       </View>
       <View style={styles.Buttons}>
         <ButtonKitten
           style={styles.Button}
           onPress={() => {
-            navigation.navigate("AllDevicesStatistic");
+            navigation.navigate("AllDevicesStatistic", {
+              data: data,
+              navigation: navigation,
+              typeStatistics: selected,
+            });
           }}
           size="medium"
         >

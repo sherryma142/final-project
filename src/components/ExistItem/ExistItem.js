@@ -10,7 +10,7 @@ export const ExistItem = ({ name, type, navigation, index }) => {
 
   axios
     .get(
-      `http://192.168.1.184:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+      `http://192.168.1.143:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
     )
     .then((response) => {
       setData(response.data["status:"] === "on");
@@ -20,7 +20,7 @@ export const ExistItem = ({ name, type, navigation, index }) => {
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);
     axios.get(
-      `http://192.168.1.184:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+      `http://192.168.1.143:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
     );
   };
 

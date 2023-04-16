@@ -5,7 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./DeviceStatistic.style";
 import StatisticsMock from "../../mocks/statisticesMock1";
 import axios from "axios";
@@ -19,20 +19,30 @@ import {
   StackedBarChart,
 } from "react-native-chart-kit";
 import DeviceStatisticYearly from "../../components/DeviceStatisticsYearly/DeviceStatisticsYearly";
-const DeviceStatistic = ({ route, navigation }) => {
-  const { name } = route.params;
-  const { index } = route.params;
-  const { typeStatistics } = route.params;
+import DeviceStatisticWeekly from "../../components/DeviceStatisticsWeekly/DeviceStatisticsWeekly";
 
+const DeviceStatistic = ({ route, navigation }) => {
+  const { typeStatistics } = route.params;
+  console.log(typeStatistics);
   const [isYearly, setIsYearly] = useState(false);
-  const [isDaily, setIsDaily] = useState(false);
   const [isWeekly, setIsWeekly] = useState(false);
 
-  if (typeStatistics === 0) {
-    setIsYearly(true);
-  }
+  useEffect(() => {
+    if (typeStatistics === 1) {
+      setIsWeekly(true);
+    } else setIsYearly(true);
+  }, [typeStatistics]);
 
-  return <View>{isYearly && <DeviceStatisticYearly />}</View>;
+  return (
+    <View>
+      {isYearly && (
+        <DeviceStatisticYearly route={route} navigation={navigation} />
+      )}
+      {isWeekly && (
+        <DeviceStatisticWeekly route={route} navigation={navigation} />
+      )}
+    </View>
+  );
 };
 
 export default DeviceStatistic;

@@ -117,11 +117,11 @@ export const AddNew = ({ route, navigation }) => {
               console.log(index);
               axios
                 .get(
-                  `http://192.168.1.184:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`
+                  `http://192.168.1.143:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`
                 )
                 .then((response) => {
                   console.log(response.data);
-                  Alert.alert("Device add", "Device added succesfuly", [
+                  Alert.alert("Device added", "Device added succesfully", [
                     {
                       text: "OK",
                       onPress: () => navigation.navigate("Home"),

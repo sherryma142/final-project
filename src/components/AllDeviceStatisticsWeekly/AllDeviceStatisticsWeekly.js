@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import styles from "./DeviceStatisticsYearly.style";
-import StatisticsMock from "../../mocks/statisticesMock1";
+import styles from "./AllDeviceStatisticsWeekly.style";
 import axios from "axios";
 
 import {
@@ -19,50 +18,32 @@ import {
   StackedBarChart,
 } from "react-native-chart-kit";
 
-const DeviceStatisticYearly = ({ route, navigation }) => {
-  const { name } = route.params;
-  const { index } = route.params;
-
+const AllDeviceStatisticsWeekly = () => {
   const [data, setData] = useState([]);
-  const [usage, setUsage] = useState([]);
 
   React.useEffect(() => {
     axios
       .get(
-        `http://192.168.1.143:9464/workshop/statisticsScreen/SimulateAnnualElectricityForPlug?i_UiIndex=${index}`
+        `http://192.168.1.143:9464/workshop/statisticsScreen/SimulateAnnualElectricityForAllPlugs`
       )
       .then((response) => {
         setData(response.data);
       });
-
-    axios
-      .get(
-        `http://192.168.1.143:9464/workshop/statisticsScreen/GetElectricityConsumptionTillNow?i_UiIndex=${index}`
-      )
-      .then((response) => {
-        setUsage(response.data);
-      });
   }, []);
 
   return (
-    <View>
-      <Text style={styles.item_title}>Device Name:</Text>
-      <Text style={styles.item_name}>{name}</Text>
+    <View style={styles.container}>
+      <Text style={styles.item_title}>All devices statistics</Text>
       <BarChart
         data={{
           labels: [
-            "J",
-            "F",
-            "M",
-            "A",
-            "M",
-            "Jun",
-            "Jul",
-            "A",
-            "S",
-            "O",
-            "N",
-            "D",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
           ],
           datasets: [
             {
@@ -110,4 +91,4 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
   );
 };
 
-export default DeviceStatisticYearly;
+export default AllDeviceStatisticsWeekly;

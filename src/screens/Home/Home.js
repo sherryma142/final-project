@@ -27,7 +27,7 @@ const Home = ({ navigation }) => {
 
   axios
     .get(
-      `http://192.168.1.184:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
+      `http://192.168.1.143:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
     )
     .then((response) => {
       // console.log(response.data)
@@ -89,7 +89,7 @@ const Home = ({ navigation }) => {
             style={styles.Button}
             size="medium"
           >
-            Sample consamption
+            Sample consumption
           </ButtonKitten>
         </View>
       </View>

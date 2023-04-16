@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import styles from "./DeviceStatisticsYearly.style";
+import styles from "./DeviceStatisticsWeekly.style";
 import StatisticsMock from "../../mocks/statisticesMock1";
 import axios from "axios";
 
@@ -19,7 +19,7 @@ import {
   StackedBarChart,
 } from "react-native-chart-kit";
 
-const DeviceStatisticYearly = ({ route, navigation }) => {
+const DeviceStatisticWeekly = ({ route, navigation }) => {
   const { name } = route.params;
   const { index } = route.params;
 
@@ -29,7 +29,7 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
   React.useEffect(() => {
     axios
       .get(
-        `http://192.168.1.143:9464/workshop/statisticsScreen/SimulateAnnualElectricityForPlug?i_UiIndex=${index}`
+        `http://192.168.1.143:9464/workshop/statisticsScreen/SimulateWeeklyElectricityForPlug?i_UiIndex=${index}`
       )
       .then((response) => {
         setData(response.data);
@@ -51,18 +51,13 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
       <BarChart
         data={{
           labels: [
-            "J",
-            "F",
-            "M",
-            "A",
-            "M",
-            "Jun",
-            "Jul",
-            "A",
-            "S",
-            "O",
-            "N",
-            "D",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
           ],
           datasets: [
             {
@@ -72,7 +67,7 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
         }}
         fromZero={true}
         segments={4}
-        width={Dimensions.get("window").width}
+        width={400}
         height={400}
         verticalLabelRotation={40}
         chartConfig={{
@@ -110,4 +105,4 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
   );
 };
 
-export default DeviceStatisticYearly;
+export default DeviceStatisticWeekly;

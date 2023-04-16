@@ -3,7 +3,7 @@ import React from "react";
 import { ItemButtons } from "../ItemButtons/ItemButtons";
 import styles from "./DevicesNamesButtons.style";
 
-const DevicesNamesButtons = ({ listOfItems, navigation }) => {
+const DevicesNamesButtons = ({ listOfItems, navigation, typeStatistics }) => {
   return (
     <View>
       <View style={styles.rowDevices}>
@@ -13,6 +13,7 @@ const DevicesNamesButtons = ({ listOfItems, navigation }) => {
             type={item.type}
             navigation={navigation}
             index={item.index}
+            typeStatistics={typeStatistics}
           />
         ))}
       </View>

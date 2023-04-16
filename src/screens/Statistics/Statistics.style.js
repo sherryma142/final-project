@@ -8,6 +8,7 @@ export default StyleSheet.create({
     //alignItems: "flex-end",
     justifyContent: "flex-start",
     flexWrap: "wrap",
+    alignContent: "center",
   },
   hadder: {
     fontSize: 30,
@@ -36,6 +37,7 @@ export default StyleSheet.create({
   },
   CheckBoxContainer: {
     flexDirection: "row",
+    alignContent: "center",
   },
   checkbox: {
     alignSelf: "center",
