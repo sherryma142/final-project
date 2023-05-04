@@ -71,19 +71,12 @@ const Settings = ({ navigation }) => {
         closeApp
       </ButtonKitten>
       <ButtonKitten
-        onPress={() =>
-          axios
-            .get(`http://192.168.1.143:9464/workshop/mainScreen/close_app`)
-            .then((response) => {
-              Alert.alert(response.data);
-            })
-            .catch((e) => {
-              console.log(e);
-            })
-        }
-        style={styles.button}
-        size="medium"
-      ></ButtonKitten>
+         style={styles.Button}
+         size="medium"
+         onPress={() => navigation.navigate("RealHome")}
+      >
+        Real Simulation
+      </ButtonKitten>
       <Switch
         trackColor={{ false: "red", true: "green" }}
         thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}

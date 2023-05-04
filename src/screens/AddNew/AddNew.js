@@ -25,6 +25,7 @@ import {
 export const AddNew = ({ route, navigation }) => {
   const { index } = route.params;
   const [name, setName] = useState("");
+  const [realIndex, setRealIndex] = useState(index);
   const [normalConsumption, setNormalConsumptio] = useState(240);
   const [improperConsumption, setImproperConsumption] = useState(260);
   const [selected, setSelected] = useState("");
@@ -62,6 +63,17 @@ export const AddNew = ({ route, navigation }) => {
           <Text style={styles.labelsStyle}>Device type:</Text>
 
           <SelectList data={data1} setSelected={setSelected} />
+
+          <Text style={styles.labelsStyle}>index:</Text>
+
+          <TextInput
+            style={styles.labelsStyle}
+            placeholder="enter index if needed"
+            value={realIndex}
+            onChangeText={(text) => {
+              setRealIndex(text);
+            }}
+          />
 
           <Text style={styles.labelsStyle}>Image:</Text>
 
@@ -117,7 +129,7 @@ export const AddNew = ({ route, navigation }) => {
               console.log(index);
               axios
                 .get(
-                  `http://192.168.1.143:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`
+                  `http://192.168.1.143:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${realIndex}`
                 )
                 .then((response) => {
                   console.log(response.data);

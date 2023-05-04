@@ -17,6 +17,7 @@ import Statistics from "./src/screens/Statistics/Statistics";
 import DeviceStatistic from "./src/screens/DeviceStatistic/DeviceStatistic";
 import AllDevicesStatistic from "./src/screens/AllDevicesStatistic/AllDevicesStatistic";
 import SampleConsumption from "./src/screens/SampleConsumption/SampleConsumption";
+import RealHome from "./src/screens/RealHome/RealHome";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ export default function App() {
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="Statistics" component={Statistics} />
           <Stack.Screen name="DeviceStatistic" component={DeviceStatistic} />
+          <Stack.Screen name="RealHome" component={RealHome} />
           <Stack.Screen
             name="AllDevicesStatistic"
             component={AllDevicesStatistic}
