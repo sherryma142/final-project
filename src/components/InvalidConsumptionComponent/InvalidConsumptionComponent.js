@@ -36,7 +36,7 @@ const InvalidConsumptionComponent = ({ indexes }) => {
 
     axios
       .get(
-        `http://192.168.1.143:9464/workshop/statisticsScreen/GetLastElectricityUsageForPlugByType?i_UiIndex=${index}&i_StatisticsType=single`
+        `http://192.168.1.112:9464/workshop/statisticsScreen/GetLastElectricityUsageForPlugByType?i_UiIndex=${index}&i_StatisticsType=single`
       )
       .then((response) => {
         console.log("res data: ", response.data);
@@ -59,7 +59,7 @@ const InvalidConsumptionComponent = ({ indexes }) => {
                 onPress: () => {
                   axios
                     .get(
-                      `http://192.168.1.143:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+                      `http://192.168.1.112:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
                     )
                     .then((response) => {
                       console.log(response.data);
@@ -74,7 +74,7 @@ const InvalidConsumptionComponent = ({ indexes }) => {
           console.log(isFound);
           axios
             .get(
-              `http://192.168.1.143:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
+              `http://192.168.1.112:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
             )
             .then((response) => {
               console.log(response.data);

@@ -29,7 +29,7 @@ const SampleConsumption = ({ route }) => {
         onPress={() =>
           axios
             .get(
-              `http://192.168.1.143:9464/workshop/mainScreen/SimulateInvalidElectricityConsumption`
+              `http://192.168.1.112:9464/workshop/mainScreen/SimulateInvalidElectricityConsumption`
             )
             .then((response) => {
               console.log("response index :", response.data);

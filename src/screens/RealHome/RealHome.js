@@ -22,18 +22,26 @@ import SampleConsumption from "../SampleConsumption/SampleConsumption";
 
 const RealHome = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const [newData, setNewData] = useState([]);
   const [isNotEmpty, setIsNotEmpty] = useState(true);
 
   axios
     .get(
-      `http://192.168.1.143:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
+      `http://192.168.1.112:9464/workshop/mainScreen/SeePlugsAtDB`
     )
     .then((response) => {
-      // console.log(response.data)
-      setData(response.data);
-    });
 
-  // console.log("index from home:",index);
+      response.data.map((object) => {
+
+          if(object.index==="10")
+          {
+            setNewData([object]);
+
+          }
+      }
+        
+    )})
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -48,13 +56,13 @@ const RealHome = ({ navigation }) => {
         />
         <Text style={styles.hadder}>SaveEnergy</Text>
         <View style={styles.container}>
-          <DevicesContainer listOfItems={data} navigation={navigation} />
+          <DevicesContainer listOfItems={newData} navigation={navigation} />
         </View>
         <View style={styles.Buttons}>
           <ButtonKitten
             onPress={() =>
               navigation.navigate("SafeChild", {
-                data: data,
+                data: newData,
                 navigation: navigation,
               })
             }
@@ -66,7 +74,7 @@ const RealHome = ({ navigation }) => {
           <ButtonKitten
             style={styles.Button}
             size="medium"
-            onPress={() => navigation.navigate("Statistics", { data: data })}
+            onPress={() => navigation.navigate("Statistics", { data: newData })}
           >
             Statistics
           </ButtonKitten>
@@ -74,7 +82,7 @@ const RealHome = ({ navigation }) => {
           <ButtonKitten
             onPress={() =>
               navigation.navigate("SampleConsumption", {
-                data: data,
+                data: newData,
                 navigation: navigation,
               })
             }

@@ -129,7 +129,7 @@ export const AddNew = ({ route, navigation }) => {
               console.log(index);
               axios
                 .get(
-                  `http://192.168.1.143:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${realIndex}`
+                  `http://192.168.1.112:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${realIndex}`
                 )
                 .then((response) => {
                   console.log(response.data);

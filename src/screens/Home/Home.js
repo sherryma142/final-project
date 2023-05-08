@@ -18,24 +18,39 @@ import LiveShowComponent from "../../components/LiveShowComponent/LiveShowCompon
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
-import SampleConsumption from "../SampleConsumption/SampleConsumption";
 // rnfe
 
-const Home = ({ navigation }) => {
-  const [data, setData] = useState([]);
-  const [isNotEmpty, setIsNotEmpty] = useState(true);
+const Home = ({ index, navigation }) => {
 
+  const [data, setData] = useState([]);
+  const [isNotEmpty,setIsNotEmpty] = useState(true);
+
+  let newData=[];
   axios
     .get(
-      `http://192.168.1.143:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
+      `http://192.168.1.112:9464/workshop/mainScreen/SeePlugsAtDB`
     )
     .then((response) => {
-      // console.log(response.data)
-      setData(response.data);
-    });
+     // console.log(response.data)
+     response.data.map((object) => {
+      if(object.index!="10")
+      {
+     //   console.log(object);
+        newData.push(object);
+      }
+  }
 
-  // console.log("index from home:",index);
+
+)
+
+setData(newData);
+
+     
+    });
+ 
+   // console.log(newData);
   return (
+  
     <ScrollView>
       <View style={styles.container}>
         <Ionicons
@@ -44,8 +59,9 @@ const Home = ({ navigation }) => {
           name="settings"
           size={32}
           onPress={() =>
-            navigation.navigate("Settings", { navigation: navigation })
-          }
+             navigation.navigate("Settings" , {navigation:navigation })
+            
+            }
         />
         <Text style={styles.hadder}>SaveEnergy</Text>
         <View style={styles.container}>
@@ -78,20 +94,22 @@ const Home = ({ navigation }) => {
           >
             Statistics
           </ButtonKitten>
-
+ 
           <ButtonKitten
-            onPress={() =>
-              navigation.navigate("SampleConsumption", {
-                data: data,
-                navigation: navigation,
-              })
-            }
+            onPress={() => {
+              console.log("press");
+              
+            }}
             style={styles.Button}
             size="medium"
           >
-            Sample consumption
+            Sample consamption
           </ButtonKitten>
+          {
+                isNotEmpty && <InvalidConsumptionComponent index={index} />
+              }  
         </View>
+    
       </View>
     </ScrollView>
   );
