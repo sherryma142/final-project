@@ -29,10 +29,10 @@ const SampleConsumption = ({ route }) => {
         onPress={() =>
           axios
             .get(
-              `http://192.168.1.112:9464/workshop/mainScreen/SimulateInvalidElectricityConsumption`
+              `http://35.169.65.234:9464/workshop/mainScreen/SimulateInvalidElectricityConsumption`
             )
             .then((response) => {
-              console.log("response index :", response.data);
+              console.log("sample response index :", response.data);
               setIndex(response.data);
               console.log("index from calling the rendom ", index);
               Alert.alert("simulate", "simulate consumption success", [

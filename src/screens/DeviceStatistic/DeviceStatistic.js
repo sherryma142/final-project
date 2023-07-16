@@ -28,7 +28,7 @@ const DeviceStatistic = ({ route, navigation }) => {
   const [isWeekly, setIsWeekly] = useState(false);
 
   useEffect(() => {
-    if (typeStatistics === 1) {
+    if (typeStatistics === 2) {
       setIsWeekly(true);
     } else setIsYearly(true);
   }, [typeStatistics]);

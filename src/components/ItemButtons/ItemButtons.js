@@ -11,11 +11,14 @@ export const ItemButtons = ({
   index,
   typeStatistics,
 }) => {
+
+  console.log(typeStatistics);
   return (
     <View style={styles.container}>
       <Text style={styles.item_name}>{name}</Text>
 
-      <TouchableHighlight
+       <TouchableHighlight
+        disabled={typeStatistics==""}
         onPress={() => {
           navigation.navigate("DeviceStatistic", {
             name: name,

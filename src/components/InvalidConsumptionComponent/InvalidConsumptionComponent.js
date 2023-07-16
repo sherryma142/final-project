@@ -16,10 +16,11 @@ const InvalidConsumptionComponent = ({ indexes }) => {
   const intervalRef = useRef(null); // create a mutable reference to the interval ID
   const [isFound, setIsFound] = useState(false);
 
+ // console.log(indexes);
   useEffect(() => {
     if (!isFound) {
       intervalRef.current = setInterval(() => {
-        for (let i = 0; i < indexes; i++) {
+        for (let i = 0; i < 2; i++) {
           if (sendData(i) == 1) {
             clearInterval(intervalRef.current); // clear the interval using the mutable reference
             setIsFound(true);
@@ -36,13 +37,13 @@ const InvalidConsumptionComponent = ({ indexes }) => {
 
     axios
       .get(
-        `http://192.168.1.112:9464/workshop/statisticsScreen/GetLastElectricityUsageForPlugByType?i_UiIndex=${index}&i_StatisticsType=single`
+        `http://35.169.65.234:9464/workshop/statisticsScreen/GetLastElectricityUsageForPlugByType?i_UiIndex=${index}&i_StatisticsType=single`
       )
       .then((response) => {
         console.log("res data: ", response.data);
         setConsumptionData(response.data);
-        console.log(consumptionData);
-        if (response.data === 520) {
+        console.log("consumption:" + consumptionData);
+        if (response.data === 0.120930225) {
           Alert.alert(
             "WARNNING",
             "One of your devices has reached a higher than normal power consumption.\n do you want to turn this device?",
@@ -59,7 +60,7 @@ const InvalidConsumptionComponent = ({ indexes }) => {
                 onPress: () => {
                   axios
                     .get(
-                      `http://192.168.1.112:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+                      `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
                     )
                     .then((response) => {
                       console.log(response.data);
@@ -74,7 +75,7 @@ const InvalidConsumptionComponent = ({ indexes }) => {
           console.log(isFound);
           axios
             .get(
-              `http://192.168.1.112:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
+              `http://35.169.65.234:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
             )
             .then((response) => {
               console.log(response.data);

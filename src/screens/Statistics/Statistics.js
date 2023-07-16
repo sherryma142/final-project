@@ -23,6 +23,7 @@ const Statistics = ({ route, navigation }) => {
   const [isWeeklySelected, setWeeklySelection] = useState(false);
   const [selected, setSelected] = useState("");
   const { data } = route.params;
+
   return (
     <View style={styles.container}>
       <Text style={styles.hadder}>Statistics</Text>
@@ -35,8 +36,8 @@ const Statistics = ({ route, navigation }) => {
       <View style={styles.CheckBoxContainer}>
         <SelectList
           data={[
-            { key: 0, value: "Yearly" },
-            { key: 1, value: "Weekly" },
+            { key: 1, value: "Yearly" },
+            { key: 2, value: "Weekly" },
           ]}
           setSelected={(val) => {
             setSelected(val);

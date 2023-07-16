@@ -27,7 +27,7 @@ const RealHome = ({ navigation }) => {
 
   axios
     .get(
-      `http://192.168.1.112:9464/workshop/mainScreen/SeePlugsAtDB`
+      `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
     )
     .then((response) => {
 

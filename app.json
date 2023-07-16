@@ -8,10 +8,9 @@
         }
       ]
     ],
-
     "name": "final-project",
     "slug": "final-project",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -23,24 +22,34 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF",
-        "blockedPermissions": ["android.permission.RECORD_AUDIO"]
-      
+        "backgroundColor": "#FFFFFF"
       },
       "permissions": [
         "CAMERA",
         "ACCESS_FINE_LOCATION",
-        "ACCESS_BACKGROUND_LOCATION"]
-      }
+        "ACCESS_BACKGROUND_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.FOREGROUND_SERVICE"
+      ],
+      "package": "com.nikolsap.finalproject"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "extra": {
+      "eas": {
+        "projectId": "3ad53105-3b94-49c3-805f-1e97ecd7cae0"
+      }
     }
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
   }
+}

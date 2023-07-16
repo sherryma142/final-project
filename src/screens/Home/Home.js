@@ -17,6 +17,7 @@ import itemsMock from "../../mocks/itemsMock";
 import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
+
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
 // rnfe
 
@@ -26,9 +27,15 @@ const Home = ({ index, navigation }) => {
   const [isNotEmpty,setIsNotEmpty] = useState(true);
 
   let newData=[];
+
+  // axios
+  //   .get(
+  //     `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
+  //   )
+    
   axios
     .get(
-      `http://192.168.1.112:9464/workshop/mainScreen/SeePlugsAtDB`
+      `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
     )
     .then((response) => {
      // console.log(response.data)
@@ -98,16 +105,20 @@ setData(newData);
           <ButtonKitten
             onPress={() => {
               console.log("press");
-              
+              console.log(index);
+
             }}
             style={styles.Button}
             size="medium"
           >
             Sample consamption
+
           </ButtonKitten>
           {
-                isNotEmpty && <InvalidConsumptionComponent index={index} />
-              }  
+                isNotEmpty && <InvalidConsumptionComponent indexes={0} />
+              } 
+
+
         </View>
     
       </View>

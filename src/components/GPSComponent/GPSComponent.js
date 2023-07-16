@@ -9,11 +9,19 @@ import {
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
+
+// Home location (latitude and longitude) - Replace with your actual home coordinates
+
+
+ 
 // rnfe
 
 const GPSComponent = ({ route }) => {
   const { data } = route.params;
   const [fetdata, setData] = useState([]);
+
+
+    
   const initialLocation = {
     coords: {
       accuracy: 24.940620582782653,
@@ -87,7 +95,7 @@ const GPSComponent = ({ route }) => {
             onPress: () => {
               axios
                 .get(
-                  `http://192.168.1.112:9464/workshop/mainScreen/clickedOnExitAreaButton`
+                  `http://35.169.65.234:9464/workshop/mainScreen/clickedOnExitAreaButton`
                 )
                 .then((response) => {
                   setData(response.data);
@@ -135,8 +143,7 @@ const GPSComponent = ({ route }) => {
     console.log("distance==?", d);
     return d;
   }
-
+     
   return <View></View>;
-};
-
+}
 export default GPSComponent;

@@ -29,7 +29,7 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
   React.useEffect(() => {
     axios
       .get(
-        `http://192.168.1.112:9464/workshop/statisticsScreen/SimulateAnnualElectricityForPlug?i_UiIndex=${index}`
+        `http://35.169.65.234:9464/workshop/statisticsScreen/SimulateAnnualElectricityForPlug?i_UiIndex=${index}`
       )
       .then((response) => {
         setData(response.data);
@@ -37,7 +37,7 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
 
     axios
       .get(
-        `http://192.168.1.112:9464/workshop/statisticsScreen/GetElectricityConsumptionTillNow?i_UiIndex=${index}`
+        `http://35.169.65.234:9464/workshop/statisticsScreen/GetElectricityConsumptionTillNow?i_UiIndex=${index}`
       )
       .then((response) => {
         setUsage(response.data);
