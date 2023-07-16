@@ -21,7 +21,7 @@ const Settings = ({ navigation }) => {
       <ButtonKitten
         onPress={() =>
           axios
-            .get(`http://192.168.1.112:9464/workshop/mainScreen/close_app`)
+            .get(`http://35.169.65.234:9464/workshop/mainScreen/close_app`)
             .then((response) => {
               Alert.alert("all devices removed");
             })
@@ -39,7 +39,7 @@ const Settings = ({ navigation }) => {
         onPress={() =>
           axios
             .get(
-              `http://192.168.1.112:9464/workshop/mainScreen/clickedOnSleepButton`
+              `http://35.169.65.234:9464/workshop/mainScreen/clickedOnSleepButton`
             )
             .then((response) => {
               Alert.alert("sleep on");
@@ -57,7 +57,7 @@ const Settings = ({ navigation }) => {
       <ButtonKitten
         onPress={() =>
           axios
-            .get(`http://192.168.1.112:9464/workshop/mainScreen/close_app`)
+            .get(`http://35.169.65.234:9464/workshop/mainScreen/close_app`)
             .then((response) => {
               Alert.alert(response.data);
             })
@@ -85,6 +85,33 @@ const Settings = ({ navigation }) => {
         style={styles.switch}
       />
       <Text style={styles.item_name}>simulate mode</Text>
+
+      <ButtonKitten
+        onPress={() =>
+          axios
+            .get(
+              `http://35.169.65.234:9464/workshop/mainScreen/SimulateInvalidElectricityConsumption`
+            )
+            .then((response) => {
+              console.log("response index :",response.data);
+              // setIndex(response.data);
+              // console.log("index from settings " , ind );
+              Alert.alert("simulate", "simulate consumption success", [
+                {
+                  text: "OK",
+                  onPress: () => navigation.navigate("Home",{index: response.data}),
+                },
+              ]);
+            })
+            .catch((e) => {
+              console.log(e);
+            })
+        }
+        style={styles.button}
+        size="medium"
+      >
+        simulate invalid electricity consumption
+      </ButtonKitten>
     </View>
   );
 };
