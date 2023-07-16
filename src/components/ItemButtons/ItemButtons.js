@@ -4,27 +4,33 @@ import styles from "./ItemButtons.style";
 import constants from "../../constants/itemTypes";
 const Separator = () => <View style={styles.separator} />;
 
-export const ItemButtons = ({  name, type, navigation,index }) => {
+export const ItemButtons = ({
+  name,
+  type,
+  navigation,
+  index,
+  typeStatistics,
+}) => {
 
+  console.log(typeStatistics);
   return (
     <View style={styles.container}>
-              <Text style={styles.item_name}>{name}</Text>
+      <Text style={styles.item_name}>{name}</Text>
 
-              <TouchableHighlight 
-                onPress= {() => { 
-                  navigation.navigate('DeviceStatistic', 
-                    { name: name , index:index}
-                  );
-              
-            }}
-            >
-              <Image source={constants.IMAGES[type]} style={styles.item_image} />
-              </TouchableHighlight>
+       <TouchableHighlight
+        disabled={typeStatistics==""}
+        onPress={() => {
+          navigation.navigate("DeviceStatistic", {
+            name: name,
+            index: index,
+            typeStatistics: typeStatistics,
+          });
+        }}
+      >
+        <Image source={constants.IMAGES[type]} style={styles.item_image} />
+      </TouchableHighlight>
 
-     <Separator />
-
+      <Separator />
     </View>
-
-
   );
 };

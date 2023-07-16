@@ -7,57 +7,42 @@ import {
   Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import styles from "./Home.style";
+import styles from "./RealHome.style";
 import {
   Button as ButtonKitten,
   BottomNavigation,
 } from "@ui-kitten/components";
 import DevicesContainer from "../../components/devicesContainer/DevicesContainer";
-import itemsMock from "../../mocks/itemsMock";
 import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
-
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
+import SampleConsumption from "../SampleConsumption/SampleConsumption";
 // rnfe
 
-const Home = ({ index, navigation }) => {
-
+const RealHome = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [isNotEmpty,setIsNotEmpty] = useState(true);
+  const [newData, setNewData] = useState([]);
+  const [isNotEmpty, setIsNotEmpty] = useState(true);
 
-  let newData=[];
-
-  // axios
-  //   .get(
-  //     `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
-  //   )
-    
   axios
     .get(
       `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
     )
     .then((response) => {
-     // console.log(response.data)
-     response.data.map((object) => {
-      if(object.index!="10")
-      {
-     //   console.log(object);
-        newData.push(object);
+
+      response.data.map((object) => {
+
+          if(object.index==="10")
+          {
+            setNewData([object]);
+
+          }
       }
-  }
+        
+    )})
 
-
-)
-
-setData(newData);
-
-     
-    });
- 
-   // console.log(newData);
   return (
-  
     <ScrollView>
       <View style={styles.container}>
         <Ionicons
@@ -66,19 +51,18 @@ setData(newData);
           name="settings"
           size={32}
           onPress={() =>
-             navigation.navigate("Settings" , {navigation:navigation })
-            
-            }
+            navigation.navigate("Settings", { navigation: navigation })
+          }
         />
         <Text style={styles.hadder}>SaveEnergy</Text>
         <View style={styles.container}>
-          <DevicesContainer listOfItems={data} navigation={navigation} />
+          <DevicesContainer listOfItems={newData} navigation={navigation} />
         </View>
         <View style={styles.Buttons}>
           <ButtonKitten
             onPress={() =>
               navigation.navigate("SafeChild", {
-                data: data,
+                data: newData,
                 navigation: navigation,
               })
             }
@@ -88,42 +72,29 @@ setData(newData);
             Safe Child Mode
           </ButtonKitten>
           <ButtonKitten
-            onPress={() => navigation.navigate("SleepMode", { data: data })}
             style={styles.Button}
             size="medium"
-          >
-            Sleep Mode
-          </ButtonKitten>
-          <ButtonKitten
-            style={styles.Button}
-            size="medium"
-            onPress={() => navigation.navigate("Statistics", { data: data })}
+            onPress={() => navigation.navigate("Statistics", { data: newData })}
           >
             Statistics
           </ButtonKitten>
- 
-          <ButtonKitten
-            onPress={() => {
-              console.log("press");
-              console.log(index);
 
-            }}
+          <ButtonKitten
+            onPress={() =>
+              navigation.navigate("SampleConsumption", {
+                data: newData,
+                navigation: navigation,
+              })
+            }
             style={styles.Button}
             size="medium"
           >
-            Sample consamption
-
+            Sample consumption
           </ButtonKitten>
-          {
-                isNotEmpty && <InvalidConsumptionComponent indexes={0} />
-              } 
-
-
         </View>
-    
       </View>
     </ScrollView>
   );
 };
 
-export default Home;
+export default RealHome;

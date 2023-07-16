@@ -14,15 +14,20 @@ import {
   SafeAreaView,
   Button,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 
-export const AddNew = ({ route}) => {
-  //const [data, setData] = useState();
+import {
+  Button as ButtonKitten,
+  BottomNavigation,
+} from "@ui-kitten/components";
 
-  const {index}=route.params;
+export const AddNew = ({ route, navigation }) => {
+  const { index } = route.params;
   const [name, setName] = useState("");
-  const [normalConsumption, setNormalConsumptio] = useState("");
-  const [improperConsumption, setImproperConsumption] = useState("");
+  const [realIndex, setRealIndex] = useState(index);
+  const [normalConsumption, setNormalConsumptio] = useState(240);
+  const [improperConsumption, setImproperConsumption] = useState(260);
   const [selected, setSelected] = useState("");
 
   const data1 = [
@@ -34,6 +39,12 @@ export const AddNew = ({ route}) => {
     { key: 6, value: constants.INDEXTYPES[6] },
     { key: 7, value: constants.INDEXTYPES[7] },
   ];
+
+  const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
+
+  const toggleAdvancedSettings = () => {
+    setShowAdvancedSettings(!showAdvancedSettings);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,6 +64,17 @@ export const AddNew = ({ route}) => {
 
           <SelectList data={data1} setSelected={setSelected} />
 
+          <Text style={styles.labelsStyle}>index:</Text>
+
+          <TextInput
+            style={styles.labelsStyle}
+            placeholder="enter index if needed"
+            value={realIndex}
+            onChangeText={(text) => {
+              setRealIndex(text);
+            }}
+          />
+
           <Text style={styles.labelsStyle}>Image:</Text>
 
           <Image
@@ -67,38 +89,58 @@ export const AddNew = ({ route}) => {
             }}
           />
 
-          <Text style={styles.labelsStyle}>Normal power consumption:</Text>
-          <TextInput
-            style={[styles.labelsStyle]}
-            placeholder="enter min power consumption here"
-            value={normalConsumption}
-            onChangeText={(text) => setNormalConsumptio(text)}
-          />
+          <View style={styles.button}>
+            <Button
+              title={
+                showAdvancedSettings
+                  ? "Hide Advanced Settings"
+                  : "Show Advanced Settings"
+              }
+              onPress={toggleAdvancedSettings}
+              color="gray"
+            />
+            {showAdvancedSettings && (
+              <View>
+                <Text style={styles.labelsStyle}>min power consumption:</Text>
+                <TextInput
+                  style={[styles.labelsStyle]}
+                  placeholder="240"
+                  value={normalConsumption}
+                  onChangeText={(text) => setNormalConsumptio(text)}
+                />
 
-          <Text style={styles.labelsStyle}>Improper power consumption:</Text>
-          <TextInput
-            style={[styles.labelsStyle]}
-            placeholder="enter max power consumption here"
-            value={improperConsumption}
-            onChangeText={(text) => setImproperConsumption(text)}
-          />
+                <Text style={styles.labelsStyle}>max power consumption:</Text>
+                <TextInput
+                  style={[styles.labelsStyle]}
+                  placeholder="260"
+                  value={improperConsumption}
+                  onChangeText={(text) => setImproperConsumption(text)}
+                />
+              </View>
+            )}
+          </View>
 
           <Button
             title="ADD DEVICE"
             color="green"
             onPress={() => {
-              let type=constants.INDEXTYPES[selected];
+              let type = constants.INDEXTYPES[selected];
 
               console.log(index);
-              axios.get(`http://192.168.1.112:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${index}`)
-              .then((response) => {
-                console.log(response.data);
-                Alert.alert("Device added succesfuly");
-
-              })
-            
-            }
-            }
+              axios
+                .get(
+                  `http://35.169.65.234:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${realIndex}`
+                )
+                .then((response) => {
+                  console.log(response.data);
+                  Alert.alert("Device added", "Device added succesfully", [
+                    {
+                      text: "OK",
+                      onPress: () => navigation.navigate("Home"),
+                    },
+                  ]);
+                });
+            }}
           />
         </ScrollView>
       </View>

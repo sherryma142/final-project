@@ -19,6 +19,11 @@ export default StyleSheet.create({
     marginBottom: 15,
     marginRight: 10,
   },
+  labelsStyle2: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginRight: 10,
+  },
   textLabel: {
     marginTop: -40,
     marginRight: 80,
@@ -26,5 +31,8 @@ export default StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 10,
+  }, 
+   switch: {
+    justifyContent: "flex-start",
   },
 });

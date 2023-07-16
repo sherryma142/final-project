@@ -21,4 +21,21 @@ export default StyleSheet.create({
     padding: 10,
     //backgroundColor: "green",
   },
+  inLive: {
+    width: 10,
+    height: 10,
+    borderRadius: 10,
+    position: 'absolute',
+    top: 20,
+    backgroundColor: 'green',
+  },
+  offLive: {
+    width: 10,
+    height: 10,
+    borderRadius: 10,
+    position: 'absolute',
+    top: 20,
+    backgroundColor: 'red',
+  },
+
 });

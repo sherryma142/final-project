@@ -4,13 +4,22 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   hadder: {
     fontSize: 60,
     paddingTop: 60,
-    alignItems: "flex-start",
-    justifyContent: "center",
   },
-  liveShow: {},
+  button: {
+    marginTop: 10,
+    marginBottom: 15,
+    paddingLeft: 20,
+  },
+  item_name: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: -40,
+    marginLeft: 60,
+    marginBottom: 15,
+  },
 });

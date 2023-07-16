@@ -14,7 +14,7 @@ export default {
     fridge: require("../../assets/fridge.jpg"),
     oven: require("../../assets/oven.jpg"),
     watch: require("../../assets/watch.jpg"),
-    airConditioner: require("../../assets/airConditioner.png"),
+    airConditioner: require("../../assets/airConditioner.jpg"),
     stove: require("../../assets/stove.jpg"),
     plus: require("../../assets/plus.jpg"),
   },
@@ -24,9 +24,7 @@ export default {
     3: "fridge",
     4: "oven",
     5: "watch",
-    6: "air-Conditioner",
+    6: "airConditioner",
     7: "stove",
   },
-
-
 };

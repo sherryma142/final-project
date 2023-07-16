@@ -1,34 +1,67 @@
-import { View, Text, Image, TouchableHighlight,Dimensions,useState ,Button} from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableHighlight,
+  Dimensions,
+  Button,
+} from "react-native";
+import React, { useState } from "react";
 import styles from "./Statistics.style";
-import { Button as ButtonKitten,BottomNavigation } from "@ui-kitten/components";
+import {
+  Button as ButtonKitten,
+  BottomNavigation,
+} from "@ui-kitten/components";
 import DevicesNamesButtons from "../../components/DevicesNamesButtons/DevicesNamesButtons";
+import { SelectList } from "react-native-dropdown-select-list";
+
 // rnfe
 
+const Statistics = ({ route, navigation }) => {
+  const [isYearlySelected, setYearlySelection] = useState(false);
+  const [isDailySelected, setDailySelection] = useState(false);
+  const [isWeeklySelected, setWeeklySelection] = useState(false);
+  const [selected, setSelected] = useState("");
+  const { data } = route.params;
 
-const Statistics = ({  route, navigation }) => {
-  const {data} =route.params;
-    return(
-    
+  return (
     <View style={styles.container}>
       <Text style={styles.hadder}>Statistics</Text>
       <Text style={styles.labelsStyle}>choose device:</Text>
-
-    <View style={styles.container}>
-       
-        <DevicesNamesButtons listOfItems={data} navigation={navigation} />
-      </View>
-
-      <Button
-              style={styles.button}
-              title="statistics for all devices"
-              onPress= {() => { 
-                navigation.navigate("AllDevicesStatistic");
+      <DevicesNamesButtons
+        listOfItems={data}
+        navigation={navigation}
+        typeStatistics={selected}
+      />
+      <View style={styles.CheckBoxContainer}>
+        <SelectList
+          data={[
+            { key: 1, value: "Yearly" },
+            { key: 2, value: "Weekly" },
+          ]}
+          setSelected={(val) => {
+            setSelected(val);
+            console.log(val);
           }}
-
-            />
+        />
+      </View>
+      <View style={styles.Buttons}>
+        <ButtonKitten
+          style={styles.Button}
+          onPress={() => {
+            navigation.navigate("AllDevicesStatistic", {
+              data: data,
+              navigation: navigation,
+              typeStatistics: selected,
+            });
+          }}
+          size="medium"
+        >
+          statistics for all devices
+        </ButtonKitten>
+      </View>
     </View>
-    );
-  };
-  
-  export default Statistics;
+  );
+};
+
+export default Statistics;
