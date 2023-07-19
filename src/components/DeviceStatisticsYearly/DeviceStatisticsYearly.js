@@ -45,7 +45,7 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View>
+    <ScrollView>
       <Text style={styles.item_title}>Device Name:</Text>
       <Text style={styles.item_name}>{name}</Text>
       <BarChart
@@ -106,7 +106,7 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
 
       {/* <Text style={styles.item_usage}>device usage:</Text>
       <Text style={styles.item_name}>{usage}</Text> */}
-    </View>
+    </ScrollView>
   );
 };
 
