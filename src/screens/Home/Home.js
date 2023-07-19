@@ -19,6 +19,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
+import { color } from "react-native-reanimated";
 // rnfe
 
 const Home = ({ index, navigation }) => {
@@ -28,10 +29,10 @@ const Home = ({ index, navigation }) => {
 
   let newData=[];
 
-  // axios
-  //   .get(
-  //     `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
-  //   )
+  axios
+    .get(
+      `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
+    )
     
   axios
     .get(
@@ -58,8 +59,8 @@ setData(newData);
    // console.log(newData);
   return (
   
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <View style={styles.container1}>
         <Ionicons
           style={styles.settings}
           ignoredStyles={["styles.container"]}
@@ -84,6 +85,8 @@ setData(newData);
             }
             style={styles.Button}
             size="medium"
+            status = "info"
+            appearance = "outline"
           >
             Safe Child Mode
           </ButtonKitten>
@@ -91,12 +94,16 @@ setData(newData);
             onPress={() => navigation.navigate("SleepMode", { data: data })}
             style={styles.Button}
             size="medium"
+            status = "info"
+            appearance = "outline"
           >
             Sleep Mode
           </ButtonKitten>
           <ButtonKitten
             style={styles.Button}
             size="medium"
+            status = "info"
+            appearance = "outline"
             onPress={() => navigation.navigate("Statistics", { data: data })}
           >
             Statistics
@@ -110,6 +117,8 @@ setData(newData);
             }}
             style={styles.Button}
             size="medium"
+            status = "info"
+            appearance = "outline"
           >
             Sample consamption
 

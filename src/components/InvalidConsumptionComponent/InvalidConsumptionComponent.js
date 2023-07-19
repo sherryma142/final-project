@@ -46,7 +46,7 @@ const InvalidConsumptionComponent = ({ indexes }) => {
         if (response.data === 0.120930225) {
           Alert.alert(
             "WARNNING",
-            "One of your devices has reached a higher than normal power consumption.\n do you want to turn this device?",
+            "One of your devices has reached a higher than normal power consumption.\n do you want to turn off this device?",
             [
               {
                 text: "No",

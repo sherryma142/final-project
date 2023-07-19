@@ -76,7 +76,7 @@ const GPSComponent = ({ route }) => {
     );
 
     console.log("distance:", distance);
-    if (distance > 24.163) {
+    if (distance > 0.5) {
       // add && checkDevicesON(data)
       Alert.alert(
         "safe chiled mode",

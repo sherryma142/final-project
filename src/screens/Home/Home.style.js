@@ -3,17 +3,36 @@ import { SlideInRight } from "react-native-reanimated";
 
 export default StyleSheet.create({
   container: {
+    // flex: 1,
+    // backgroundColor: "green",
+    // justifyContent: "flex-start",
+    // flexWrap: "wrap",
+    // alignContent: "center",
+
     flex: 1,
-    backgroundColor: "pink",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    flexWrap: "wrap",
+    backgroundColor: `#d3d3d3`,
+  },
+  container1: {
+    // flex: 1,
+    // backgroundColor: "green",
+    // justifyContent: "flex-start",
+    // flexWrap: "wrap",
+    // alignContent: "center",
+
+    flex: 1,
+    padding: 24,
+    alignItems: 'center',
+    backgroundColor: `#d3d3d3`,
   },
   hadder: {
     fontSize: 60,
     paddingTop: 30,
     alignItems: "flex-start",
     justifyContent: "center",
+    color: 'green',
+    fontWeight: 'bold',
+
+
   },
   liveShow: {},
   settings: {},
@@ -24,9 +43,9 @@ export default StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 80,
   },
-  button:{
+  Button:{
     flex: 1,
-    justifyContent: "flex-start",
     marginleft: 10,
+    marginTop: 10
   }
 });
