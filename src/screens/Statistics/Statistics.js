@@ -36,8 +36,8 @@ const Statistics = ({ route, navigation }) => {
       <View style={styles.CheckBoxContainer}>
         <SelectList
           data={[
-            { key: 1, value: "Yearly" },
-            { key: 2, value: "Weekly" },
+            { key: 1, value: "Weekly" },
+            { key: 2, value: "Yearly" },
           ]}
           setSelected={(val) => {
             setSelected(val);
