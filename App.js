@@ -32,14 +32,20 @@ function MainTabNavigator({ data }) {
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          let iconColor = focused ? "blue" : "gray"; // Set the desired icon color here
+          let iconColor = focused ? "green" : "gray"; // Set the desired icon color here
 
           if (route.name === "Home") {
             iconName = focused ? "ios-home" : "ios-home-outline";
           } else if (route.name === "SafeChild") {
-            iconName = focused ? "ios-pulse" : "ios-pulse-outline";
+            iconName = focused ? "ios-body" : "ios-body-outline";
           } else if (route.name === "Settings") {
             iconName = focused ? "ios-settings" : "ios-settings-outline";
+          }
+          else if (route.name === "SleepMode") {
+            iconName = focused ? "ios-bed" : "ios-bed-outline";
+          }
+          else if (route.name === "Statistics") {
+            iconName = focused ? "ios-pulse" : "ios-pulse-outline";
           }
           return <Ionicons name={iconName} size={size} color={iconColor} />;
         },
@@ -51,6 +57,18 @@ function MainTabNavigator({ data }) {
         name="SafeChild"
         options={{ tabBarLabel: "Safe Child"}}
         component={SafeChild}
+        initialParams={{ data: data }}
+      />
+       <Tab.Screen
+        name="SleepMode"
+        options={{ tabBarLabel: "Sleep Mode"}}
+        component={SleepMode}
+        initialParams={{ data: data }}
+      />
+       <Tab.Screen
+        name="Statistics"
+        options={{ tabBarLabel: "Statistics"}}
+        component={Statistics}
         initialParams={{ data: data }}
       />
       <Tab.Screen name="Settings" component={Settings} />

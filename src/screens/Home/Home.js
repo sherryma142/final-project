@@ -65,23 +65,7 @@ setData(newData);
           <DevicesContainer listOfItems={data} navigation={navigation} />
         </View>
         <View style={styles.Buttons}>
-          
-          <Button
-            onPress={() => navigation.navigate("SleepMode", { data: data })}
-            style={styles.Button}
-            size="medium"
-         
-          >
-            Sleep Mode
-          </Button>
-          <Button
-            style={styles.Button}
-            size="medium"
-            onPress={() => navigation.navigate("Statistics", { data: data })}
-          >
-           <Text style={styles.buttonText}>Statistics</Text>
-          </Button>
- 
+        
           <Button
             onPress={() => {
               console.log("press");
