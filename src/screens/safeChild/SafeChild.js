@@ -10,7 +10,10 @@ import GPSComponent from "../../components/GPSComponent/GPSComponent";
 
 const SafeChild = ({ route }) => {
   const [isPress, setIsPress] = useState(false);
+ 
   const { data } = route.params;
+  console.log("safe app" ,data)
+
 
   return (
     <View style={styles.container}>

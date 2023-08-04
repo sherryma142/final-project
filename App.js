@@ -1,8 +1,10 @@
+import React, { useState, useEffect } from "react";
 import { ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, StyleSheet, Image } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Home from "./src/screens/Home/Home";
 import LiveShow from "./src/screens/LiveShow/LiveShow";
 import AddNew from "./src/screens/AddNew/AddNew";
@@ -18,22 +20,99 @@ import DeviceStatistic from "./src/screens/DeviceStatistic/DeviceStatistic";
 import AllDevicesStatistic from "./src/screens/AllDevicesStatistic/AllDevicesStatistic";
 import SampleConsumption from "./src/screens/SampleConsumption/SampleConsumption";
 import RealHome from "./src/screens/RealHome/RealHome";
+import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export default function App() {
+function MainTabNavigator({ data }) {
+  return (
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          let iconColor = focused ? "blue" : "gray"; // Set the desired icon color here
+
+          if (route.name === "Home") {
+            iconName = focused ? "ios-home" : "ios-home-outline";
+          } else if (route.name === "SafeChild") {
+            iconName = focused ? "ios-pulse" : "ios-pulse-outline";
+          } else if (route.name === "Settings") {
+            iconName = focused ? "ios-settings" : "ios-settings-outline";
+          }
+          return <Ionicons name={iconName} size={size} color={iconColor} />;
+        },
+        
+      })}
+    >
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen
+        name="SafeChild"
+        options={{ tabBarLabel: "Safe Child"}}
+        component={SafeChild}
+        initialParams={{ data: data }}
+      />
+      <Tab.Screen name="Settings" component={Settings} />
+
+      
+    </Tab.Navigator>
+
+    
+  );
+}
+
+const CustomTabBarButton = ({ data, name, iconName, iconColor }) => {
+  const navigation = useNavigation();
+
+  const navigateToTabScreen = () => {
+    console.log("nav", data);
+    // Pass additional parameters as the second argument to navigation.navigate
+    navigation.navigate(name, { data: data });
+  };
+  return (
+    <TouchableOpacity onPress={navigateToTabScreen}>
+      <Ionicons name="settings" size={26} color={iconColor} />
+    </TouchableOpacity>
+  );
+};
+function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseFetch = await axios.get(
+          "http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB"
+        );
+        const responseGet = await axios.get(
+          "http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB"
+        );
+        const data = responseGet.data.filter((object) => object.index !== "10");
+        setData(data);
+        console.log("Fetched Data:", data); // Log the fetched data
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <NavigationContainer>
       <ApplicationProvider {...eva} theme={eva.light}>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen
+            name="Main"
+            component={() => <MainTabNavigator data={data} />}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="LiveShow" component={LiveShow} />
           <Stack.Screen name="AddNew" component={AddNew} />
           <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="ExistDetails" component={ExistDetails} />
-          <Stack.Screen name="SafeChild" component={SafeChild} />
           <Stack.Screen name="SleepMode" component={SleepMode} />
-          <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="Statistics" component={Statistics} />
           <Stack.Screen name="DeviceStatistic" component={DeviceStatistic} />
           <Stack.Screen name="RealHome" component={RealHome} />
@@ -56,3 +135,5 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
 });
+
+export default App;

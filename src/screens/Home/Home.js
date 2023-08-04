@@ -1,17 +1,14 @@
 import {
   View,
-  Text,
   ScrollView,
   TouchableHighlight,
-  Button,
   Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import styles from "./Home.style";
-import {
-  Button as ButtonKitten,
-  BottomNavigation,
-} from "@ui-kitten/components";
+
+import { Button, Text } from '@ui-kitten/components';
+
 import DevicesContainer from "../../components/devicesContainer/DevicesContainer";
 import itemsMock from "../../mocks/itemsMock";
 import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
@@ -20,6 +17,7 @@ import axios from "axios";
 
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
 import { color } from "react-native-reanimated";
+
 // rnfe
 
 const Home = ({ index, navigation }) => {
@@ -61,55 +59,30 @@ setData(newData);
   
     <ScrollView style={styles.container}>
       <View style={styles.container1}>
-        <Ionicons
-          style={styles.settings}
-          ignoredStyles={["styles.container"]}
-          name="settings"
-          size={32}
-          onPress={() =>
-             navigation.navigate("Settings" , {navigation:navigation })
-            
-            }
-        />
+      
         <Text style={styles.hadder}>SaveEnergy</Text>
         <View style={styles.container}>
           <DevicesContainer listOfItems={data} navigation={navigation} />
         </View>
         <View style={styles.Buttons}>
-          <ButtonKitten
-            onPress={() =>
-              navigation.navigate("SafeChild", {
-                data: data,
-                navigation: navigation,
-              })
-            }
-            style={styles.Button}
-            size="medium"
-            status = "info"
-            appearance = "outline"
-          >
-            Safe Child Mode
-          </ButtonKitten>
-          <ButtonKitten
+          
+          <Button
             onPress={() => navigation.navigate("SleepMode", { data: data })}
             style={styles.Button}
             size="medium"
-            status = "info"
-            appearance = "outline"
+         
           >
             Sleep Mode
-          </ButtonKitten>
-          <ButtonKitten
+          </Button>
+          <Button
             style={styles.Button}
             size="medium"
-            status = "info"
-            appearance = "outline"
             onPress={() => navigation.navigate("Statistics", { data: data })}
           >
-            Statistics
-          </ButtonKitten>
+           <Text style={styles.buttonText}>Statistics</Text>
+          </Button>
  
-          <ButtonKitten
+          <Button
             onPress={() => {
               console.log("press");
               console.log(index);
@@ -117,12 +90,11 @@ setData(newData);
             }}
             style={styles.Button}
             size="medium"
-            status = "info"
-            appearance = "outline"
+           
           >
             Sample consamption
 
-          </ButtonKitten>
+          </Button>
           {
                 isNotEmpty && <InvalidConsumptionComponent indexes={0} />
               } 
