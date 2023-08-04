@@ -14,6 +14,7 @@ import {
 } from "@ui-kitten/components";
 import DevicesNamesButtons from "../../components/DevicesNamesButtons/DevicesNamesButtons";
 import { SelectList } from "react-native-dropdown-select-list";
+import axios from "axios";
 
 // rnfe
 
@@ -22,8 +23,31 @@ const Statistics = ({ route, navigation }) => {
   const [isDailySelected, setDailySelection] = useState(false);
   const [isWeeklySelected, setWeeklySelection] = useState(false);
   const [selected, setSelected] = useState("");
-  const { data } = route.params;
+  const [data, setData] = useState([]);
 
+  let newData=[];
+
+  axios
+    .get(
+      `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
+    )
+    
+  axios
+    .get(
+      `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
+    )
+    .then((response) => {
+     // console.log(response.data)
+     response.data.map((object) => {
+      if(object.index!="10")
+      {
+     //   console.log(object);
+        newData.push(object);
+      }
+  }
+)
+setData(newData);
+    });
   return (
     <View style={styles.container}>
       <Text style={styles.hadder}>Statistics</Text>

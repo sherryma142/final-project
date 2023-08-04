@@ -10,11 +10,33 @@ import GPSComponent from "../../components/GPSComponent/GPSComponent";
 
 const SafeChild = ({ route }) => {
   const [isPress, setIsPress] = useState(false);
- 
-  const { data } = route.params;
-  console.log("safe app" ,data)
+   console.log("safe app" ,data)
 
+  const [data, setData] = useState([]);
 
+  let newData=[];
+
+  axios
+    .get(
+      `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
+    )
+    
+  axios
+    .get(
+      `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
+    )
+    .then((response) => {
+     // console.log(response.data)
+     response.data.map((object) => {
+      if(object.index!="10")
+      {
+     //   console.log(object);
+        newData.push(object);
+      }
+  }
+)
+setData(newData);
+    });
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>

@@ -7,9 +7,12 @@ import {
 } from "@ui-kitten/components";
 import axios from "axios";
 
+import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
+
 const Settings = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(true);
   const [ind, setIndex] = useState(0);
+  const [isNotEmpty,setIsNotEmpty] = useState(true);
 
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);
@@ -77,14 +80,14 @@ const Settings = ({ navigation }) => {
       >
         Real Simulation
       </ButtonKitten>
-      <Switch
+      {/* <Switch
         trackColor={{ false: "red", true: "green" }}
         thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
         onValueChange={toggleRememberPin}
         value={isEnabled}
         style={styles.switch}
-      />
-      <Text style={styles.item_name}>simulate mode</Text>
+      /> */}
+      {/* <Text style={styles.item_name}>simulate mode</Text> */}
 
       <ButtonKitten
         onPress={() =>
@@ -112,6 +115,22 @@ const Settings = ({ navigation }) => {
       >
         simulate invalid electricity consumption
       </ButtonKitten>
+
+      <ButtonKitten
+            onPress={() => {
+          
+
+            }}
+            style={styles.Button}
+            size="medium"
+           
+          >
+            Sample consamption
+
+          </ButtonKitten>
+          {
+                isNotEmpty && <InvalidConsumptionComponent indexes={0} />
+              } 
     </View>
   );
 };
