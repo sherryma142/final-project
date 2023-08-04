@@ -22,7 +22,38 @@ import { color } from "react-native-reanimated";
 
 const Home = ({ index, navigation }) => {
 
+  const [data, setData] = useState([]);
   const [isNotEmpty,setIsNotEmpty] = useState(true);
+
+  let newData=[];
+
+  axios
+    .get(
+      `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
+    )
+    
+  axios
+    .get(
+      `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
+    )
+    .then((response) => {
+     // console.log(response.data)
+     response.data.map((object) => {
+      if(object.index!="10")
+      {
+     //   console.log(object);
+        newData.push(object);
+      }
+  }
+
+
+)
+
+setData(newData);
+
+     
+    });
+ 
    // console.log(newData);
   return (
   

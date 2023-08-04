@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { ItemNameSafeChild } from "../ItemNameSafeChild/ItemNameSafeChild";
 import styles from "./SafeChildDevicesContainer.style";
 
-const SleepModeDevicesContainer = ({ listOfItems }) => {
+const SafeChildDevicesContainer = ({ listOfItems }) => {
   return (
     <View style={styles.container}>
       <View style={styles.itemTypes}>
@@ -15,4 +15,4 @@ const SleepModeDevicesContainer = ({ listOfItems }) => {
   );
 };
 
-export default SleepModeDevicesContainer;
+export default SafeChildDevicesContainer;

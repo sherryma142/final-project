@@ -99,6 +99,7 @@ const GPSComponent = ({ route }) => {
                 )
                 .then((response) => {
                   setData(response.data);
+                  console.log("clicked eare " ,response.data);
                 });
             },
           },
