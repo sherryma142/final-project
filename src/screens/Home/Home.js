@@ -15,7 +15,6 @@ import LiveShowComponent from "../../components/LiveShowComponent/LiveShowCompon
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 
-import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
 import { color } from "react-native-reanimated";
 
 // rnfe
@@ -23,7 +22,6 @@ import { color } from "react-native-reanimated";
 const Home = ({ index, navigation }) => {
 
   const [data, setData] = useState([]);
-  const [isNotEmpty,setIsNotEmpty] = useState(true);
 
   let newData=[];
 
@@ -45,13 +43,8 @@ const Home = ({ index, navigation }) => {
         newData.push(object);
       }
   }
-
-
 )
-
 setData(newData);
-
-     
     });
  
    // console.log(newData);
@@ -66,22 +59,7 @@ setData(newData);
         </View>
         <View style={styles.Buttons}>
         
-          <Button
-            onPress={() => {
-              console.log("press");
-              console.log(index);
-
-            }}
-            style={styles.Button}
-            size="medium"
-           
-          >
-            Sample consamption
-
-          </Button>
-          {
-                isNotEmpty && <InvalidConsumptionComponent indexes={0} />
-              } 
+         
 
 
         </View>
