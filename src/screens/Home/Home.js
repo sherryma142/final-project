@@ -65,20 +65,7 @@ setData(newData);
           <DevicesContainer listOfItems={data} navigation={navigation} />
         </View>
         <View style={styles.Buttons}>
-          <Button
-            onPress={() =>
-              navigation.navigate("SafeChild", {
-                data: data,
-                navigation: navigation,
-              })
-            }
-            style={styles.Button}
-           
-            size="medium"
-           
-          >
-            Safe Child Mode
-          </Button>
+          
           <Button
             onPress={() => navigation.navigate("SleepMode", { data: data })}
             style={styles.Button}
