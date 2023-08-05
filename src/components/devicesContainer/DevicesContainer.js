@@ -65,32 +65,6 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
       </View>
     </View>
   );
-  // return (
-  //   <View style={styles.container}>
-  //     <View style={styles.rowDevices}>
-
-  //       {listOfItems.map((item) => (
-  //         <Item
-  //           name={item.title}
-  //           type={item.type}
-  //           navigation={navigation}
-  //           index={item.index}
-  //           status={item.status}
-  //         />
-  //       ))}
-
-  //       {listOfItems.length < 9 && (
-  //         <Item
-  //           name="add new"
-  //           type="plus"
-  //           navigation={navigation}
-  //           index={listOfItems.length}
-  //           status={"plus"}
-  //         />
-  //       )}
-  //     </View>
-  //   </View>
-  // );
 };
 
 export default DevicesContainer;
