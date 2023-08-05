@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   item_name: {
     fontSize: 15,
-    paddingTop: 40,
+    paddingTop: 10,
     alignItems: "center",
     //backgroundColor: "red",
   },
@@ -25,17 +25,17 @@ export default StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 10,
-    position: 'absolute',
-    top: 20,
-    backgroundColor: 'green',
+    position: "relative",
+    top: 5,
+    backgroundColor: "green",
   },
   offLive: {
     width: 10,
     height: 10,
     borderRadius: 10,
-    position: 'absolute',
-    top: 20,
-    backgroundColor: 'red',
+    position: "relative",
+    top: 5,
+    backgroundColor: "red",
+    alignItems: "center",
   },
-
 });

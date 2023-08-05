@@ -16,7 +16,7 @@ export default {
     watch: require("../../assets/watch.jpg"),
     airConditioner: require("../../assets/airConditioner.jpg"),
     stove: require("../../assets/stove.jpg"),
-    plus: require("../../assets/plus.jpg"),
+    //plus: require("../../assets/plus.jpg"),
   },
   INDEXTYPES: {
     1: "television",

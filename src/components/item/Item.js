@@ -40,15 +40,10 @@ export const Item = ({ name, type, navigation, index, status }) => {
 
       <TouchableHighlight
         onPress={() =>
-          type === "plus"
-            ? navigation.navigate("AddNew", {
-                index: index,
-                navigation: navigation,
-              })
-            : navigation.navigate("Details", {
-                index: index,
-                navigation: navigation,
-              })
+          navigation.navigate("Details", {
+            index: index,
+            navigation: navigation,
+          })
         }
       >
         <Image source={constants.IMAGES[type]} style={styles.item_image} />
