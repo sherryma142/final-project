@@ -1,8 +1,10 @@
-import { View, Text,Switch,ScrollView,Button,Alert } from "react-native";
+import { View, Text,Switch,ScrollView,Alert } from "react-native";
 import React,{useState} from "react";
 import styles from "./SleepMode.style";
 import SleepModeDevicesContainer from "../../components/sleepModeDevicesContainer/SleepModeDevicesContainer";
 import axios from "axios";
+import { Button } from "@ui-kitten/components";
+
 
 
 const SleepMode = ({  route }) => {
@@ -38,7 +40,9 @@ setData(newData);
     
   <View style={styles.container}>
      <ScrollView style={styles.scrollView}>
-     <Text style={styles.header}>Sleep Mode</Text>
+     <View style={styles.titleContainer}>
+      <Text style={styles.hadder}>Sleep Mode</Text>
+      </View>
      <Text style={styles.labelsStyle}>Choose devices: </Text>
      {/* <Text style={styles.labelsStyle}>On/Off this option: </Text>
        <Switch
@@ -52,10 +56,18 @@ setData(newData);
         <SleepModeDevicesContainer listOfItems={data} />
       </View>
       <Button
-            title="Connect devices to sleep mode"
-            color="green"
-            onPress={() => Alert.alert("connect succesfully")}
-          />
+         style={styles.button}
+        textStyle={styles.buttonText}
+        status="success" // Green background colo
+        size="medium"
+          onPress={() => {
+            Alert.alert("connect succesfully")
+          }}
+        
+        >
+          Connect devices to sleep mode
+        </Button> 
+    
      </ScrollView>
     </View>
   );

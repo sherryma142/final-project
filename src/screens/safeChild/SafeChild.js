@@ -1,4 +1,4 @@
-import { View, Text, Switch, ScrollView, Button, Alert } from "react-native";
+import { View, Text, Switch, ScrollView, Alert } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./SafeChild.style";
 import SafeChildDevicesContainer from "../../components/safeChildDevicesContainer/SafeChildDevicesContainer";
@@ -7,6 +7,8 @@ import { getDistance, getPreciseDistance } from "geolib";
 import axios from "axios";
 import { State } from "react-native-gesture-handler";
 import GPSComponent from "../../components/GPSComponent/GPSComponent";
+import { Button } from "@ui-kitten/components";
+
 
 const SafeChild = ({ route }) => {
   const [isPress, setIsPress] = useState(false);
@@ -40,13 +42,29 @@ setData(newData);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Text style={styles.header}>Safe Child</Text>
+      <View style={styles.titleContainer}>
+      <Text style={styles.hadder}>Safe Child</Text>
+      </View>
         <Text style={styles.labelsStyle}>Choose devices: </Text>
         <View style={styles.container}>
           <SafeChildDevicesContainer listOfItems={data} />
         </View>
         <View>
-          <Button
+        <Button
+         style={styles.button}
+        textStyle={styles.buttonText}
+        status="success" // Green background colo
+        size="medium"
+          onPress={() => {
+            console.log("press");
+            console.log(route);
+            setIsPress(true);
+          }}
+        >
+              Connect devices to safe child mode  
+      </Button> 
+      {isPress && <GPSComponent route={route} />}
+          {/* <Button
             title="Connect devices to safe child mode"
             color="green"
             onPress={() => {
@@ -55,7 +73,7 @@ setData(newData);
               setIsPress(true);
             }}
           />
-          {isPress && <GPSComponent route={route} />}
+          {isPress && <GPSComponent route={route} />} */}
         </View>
       </ScrollView>
     </View>

@@ -1,10 +1,8 @@
 import { View, Text, Alert, Switch } from "react-native";
 import React, { useState } from "react";
 import styles from "./Settings.style";
-import {
-  Button as ButtonKitten,
-  BottomNavigation,
-} from "@ui-kitten/components";
+import { Button } from "@ui-kitten/components";
+
 import axios from "axios";
 
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
@@ -20,8 +18,9 @@ const Settings = ({ navigation }) => {
   };
 
   return (
+    
     <View style={styles.container}>
-      <ButtonKitten
+      <Button
         onPress={() =>
           axios
             .get(`http://35.169.65.234:9464/workshop/mainScreen/close_app`)
@@ -33,12 +32,14 @@ const Settings = ({ navigation }) => {
             })
         }
         style={styles.button}
+        textStyle={styles.buttonText}
+        status="success" // Green background colo
         size="medium"
       >
         close all devices
-      </ButtonKitten>
+      </Button>
 
-      <ButtonKitten
+      <Button
         onPress={() =>
           axios
             .get(
@@ -52,12 +53,14 @@ const Settings = ({ navigation }) => {
             })
         }
         style={styles.button}
+        textStyle={styles.buttonText}
+        status="success" // Green background colo
         size="medium"
       >
         sleep
-      </ButtonKitten>
+      </Button>
 
-      <ButtonKitten
+      <Button
         onPress={() =>
           axios
             .get(`http://35.169.65.234:9464/workshop/mainScreen/close_app`)
@@ -69,17 +72,21 @@ const Settings = ({ navigation }) => {
             })
         }
         style={styles.button}
+        textStyle={styles.buttonText}
+        status="success" // Green background colo
         size="medium"
       >
         closeApp
-      </ButtonKitten>
-      <ButtonKitten
-         style={styles.Button}
+      </Button>
+      <Button
+         style={styles.button}
+         textStyle={styles.buttonText}
+         status="success" // Green background colo
          size="medium"
          onPress={() => navigation.navigate("RealHome")}
       >
         Real Simulation
-      </ButtonKitten>
+      </Button>
       {/* <Switch
         trackColor={{ false: "red", true: "green" }}
         thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
@@ -89,7 +96,7 @@ const Settings = ({ navigation }) => {
       /> */}
       {/* <Text style={styles.item_name}>simulate mode</Text> */}
 
-      <ButtonKitten
+      <Button
         onPress={() =>
           axios
             .get(
@@ -111,23 +118,27 @@ const Settings = ({ navigation }) => {
             })
         }
         style={styles.button}
+        textStyle={styles.buttonText}
+        status="success" // Green background colo
         size="medium"
       >
         simulate invalid electricity consumption
-      </ButtonKitten>
+      </Button>
 
-      <ButtonKitten
+      <Button
             onPress={() => {
           
 
             }}
-            style={styles.Button}
+            style={styles.button}
+            textStyle={styles.buttonText}
+            status="success" // Green background colo
             size="medium"
            
           >
             Sample consamption
 
-          </ButtonKitten>
+          </Button>
           {
                 isNotEmpty && <InvalidConsumptionComponent indexes={0} />
               } 

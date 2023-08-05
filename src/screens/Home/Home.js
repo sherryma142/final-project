@@ -2,7 +2,7 @@ import {
   View,
   ScrollView,
   TouchableHighlight,
-  Alert,
+  Alert,Image
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import styles from "./Home.style";
@@ -52,8 +52,9 @@ setData(newData);
   
     <ScrollView style={styles.container}>
       <View style={styles.container1}>
-      
-        <Text style={styles.hadder}>SaveEnergy</Text>
+      <View style={styles.titleContainer}>
+      <Text style={styles.hadder}>SaveEnergy</Text>
+      </View>
         <View style={styles.container}>
           <DevicesContainer listOfItems={data} navigation={navigation} />
         </View>

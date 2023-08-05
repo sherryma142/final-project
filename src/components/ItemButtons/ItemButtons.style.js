@@ -21,7 +21,7 @@ export default StyleSheet.create({
     height: 40,
     padding: 10,
     //backgroundColor: "green",
-    width: 200,
+    width: 50,
     height: 50,
     borderRadius: 50, // Half of width and height makes the button circular
     justifyContent: "center",

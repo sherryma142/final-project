@@ -13,13 +13,19 @@ export default StyleSheet.create({
   button: {
     marginTop: 10,
     marginBottom: 15,
-    paddingLeft: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 30, // Rounded corners
+    backgroundColor: "#4caf50", //
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
   },
-  item_name: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: -40,
-    marginLeft: 60,
-    marginBottom: 15,
+  buttonText: {
+    fontSize: 18, // Font size
+    fontWeight: "bold", // Font weight
+    color: "white", // Text color
   },
 });

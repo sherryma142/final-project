@@ -2,12 +2,15 @@ import {
   View,
   Text,
   Image,
+  ScrollView,
   TouchableHighlight,
   Dimensions,
-  Button,
 } from "react-native";
+import { Button } from "@ui-kitten/components";
+
 import React, { useState } from "react";
 import styles from "./Statistics.style";
+
 import {
   Button as ButtonKitten,
   BottomNavigation,
@@ -49,15 +52,14 @@ const Statistics = ({ route, navigation }) => {
 setData(newData);
     });
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container1}>
+
+    <View style={styles.container2}>
+    <View style={styles.titleContainer}>
       <Text style={styles.hadder}>Statistics</Text>
-      <Text style={styles.labelsStyle}>choose device:</Text>
-      <DevicesNamesButtons
-        listOfItems={data}
-        navigation={navigation}
-        typeStatistics={selected}
-      />
+      </View>
       <View style={styles.CheckBoxContainer}>
+      <Text style={styles.labelsStyle}>Select yearly/weekly statistics:</Text>
         <SelectList
           data={[
             { key: 1, value: "Weekly" },
@@ -69,9 +71,19 @@ setData(newData);
           }}
         />
       </View>
+      <Text style={styles.labelsStyle}>choose device:</Text>
+      <DevicesNamesButtons
+        listOfItems={data}
+        navigation={navigation}
+        typeStatistics={selected}
+      />
+      
       <View style={styles.Buttons}>
-        <ButtonKitten
-          style={styles.Button}
+      <Button
+         style={styles.button}
+        textStyle={styles.buttonText}
+        status="success" // Green background colo
+        size="medium"
           onPress={() => {
             navigation.navigate("AllDevicesStatistic", {
               data: data,
@@ -79,12 +91,14 @@ setData(newData);
               typeStatistics: selected,
             });
           }}
-          size="medium"
         >
           statistics for all devices
-        </ButtonKitten>
+        </Button> 
+
+
       </View>
     </View>
+    </ScrollView>
   );
 };
 
