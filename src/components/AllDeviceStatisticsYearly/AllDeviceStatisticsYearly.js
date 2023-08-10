@@ -35,7 +35,7 @@ const AllDeviceStatisticsYearly = () => {
     <ScrollView contentContainerStyle={styles.chartScrollView}>
  
     <View style={styles.container}>
-      <Text style={styles.labelsStyle}>All devices statistics</Text>
+      <Text style={styles.labelsStyle}>All devices statistics - yearly</Text>
       <View style={styles.chartContainer}>
       <ScrollView  horizontal
     contentContainerStyle={styles.chartScrollView}
@@ -64,9 +64,9 @@ const AllDeviceStatisticsYearly = () => {
         }}
         fromZero={true}
         segments={6}
-        width={Dimensions.get("window").width * 1.5}
+        width={Dimensions.get("window").width * 2.6}
         height={Dimensions.get("window").height-60}
-        verticalLabelRotation={30}
+        verticalLabelRotation={45}
         chartConfig={{
           backgroundColor: "gray",
           backgroundGradientFrom: "gray",

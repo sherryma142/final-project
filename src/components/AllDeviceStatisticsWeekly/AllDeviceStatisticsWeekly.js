@@ -32,8 +32,15 @@ const AllDeviceStatisticsWeekly = () => {
   }, []);
 
   return (
+   
+<ScrollView contentContainerStyle={styles.chartScrollView}>
+ 
     <View style={styles.container}>
-      <Text style={styles.item_title}>All devices statistics</Text>
+      <Text style={styles.labelsStyle}>All devices statistics- weekly</Text>
+      <View style={styles.chartContainer}>
+      <ScrollView  horizontal
+    contentContainerStyle={styles.chartScrollView}
+    showsHorizontalScrollIndicator={false}>
       <BarChart
         data={{
           labels: [
@@ -52,21 +59,21 @@ const AllDeviceStatisticsWeekly = () => {
           ],
         }}
         fromZero={true}
-        segments={4}
-        width={Dimensions.get("window").width}
-        height={400}
-        verticalLabelRotation={40}
+        segments={6}
+        width={Dimensions.get("window").width * 1.6}
+        height={Dimensions.get("window").height-60}
+        verticalLabelRotation={45}
         chartConfig={{
-          backgroundColor: "#FF3399",
-          backgroundGradientFrom: "#99FFFF",
-          backgroundGradientTo: "#FF3399",
+          backgroundColor: "gray",
+          backgroundGradientFrom: "gray",
+          backgroundGradientTo: "gray",
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
-            borderRadius: 16,
+            borderRadius: 46,
             flex: 1,
             justifyContent: "center",
-            strokeWidth: 2, // optional, default 3
+           // strokeWidth: 2, // optional, default 3
             barPercentage: 0.5,
           },
           propsForDots: {
@@ -77,17 +84,22 @@ const AllDeviceStatisticsWeekly = () => {
         }}
         bezier
         style={{
-          marginVertical: 2,
-          borderRadius: 2,
-          paddingTop: 40,
-          height: 400,
+         // marginVertical: 2,
+        //  borderRadius: 2,
+         paddingTop: 40,
+        //  height: 400,
           paddingBottom: 40,
         }}
       />
+          </ScrollView>
 
-      {/* <Text style={styles.item_usage}>device usage:</Text>
-      <Text style={styles.item_name}>{usage}</Text> */}
+      </View>
+       {/* <Text style={styles.item_usage}>device usage:</Text>
+      <Text style={styles.item_name}>{usage}</Text>  */}
     </View>
+    </ScrollView>
+   
+  
   );
 };
 

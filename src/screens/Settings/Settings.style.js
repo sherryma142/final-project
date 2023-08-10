@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "flex-start",
+    flexDirection: "column",
+    justifyContent: "flex-start",
   },
   hadder: {
     fontSize: 60,
