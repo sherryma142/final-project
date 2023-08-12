@@ -5,6 +5,8 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
+    backgroundColor: `#d3d3d3`,
+
   },
   titleContainer: {
     paddingVertical: 10,

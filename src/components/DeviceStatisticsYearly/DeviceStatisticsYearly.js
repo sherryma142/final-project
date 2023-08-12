@@ -45,54 +45,75 @@ const DeviceStatisticYearly = ({ route, navigation }) => {
   }, []);
 
   return (
-    <ScrollView>
-      <Text style={styles.item_title}>Device Name:</Text>
-      <Text style={styles.item_name}>{name}</Text>
+    <ScrollView contentContainerStyle={styles.chartScrollView}>
+ 
+    <View style={styles.container}>
+    <Text style={styles.labelsStyle}>Device Name: {name} </Text>
       <View style={styles.chartContainer}>
-        <BarChart
-          data={{
-            labels: ["J", "F", "M", "A", "M", "Jun", "Jul", "A", "S", "O", "N", "D"],
-            datasets: [
-              {
-                data: data,
-              },
-            ],
-          }}
-          fromZero={true}
-          segments={4}
-          width={Dimensions.get("window").width - 40} // Adjusted width to give some margin on both sides
-          height={400} // You can increase the height if needed
-          verticalLabelRotation={40}
-          chartConfig={{
-            backgroundColor: "#FF3399",
-            backgroundGradientFrom: "#99FFFF",
-            backgroundGradientTo: "#FF3399",
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16,
-              flex: 1,
-              justifyContent: "center",
-              strokeWidth: 2,
-              barPercentage: 0.5,
+      <ScrollView  horizontal
+    contentContainerStyle={styles.chartScrollView}
+    showsHorizontalScrollIndicator={false}>
+      <BarChart
+        data={{
+          labels: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ],
+          datasets: [
+            {
+              data: data,
             },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#ffa726",
-            },
-          }}
-          bezier
-          style={{
-            marginVertical: 2,
-            borderRadius: 2,
-            paddingTop: 40,
-            paddingBottom: 40,
-          }}
-        />
+          ],
+        }}
+        fromZero={true}
+        segments={6}
+        width={Dimensions.get("window").width * 2.6}
+        height={Dimensions.get("window").height-60}
+        verticalLabelRotation={45}
+        chartConfig={{
+          backgroundColor: "gray",
+          backgroundGradientFrom: "gray",
+          backgroundGradientTo: "gray",
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          style: {
+            borderRadius: 46,
+            flex: 1,
+            justifyContent: "center",
+           // strokeWidth: 2, // optional, default 3
+            barPercentage: 0.5,
+          },
+          propsForDots: {
+            r: "6",
+            strokeWidth: "2",
+            stroke: "#ffa726",
+          },
+        }}
+        bezier
+        style={{
+         // marginVertical: 2,
+        //  borderRadius: 2,
+         paddingTop: 40,
+        //  height: 400,
+          paddingBottom: 40,
+        }}
+      />
+          </ScrollView>
+
       </View>
       {/* <Text style={styles.item_usage}>device usage:</Text>
       <Text style={styles.item_name}>{usage}</Text> */}
+    </View>
     </ScrollView>
   );
 };

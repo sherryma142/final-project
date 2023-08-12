@@ -33,8 +33,8 @@ const AllDevicesStatistic = ({ route, navigation }) => {
 
   return (
     <View>
-      {isYearly && <AllDeviceStatisticsYearly />}
-      {isWeekly && <AllDeviceStatisticsWeekly />}
+      {isYearly && <AllDeviceStatisticsYearly  route={route} navigation={navigation}/>}
+      {isWeekly && <AllDeviceStatisticsWeekly  route={route} navigation={navigation} />}
     </View>
   );
 };

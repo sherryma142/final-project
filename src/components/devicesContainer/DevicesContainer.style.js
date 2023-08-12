@@ -16,6 +16,8 @@ export default StyleSheet.create({
   //   flexWrap: "wrap",
   // },
   container: {
+    flex: 1,
+    padding: 20,
     width: "90%",
     height: "100%",
     justifyContent: "center",
@@ -26,27 +28,38 @@ export default StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    width: "100%",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    
+  },
+  scrollViewContainer: {
+    flexGrow: 1, // Allow the ScrollView to take up available space
   },
   cell: {
     flexGrow: 1,
     width: "33%",
-    height: 100,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
+    height: 120,
+    padding: 20,
+    //borderWidth: 1,
+  //  borderColor: "green",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10, // Set the border radius to round the cell corners
     overflow: "hidden", // Hide any content that goes beyond the rounded corners
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "center", // Center the button vertically
+    alignItems: "center", // Center the button horizontally
+    marginBottom: 20,
   },
   button: {
     marginTop: 10,
     marginBottom: 15,
     paddingHorizontal: 20,
     paddingVertical: 12,
-    borderRadius: 30, // Rounded corners
-    backgroundColor: "#4caf50", //
+    borderRadius: 30,
+    backgroundColor: "#4caf50",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -58,4 +71,6 @@ export default StyleSheet.create({
     fontWeight: "bold", // Font weight
     color: "white", // Text color
   },
+
+  
 });

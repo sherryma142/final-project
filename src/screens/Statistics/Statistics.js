@@ -73,7 +73,8 @@ const Statistics = ({ route, navigation }) => {
         />
 
         <View style={styles.Buttons}>
-          <Button
+          {/* <Button
+            disabled={selected==""}
             style={styles.button}
             textStyle={styles.buttonText}
             status="success" // Green background colo
@@ -87,7 +88,32 @@ const Statistics = ({ route, navigation }) => {
             }}
           >
             statistics for all devices
-          </Button>
+          </Button> */}
+
+          <Button
+      disabled={selected === ""}
+      style={styles.button}
+      status="success" // Green background color
+      size="medium"
+      onPress={() => {
+        navigation.navigate("AllDevicesStatistic", {
+          data: data,
+          navigation: navigation,
+          typeStatistics: selected,
+        });
+      }}
+    >
+      {({ disabled }) => (
+        <Text
+          style={[
+            styles.buttonText,
+            disabled && { color: "#000" }, // Change the color when disabled
+          ]}
+        >
+            statistics for all devices
+        </Text>
+      )}
+    </Button>
         </View>
       </View>
     </ScrollView>

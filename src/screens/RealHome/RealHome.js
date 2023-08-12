@@ -24,7 +24,11 @@ const RealHome = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   const [isNotEmpty, setIsNotEmpty] = useState(true);
-
+  axios
+  .get(
+    `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
+  )
+  
   axios
     .get(
       `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
@@ -43,57 +47,23 @@ const RealHome = ({ navigation }) => {
     )})
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
+    <View style={styles.container1}>
+    <View style={styles.titleContainer}>
+    <Text style={styles.hadder}>SaveEnergy</Text>
+    </View>
       <View style={styles.container}>
-        <Ionicons
-          style={styles.settings}
-          ignoredStyles={["styles.container"]}
-          name="settings"
-          size={32}
-          onPress={() =>
-            navigation.navigate("Settings", { navigation: navigation })
-          }
-        />
-        <Text style={styles.hadder}>SaveEnergy</Text>
-        <View style={styles.container}>
-          <DevicesContainer listOfItems={newData} navigation={navigation} />
-        </View>
-        <View style={styles.Buttons}>
-          <ButtonKitten
-            onPress={() =>
-              navigation.navigate("SafeChild", {
-                data: newData,
-                navigation: navigation,
-              })
-            }
-            style={styles.Button}
-            size="medium"
-          >
-            Safe Child Mode
-          </ButtonKitten>
-          <ButtonKitten
-            style={styles.Button}
-            size="medium"
-            onPress={() => navigation.navigate("Statistics", { data: newData })}
-          >
-            Statistics
-          </ButtonKitten>
-
-          <ButtonKitten
-            onPress={() =>
-              navigation.navigate("SampleConsumption", {
-                data: newData,
-                navigation: navigation,
-              })
-            }
-            style={styles.Button}
-            size="medium"
-          >
-            Sample consumption
-          </ButtonKitten>
-        </View>
+        <DevicesContainer listOfItems={newData} screen={"RealHome"} navigation={navigation} />
       </View>
-    </ScrollView>
+      <View style={styles.Buttons}>
+      
+       
+
+
+      </View>
+  
+    </View>
+  </ScrollView>
   );
 };
 

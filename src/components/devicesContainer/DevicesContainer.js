@@ -1,10 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text ,ScrollView} from "react-native";
 import React from "react";
 import { Item } from "../item/Item";
 import styles from "./DevicesContainer.style";
 import { Button } from "@ui-kitten/components";
 
-const DevicesContainer = ({ listOfItems, navigation }) => {
+const DevicesContainer = ({ listOfItems,screen, navigation }) => {
   listOfItems.sort((a, b) => a.index > b.index);
   let cols = 3;
   const totalCells = 3 * 3;
@@ -28,6 +28,7 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
 
   return (
     <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       {chunkData().map((rowData, rowIndex) => (
         <View key={rowIndex} style={styles.row}>
           {rowData.map((cellData, cellIndex) => (
@@ -47,7 +48,7 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
           ))}
         </View>
       ))}
-      <View>
+      <View style={styles.buttonContainer}>
         <Button
           style={styles.button}
           textStyle={styles.buttonText}
@@ -56,6 +57,7 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
           onPress={() =>
             navigation.navigate("AddNew", {
               index: listOfItems.length,
+              screen: screen,
               navigation: navigation,
             })
           }
@@ -63,6 +65,7 @@ const DevicesContainer = ({ listOfItems, navigation }) => {
           Add New Device
         </Button>
       </View>
+      </ScrollView>
     </View>
   );
 };

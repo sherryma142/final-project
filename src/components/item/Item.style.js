@@ -16,10 +16,11 @@ export default StyleSheet.create({
     //backgroundColor: "red",
   },
   item_image: {
-    width: 40,
-    height: 40,
-    padding: 10,
+    width: 60,
+    height: 60,
+    padding: 20,
     //backgroundColor: "green",
+    borderRadius: 30,
   },
   inLive: {
     width: 10,

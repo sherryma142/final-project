@@ -136,12 +136,13 @@ export const Details = ({ route, navigation }) => {
             title="REMOVE DEVICE"
             color="red"
             onPress={() => {
-              console.log(index);
+              console.log("remove:" + index);
               axios
                 .delete(
                   `http://35.169.65.234:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
                 )
                 .then((response) => {
+                  console.log("after delete", response)
                   Alert.alert("Device delete", "Device deleted succesfuly", [
                     {
                       text: "OK",
@@ -150,7 +151,8 @@ export const Details = ({ route, navigation }) => {
                   ]);
                 })
                 .catch((error) => {
-                  console.log(error);
+                  //console.log("after delete", response)
+                  console.log("error delete" ,error);
                 });
             }}
           />

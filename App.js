@@ -47,6 +47,9 @@ function MainTabNavigator({ data }) {
           else if (route.name === "Statistics") {
             iconName = focused ? "ios-pulse" : "ios-pulse-outline";
           }
+          else if (route.name === "RealHome") {
+            iconName = focused ? "ios-aperture" : "ios-aperture-outline";
+          }
           return <Ionicons name={iconName} size={size} color={iconColor} />;
         },
         
@@ -69,6 +72,12 @@ function MainTabNavigator({ data }) {
         name="Statistics"
         options={{ tabBarLabel: "Statistics"}}
         component={Statistics}
+        initialParams={{ data: data }}
+      />
+      <Tab.Screen
+        name="RealHome"
+        options={{ tabBarLabel: "Real Home"}}
+        component={RealHome}
         initialParams={{ data: data }}
       />
       <Tab.Screen name="Settings" component={Settings} />

@@ -56,7 +56,7 @@ setData(newData);
       <Text style={styles.hadder}>SaveEnergy</Text>
       </View>
         <View style={styles.container}>
-          <DevicesContainer listOfItems={data} navigation={navigation} />
+          <DevicesContainer listOfItems={data} screen={"Home"} navigation={navigation} />
         </View>
         <View style={styles.Buttons}>
         

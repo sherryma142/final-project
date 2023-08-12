@@ -16,12 +16,6 @@ export default StyleSheet.create({
     backgroundColor: `#d3d3d3`,
     
   },
-  logo: {
-    width: logoWidth,
-    height: logoWidth * 0.2, // Adjust the height based on the aspect ratio of the logo
-    resizeMode: "contain",
-
-  },
   container1: {
     // flex: 1,
     // backgroundColor: "green",
@@ -63,13 +57,12 @@ export default StyleSheet.create({
     paddingBottom: 80,
   },
   Button:{
-
     width: 200,
     height: 50,
     borderRadius: 50, // Half of width and height makes the button circular
     justifyContent: "center",
     alignItems: "center",
-    margin: 10,
+    margin: 50,
     
     backgroundColor: "green", // Change to green color
     shadowColor: "green",

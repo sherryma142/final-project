@@ -24,6 +24,7 @@ import {
 
 export const AddNew = ({ route, navigation }) => {
   const { index } = route.params;
+  const { screen } = route.params;
   const [name, setName] = useState("");
   const [realIndex, setRealIndex] = useState(index);
   const [normalConsumption, setNormalConsumptio] = useState(240);
@@ -45,6 +46,8 @@ export const AddNew = ({ route, navigation }) => {
   const toggleAdvancedSettings = () => {
     setShowAdvancedSettings(!showAdvancedSettings);
   };
+
+  console.log("screen:" , screen)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -136,7 +139,7 @@ export const AddNew = ({ route, navigation }) => {
                   Alert.alert("Device added", "Device added succesfully", [
                     {
                       text: "OK",
-                      onPress: () => navigation.navigate("Home"),
+                      onPress: () => navigation.navigate(screen=="Home"? "Home": "RealHome"),
                     },
                   ]);
                 });

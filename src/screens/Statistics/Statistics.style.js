@@ -3,14 +3,15 @@ import { SlideInRight } from "react-native-reanimated";
 
 export default StyleSheet.create({
   container1: {
-   
     flex: 1,
+    backgroundColor: `#d3d3d3`,
  //   backgroundColor: `#d3d3d3`,
   },
   container2: {
-
     flex: 1,
-    padding: 24,
+   // padding: 24,
+    backgroundColor: `#d3d3d3`,
+
    // alignItems: 'center',
    // backgroundColor: `#d3d3d3`,
   },

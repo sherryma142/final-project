@@ -23,7 +23,7 @@ const Settings = ({ navigation }) => {
       <Button
         onPress={() =>
           axios
-            .get(`http://35.169.65.234:9464/workshop/mainScreen/close_app`)
+            .get(`http://35.169.65.234:9464/workshop/mainScreen/DeleteAllPlugsFromDB`)
             .then((response) => {
               Alert.alert("all devices removed");
             })
@@ -78,7 +78,7 @@ const Settings = ({ navigation }) => {
       >
         closeApp
       </Button>
-      <Button
+      {/* <Button
          style={styles.button}
          textStyle={styles.buttonText}
          status="success" // Green background colo
@@ -86,7 +86,7 @@ const Settings = ({ navigation }) => {
          onPress={() => navigation.navigate("RealHome")}
       >
         Real Simulation
-      </Button>
+      </Button> */}
       {/* <Switch
         trackColor={{ false: "red", true: "green" }}
         thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
