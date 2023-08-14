@@ -12,16 +12,12 @@ import * as Location from "expo-location";
 
 // Home location (latitude and longitude) - Replace with your actual home coordinates
 
-
- 
 // rnfe
 
 const GPSComponent = ({ route }) => {
   const { data } = route.params;
   const [fetdata, setData] = useState([]);
 
-
-    
   const initialLocation = {
     coords: {
       accuracy: 24.940620582782653,
@@ -51,7 +47,7 @@ const GPSComponent = ({ route }) => {
   }, [isFound]);
 
   const checkDevicesON = (data) => {
-    console.log(data);
+    //console.log(data);
     let i = 0;
     for (i = 0; i < data.length; i++) {
       if (data[i].status === "on") {
@@ -99,7 +95,7 @@ const GPSComponent = ({ route }) => {
                 )
                 .then((response) => {
                   setData(response.data);
-                  console.log("clicked eare " ,response.data);
+                  console.log("clicked eare ", response.data);
                 });
             },
           },
@@ -107,12 +103,12 @@ const GPSComponent = ({ route }) => {
       );
       //setIsFound(true);
       setIsFound(true);
-      console.log(isFound);
+      //console.log(isFound);
 
       return 1;
     } else {
       //setIsFound(false);
-      console.log(isFound);
+      //console.log(isFound);
 
       return 0;
     }
@@ -144,7 +140,7 @@ const GPSComponent = ({ route }) => {
     console.log("distance==?", d);
     return d;
   }
-     
+
   return <View></View>;
-}
+};
 export default GPSComponent;

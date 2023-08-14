@@ -17,7 +17,7 @@ export const ItemNameSafeChild = ({ name, index }) => {
       setIsEnabled(response.data);
     });
 
-  console.log(data);
+  //console.log(data);
 
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);

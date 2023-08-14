@@ -9,6 +9,7 @@ const DevicesNamesButtons = ({ listOfItems, navigation, typeStatistics }) => {
       <View style={styles.rowDevices}>
         {listOfItems.map((item, index) => (
           <ItemButtons
+            key={index} // Add a unique key prop here
             name={item.title}
             type={item.type}
             navigation={navigation}

@@ -30,7 +30,6 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
-    
   },
   scrollViewContainer: {
     flexGrow: 1, // Allow the ScrollView to take up available space
@@ -41,7 +40,7 @@ export default StyleSheet.create({
     height: 120,
     padding: 20,
     //borderWidth: 1,
-  //  borderColor: "green",
+    //  borderColor: "green",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10, // Set the border radius to round the cell corners
@@ -52,6 +51,7 @@ export default StyleSheet.create({
     justifyContent: "center", // Center the button vertically
     alignItems: "center", // Center the button horizontally
     marginBottom: 20,
+    paddingLeft: 25,
   },
   button: {
     marginTop: 10,
@@ -71,6 +71,4 @@ export default StyleSheet.create({
     fontWeight: "bold", // Font weight
     color: "white", // Text color
   },
-
-  
 });

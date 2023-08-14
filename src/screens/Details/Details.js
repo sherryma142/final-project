@@ -47,13 +47,13 @@ export const Details = ({ route, navigation }) => {
     });
 
   const toggleRememberPin = () => {
-    console.log("1", isEnabled);
+    //console.log("1", isEnabled);
     setIsEnabled((previousState) => !previousState);
-    console.log("2", isEnabled);
+    //console.log("2", isEnabled);
     axios.get(
       `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
     );
-    console.log("3", isEnabled);
+    //console.log("3", isEnabled);
     if (!timerStarted && !isEnabled) {
       console.log("starting timer");
       setTimerStarted(true);
@@ -76,7 +76,7 @@ export const Details = ({ route, navigation }) => {
                     `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
                   )
                   .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     setIsEnabled(false);
                     setTimerExpired(false);
                   });
@@ -142,7 +142,7 @@ export const Details = ({ route, navigation }) => {
                   `http://35.169.65.234:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
                 )
                 .then((response) => {
-                  console.log("after delete", response)
+                  //console.log("after delete", response);
                   Alert.alert("Device delete", "Device deleted succesfuly", [
                     {
                       text: "OK",
@@ -152,7 +152,7 @@ export const Details = ({ route, navigation }) => {
                 })
                 .catch((error) => {
                   //console.log("after delete", response)
-                  console.log("error delete" ,error);
+                  console.log("error delete", error);
                 });
             }}
           />

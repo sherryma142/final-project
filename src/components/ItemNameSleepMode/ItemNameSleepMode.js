@@ -19,7 +19,7 @@ export const ItemNameSleepMode = ({ name, index }) => {
 
   const toggleRememberPin = () => {
     setIsEnabled((previousState) => !previousState);
-    console.log(isEnabled);
+   // console.log(isEnabled);
     !isEnabled
       ? axios
           .get(

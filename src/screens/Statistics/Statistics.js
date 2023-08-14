@@ -18,15 +18,17 @@ import {
 import DevicesNamesButtons from "../../components/DevicesNamesButtons/DevicesNamesButtons";
 import { SelectList } from "react-native-dropdown-select-list";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 
 // rnfe
 
-const Statistics = ({ route, navigation }) => {
+const Statistics = () => {
   const [isYearlySelected, setYearlySelection] = useState(false);
   const [isDailySelected, setDailySelection] = useState(false);
   const [isWeeklySelected, setWeeklySelection] = useState(false);
   const [selected, setSelected] = useState("");
   const [data, setData] = useState([]);
+  const navigation = useNavigation(); // Use the useNavigation hook
 
   let newData = [];
 
@@ -61,7 +63,7 @@ const Statistics = ({ route, navigation }) => {
             ]}
             setSelected={(val) => {
               setSelected(val);
-              console.log(val);
+              // console.log(val);
             }}
           />
         </View>
@@ -73,11 +75,10 @@ const Statistics = ({ route, navigation }) => {
         />
 
         <View style={styles.Buttons}>
-          {/* <Button
-            disabled={selected==""}
+          <Button
+            disabled={selected === ""}
             style={styles.button}
-            textStyle={styles.buttonText}
-            status="success" // Green background colo
+            status="success" // Green background color
             size="medium"
             onPress={() => {
               navigation.navigate("AllDevicesStatistic", {
@@ -87,33 +88,17 @@ const Statistics = ({ route, navigation }) => {
               });
             }}
           >
-            statistics for all devices
-          </Button> */}
-
-          <Button
-      disabled={selected === ""}
-      style={styles.button}
-      status="success" // Green background color
-      size="medium"
-      onPress={() => {
-        navigation.navigate("AllDevicesStatistic", {
-          data: data,
-          navigation: navigation,
-          typeStatistics: selected,
-        });
-      }}
-    >
-      {({ disabled }) => (
-        <Text
-          style={[
-            styles.buttonText,
-            disabled && { color: "#000" }, // Change the color when disabled
-          ]}
-        >
-            statistics for all devices
-        </Text>
-      )}
-    </Button>
+            {({ disabled }) => (
+              <Text
+                style={[
+                  styles.buttonText,
+                  disabled && { color: "#000" }, // Change the color when disabled
+                ]}
+              >
+                statistics for all devices
+              </Text>
+            )}
+          </Button>
         </View>
       </View>
     </ScrollView>

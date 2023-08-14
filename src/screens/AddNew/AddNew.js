@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 import constants from "../../constants/itemTypes";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 
 import {
   TextInput,
@@ -12,24 +13,22 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
-  Button,
   Alert,
+  Button,
   TouchableOpacity,
 } from "react-native";
 
-import {
-  Button as ButtonKitten,
-  BottomNavigation,
-} from "@ui-kitten/components";
+import { Button as ButtonKitten } from "@ui-kitten/components";
 
-export const AddNew = ({ route, navigation }) => {
+export const AddNew = ({ route }) => {
   const { index } = route.params;
   const { screen } = route.params;
   const [name, setName] = useState("");
   const [realIndex, setRealIndex] = useState(index);
-  const [normalConsumption, setNormalConsumptio] = useState(240);
-  const [improperConsumption, setImproperConsumption] = useState(260);
+  const [normalConsumption, setNormalConsumptio] = useState(220);
+  const [improperConsumption, setImproperConsumption] = useState(240);
   const [selected, setSelected] = useState("");
+  const navigation = useNavigation(); // Use the useNavigation hook
 
   const data1 = [
     { key: 1, value: constants.INDEXTYPES[1] },
@@ -47,7 +46,7 @@ export const AddNew = ({ route, navigation }) => {
     setShowAdvancedSettings(!showAdvancedSettings);
   };
 
-  console.log("screen:" , screen)
+  //console.log("screen:", screen);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,16 +66,16 @@ export const AddNew = ({ route, navigation }) => {
 
           <SelectList data={data1} setSelected={setSelected} />
 
-          <Text style={styles.labelsStyle}>index:</Text>
+          {/* <Text style={styles.labelsStyle}>index:</Text> */}
 
-          <TextInput
+          {/* <TextInput
             style={styles.labelsStyle}
             placeholder="enter index if needed"
             value={realIndex}
             onChangeText={(text) => {
               setRealIndex(text);
             }}
-          />
+          /> */}
 
           <Text style={styles.labelsStyle}>Image:</Text>
 
@@ -107,7 +106,7 @@ export const AddNew = ({ route, navigation }) => {
                 <Text style={styles.labelsStyle}>min power consumption:</Text>
                 <TextInput
                   style={[styles.labelsStyle]}
-                  placeholder="240"
+                  placeholder="220"
                   value={normalConsumption}
                   onChangeText={(text) => setNormalConsumptio(text)}
                 />
@@ -115,36 +114,71 @@ export const AddNew = ({ route, navigation }) => {
                 <Text style={styles.labelsStyle}>max power consumption:</Text>
                 <TextInput
                   style={[styles.labelsStyle]}
-                  placeholder="260"
+                  placeholder="240"
                   value={improperConsumption}
                   onChangeText={(text) => setImproperConsumption(text)}
                 />
               </View>
             )}
           </View>
+          <View style={styles.buttonContainer}>
+            {screen == "Home" && (
+              <ButtonKitten
+                style={styles.buttonKitten}
+                textStyle={styles.buttonText}
+                size="medium"
+                status="success" // Green background colo onPress=
+                onPress={() => {
+                  let type = constants.INDEXTYPES[selected];
 
-          <Button
-            title="ADD DEVICE"
-            color="green"
-            onPress={() => {
-              let type = constants.INDEXTYPES[selected];
+                  //console.log(index);
+                  axios
+                    .get(
+                      `http://35.169.65.234:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${realIndex}`
+                    )
+                    .then((response) => {
+                      console.log(response.data);
+                      Alert.alert("Device added", "Device added succesfully", [
+                        {
+                          text: "OK",
+                          onPress: () => navigation.navigate("Home"),
+                        },
+                      ]);
+                    });
+                }}
+              >
+                Add Device
+              </ButtonKitten>
+            )}
+            {screen == "RealHome" && (
+              <ButtonKitten
+                style={styles.buttonKitten}
+                textStyle={styles.buttonText}
+                size="medium"
+                status="success" // Green background colo onPress=
+                onPress={() => {
+                  let type = constants.INDEXTYPES[selected];
 
-              console.log(index);
-              axios
-                .get(
-                  `http://35.169.65.234:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${realIndex}`
-                )
-                .then((response) => {
-                  console.log(response.data);
-                  Alert.alert("Device added", "Device added succesfully", [
-                    {
-                      text: "OK",
-                      onPress: () => navigation.navigate(screen=="Home"? "Home": "RealHome"),
-                    },
-                  ]);
-                });
-            }}
-          />
+                  //console.log(index);
+                  axios
+                    .get(
+                      `http://35.169.65.234:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=10`
+                    )
+                    .then((response) => {
+                      console.log(response.data);
+                      Alert.alert("Device added", "Device added succesfully", [
+                        {
+                          text: "OK",
+                          onPress: () => navigation.navigate("RealHome"),
+                        },
+                      ]);
+                    });
+                }}
+              >
+                Add REAL Device
+              </ButtonKitten>
+            )}
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>

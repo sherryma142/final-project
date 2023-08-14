@@ -29,8 +29,8 @@ const Tab = createBottomTabNavigator();
 function MainTabNavigator({ data }) {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           let iconColor = focused ? "green" : "gray"; // Set the desired icon color here
 
@@ -40,52 +40,44 @@ function MainTabNavigator({ data }) {
             iconName = focused ? "ios-body" : "ios-body-outline";
           } else if (route.name === "Settings") {
             iconName = focused ? "ios-settings" : "ios-settings-outline";
-          }
-          else if (route.name === "SleepMode") {
+          } else if (route.name === "SleepMode") {
             iconName = focused ? "ios-bed" : "ios-bed-outline";
-          }
-          else if (route.name === "Statistics") {
+          } else if (route.name === "Statistics") {
             iconName = focused ? "ios-pulse" : "ios-pulse-outline";
-          }
-          else if (route.name === "RealHome") {
+          } else if (route.name === "RealHome") {
             iconName = focused ? "ios-aperture" : "ios-aperture-outline";
           }
           return <Ionicons name={iconName} size={size} color={iconColor} />;
         },
-        
       })}
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen
         name="SafeChild"
-        options={{ tabBarLabel: "Safe Child"}}
+        options={{ tabBarLabel: "Safe Child" }}
         component={SafeChild}
         initialParams={{ data: data }}
       />
-       <Tab.Screen
+      <Tab.Screen
         name="SleepMode"
-        options={{ tabBarLabel: "Sleep Mode"}}
+        options={{ tabBarLabel: "Sleep Mode" }}
         component={SleepMode}
         initialParams={{ data: data }}
       />
-       <Tab.Screen
+      <Tab.Screen
         name="Statistics"
-        options={{ tabBarLabel: "Statistics"}}
+        options={{ tabBarLabel: "Statistics" }}
         component={Statistics}
         initialParams={{ data: data }}
       />
       <Tab.Screen
         name="RealHome"
-        options={{ tabBarLabel: "Real Home"}}
+        options={{ tabBarLabel: "Real Home" }}
         component={RealHome}
         initialParams={{ data: data }}
       />
       <Tab.Screen name="Settings" component={Settings} />
-
-      
     </Tab.Navigator>
-
-    
   );
 }
 
@@ -93,7 +85,7 @@ const CustomTabBarButton = ({ data, name, iconName, iconColor }) => {
   const navigation = useNavigation();
 
   const navigateToTabScreen = () => {
-    console.log("nav", data);
+    //console.log("nav", data);
     // Pass additional parameters as the second argument to navigation.navigate
     navigation.navigate(name, { data: data });
   };
@@ -125,6 +117,9 @@ function App() {
 
     fetchData();
   }, []);
+  const MainTabNavigatorComponent = ({ data }) => (
+    <MainTabNavigator data={data} />
+  );
 
   return (
     <NavigationContainer>
@@ -132,7 +127,7 @@ function App() {
         <Stack.Navigator>
           <Stack.Screen
             name="Main"
-            component={() => <MainTabNavigator data={data} />}
+            component={MainTabNavigatorComponent}
             options={{ headerShown: false }}
           />
           <Stack.Screen name="LiveShow" component={LiveShow} />
