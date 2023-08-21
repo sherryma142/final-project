@@ -37,7 +37,7 @@ const Home = () => {
           newData.push(object);
         }
       });
-      //newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+      newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
 
       setData(newData);
     });

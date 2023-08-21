@@ -33,6 +33,7 @@ const GPSComponent = ({ route }) => {
 
   const intervalRef = useRef(null); // create a mutable reference to the interval ID
   const [isFound, setIsFound] = useState(false);
+   console.log(isFound);
   useEffect(() => {
     if (!isFound) {
       intervalRef.current = setInterval(() => {
