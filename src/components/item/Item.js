@@ -14,8 +14,22 @@ import constants from "../../constants/itemTypes";
 import axios from "axios";
 
 import Blink from "../item/Blink";
+import { useEffect } from "react";
 
 export const Item = ({ name, type, navigation, index, status }) => {
+  const [isfridge,setIsFridge]=useState(false); 
+  React.useEffect(() => {
+    if(type==="fridge")
+    {
+        setIsFridge(true);
+        axios.get(
+          `http://35.169.65.234:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+        )
+        .then((response) => {
+          status = response.data["status:"];
+      })
+    }
+  }, [isfridge])
   const data = status !== "plus";
   let isOn;
 
@@ -27,6 +41,7 @@ export const Item = ({ name, type, navigation, index, status }) => {
     }
   }
 
+ 
   return (
     <View style={styles.container}>
       <View style={styles.body}>

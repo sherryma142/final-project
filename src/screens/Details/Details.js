@@ -44,16 +44,55 @@ export const Details = ({ route, navigation }) => {
     .then((response) => {
       setStatusData(response.data["status:"] === "on");
       setIsEnabled(status);
+
+      if(type==="fridge")
+      {
+        console.log(status)
+      }
+      
+
     });
 
   const toggleRememberPin = () => {
+    if (type === "fridge") {
+      Alert.alert(
+        "Fridge Alert",
+        "Be sure to take all products out of the refrigerator before turning it off.",
+        [
+          {
+            text: "OK",
+            onPress: () => {     
+              axios.get(
+                `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+              )
+              .then((response) => {
+                console.log("change fridge")
+                setIsEnabled(false);
+              });
+            },
+          },
+          {
+            text: "Cancel",
+            onPress: () => {},
+          }
+        ]
+      );
+    } else {
+      setIsEnabled((previousState) => !previousState);
+      axios.get(
+        `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+      );
+    }
+
+      
     //console.log("1", isEnabled);
-    setIsEnabled((previousState) => !previousState);
+    //setIsEnabled((previousState) => !previousState);
     //console.log("2", isEnabled);
-    axios.get(
-      `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
-    );
+    // axios.get(
+    //   `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+    // );
     //console.log("3", isEnabled);
+//&& type!="fridge"
     if (!timerStarted && !isEnabled) {
       console.log("starting timer");
       setTimerStarted(true);

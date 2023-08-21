@@ -24,11 +24,13 @@ const SafeChild = ({ route }) => {
     .then((response) => {
       // console.log(response.data)
       response.data.map((object) => {
-        if (object.index != "10") {
+        if (object.index != "10" && object.type!="fridge") {
           //   console.log(object);
           newData.push(object);
         }
       });
+      newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+
       setData(newData);
     });
   return (

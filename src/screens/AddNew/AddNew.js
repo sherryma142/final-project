@@ -37,7 +37,6 @@ export const AddNew = ({ route }) => {
     { key: 4, value: constants.INDEXTYPES[4] },
     { key: 5, value: constants.INDEXTYPES[5] },
     { key: 6, value: constants.INDEXTYPES[6] },
-    { key: 7, value: constants.INDEXTYPES[7] },
   ];
 
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
@@ -130,6 +129,7 @@ export const AddNew = ({ route }) => {
                 status="success" // Green background colo onPress=
                 onPress={() => {
                   let type = constants.INDEXTYPES[selected];
+                
 
                   //console.log(index);
                   axios
@@ -137,6 +137,11 @@ export const AddNew = ({ route }) => {
                       `http://35.169.65.234:9464/workshop/mainScreen/addNewPlug?i_Title=${name}&i_Type=${type}&i_MinElectricityVolt=${normalConsumption}&i_MaxElectricityVolt=${improperConsumption}&i_UiIndex=${realIndex}`
                     )
                     .then((response) => {
+                      if(type==="fridge")
+                      {
+                        axios
+                        .get(`http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`)
+                      }
                       console.log(response.data);
                       Alert.alert("Device added", "Device added succesfully", [
                         {

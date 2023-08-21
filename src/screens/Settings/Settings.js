@@ -1,5 +1,5 @@
 import { View, Text, Alert, Switch } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styles from "./Settings.style";
 import { Button } from "@ui-kitten/components";
 
@@ -13,10 +13,33 @@ const Settings = ({ navigation }) => {
   const [isNotEmpty, setIsNotEmpty] = useState(false);
   const [indexInvalid, setIndexInvalid] = useState(-1);
   const [showInvalidConsumption, setShowInvalidConsumption] = useState(false);
+  const [isInvalidDevices,setIsInvalidDevices]=useState([]);
+  const [alertShown, setAlertShown] = useState(false);
+
   const hideInvalidConsumption = () => {
     console.log("yuval");
     setShowInvalidConsumption(false);
   };
+  const fetchInvalidDevices = () => {
+    axios
+      .get(
+        `http://35.169.65.234:9464/workshop/on_off_screen/getAllInvalidPlugs`
+      )
+      .then((response) => {
+        console.log("in settings", response.data);
+        if (response.data) {
+          setIsInvalidDevices(response.data);
+          setShowInvalidConsumption(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching invalid devices:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchInvalidDevices(); // Fetch invalid devices when the component mounts
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -73,12 +96,17 @@ const Settings = ({ navigation }) => {
               Alert.alert("simulate", "simulate consumption success", [
                 {
                   text: "OK",
+                  onPress: () => {
+                    setAlertShown(false); // Hide the alert
+                  },
                 },
               ]);
             })
             .catch((e) => {
               console.log(e);
             })
+            
+          
         }
         style={styles.button}
         textStyle={styles.buttonText}
@@ -89,9 +117,7 @@ const Settings = ({ navigation }) => {
       </Button>
 
       <Button
-        onPress={() => {
-          setShowInvalidConsumption(true); // Show the InvalidConsumptionComponent
-        }}
+        onPress={fetchInvalidDevices} // Fetch invalid devices when the button is pressed
         style={styles.button}
         textStyle={styles.buttonText}
         status="success"
@@ -99,11 +125,14 @@ const Settings = ({ navigation }) => {
       >
         Sample consumption
       </Button>
-
-      {showInvalidConsumption && (
+  
+      {showInvalidConsumption && isInvalidDevices.length > 0 && (
         <InvalidConsumptionComponent
           index={indexInvalid}
           onHide={hideInvalidConsumption}
+          invalidDevices={isInvalidDevices}
+          alertShown={alertShown} // Pass alertShown as a prop
+
         />
       )}
     </View>
