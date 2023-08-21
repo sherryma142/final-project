@@ -83,8 +83,6 @@ export const Details = ({ route, navigation }) => {
         `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
       );
     }
-
-      
     //console.log("1", isEnabled);
     //setIsEnabled((previousState) => !previousState);
     //console.log("2", isEnabled);
@@ -92,8 +90,7 @@ export const Details = ({ route, navigation }) => {
     //   `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
     // );
     //console.log("3", isEnabled);
-//&& type!="fridge"
-    if (!timerStarted && !isEnabled) {
+    if (!timerStarted && !isEnabled && type!="fridge") {
       console.log("starting timer");
       setTimerStarted(true);
       const id = setTimeout(() => {

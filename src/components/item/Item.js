@@ -16,7 +16,8 @@ import axios from "axios";
 import Blink from "../item/Blink";
 import { useEffect } from "react";
 
-export const Item = ({ name, type, navigation, index, status }) => {
+export const 
+Item = ({ name, type, navigation, index, status }) => {
   const [isfridge,setIsFridge]=useState(false); 
   React.useEffect(() => {
     if(type==="fridge")
