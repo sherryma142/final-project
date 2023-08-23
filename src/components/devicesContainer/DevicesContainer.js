@@ -24,7 +24,7 @@ const DevicesContainer = ({ listOfItems, screen }) => {
       chunkedData.push(rowData);
       currentIndex += cols;
     }
-
+    console.log("sherry");
     return chunkedData;
   };
 

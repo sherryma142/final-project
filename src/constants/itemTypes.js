@@ -4,7 +4,7 @@ export default {
     lamp: "lamp",
     fridge: "fridge",
     oven: "oven",
-    air_Conditioner: "air-Conditioner",
+    airConditioner: "airConditioner",
     stove: "stove",
   },
   IMAGES: {

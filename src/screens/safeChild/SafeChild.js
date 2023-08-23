@@ -17,22 +17,22 @@ const SafeChild = ({ route }) => {
 
   let newData = [];
 
-  axios.get(`http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`);
+  React.useEffect(() => {
+    axios
+      .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
+      .then((response) => {
+        // console.log(response.data)
+        response.data.map((object) => {
+          if (object.index != "10") {
+            //   console.log(object);
+            newData.push(object);
+          }
+        });
+        newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
 
-  axios
-    .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
-    .then((response) => {
-      // console.log(response.data)
-      response.data.map((object) => {
-        if (object.index != "10" && object.type!="fridge") {
-          //   console.log(object);
-          newData.push(object);
-        }
+        setData(newData);
       });
-      newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
-
-      setData(newData);
-    });
+  }, []);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>

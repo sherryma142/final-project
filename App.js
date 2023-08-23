@@ -26,7 +26,7 @@ import axios from "axios";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function MainTabNavigator({ data }) {
+function MainTabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -56,25 +56,21 @@ function MainTabNavigator({ data }) {
         name="SafeChild"
         options={{ tabBarLabel: "Safe Child" }}
         component={SafeChild}
-        initialParams={{ data: data }}
       />
       <Tab.Screen
         name="SleepMode"
         options={{ tabBarLabel: "Sleep Mode" }}
         component={SleepMode}
-        initialParams={{ data: data }}
       />
       <Tab.Screen
         name="Statistics"
         options={{ tabBarLabel: "Statistics" }}
         component={Statistics}
-        initialParams={{ data: data }}
       />
       <Tab.Screen
         name="RealHome"
         options={{ tabBarLabel: "Real Home" }}
         component={RealHome}
-        initialParams={{ data: data }}
       />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
@@ -98,28 +94,23 @@ const CustomTabBarButton = ({ data, name, iconName, iconColor }) => {
 function App() {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const responseFetch = await axios.get(
-          "http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB"
-        );
-        const responseGet = await axios.get(
-          "http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB"
-        );
-        const data = responseGet.data.filter((object) => object.index !== "10");
-        setData(data);
-        console.log("Fetched Data:", data); // Log the fetched data
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const responseGet = await axios.get(
+  //         "http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB"
+  //       );
+  //       const data = responseGet.data.filter((object) => object.index !== "10");
+  //       setData(data);
+  //       console.log("Fetched Data:", data); // Log the fetched data
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
-  const MainTabNavigatorComponent = ({ data }) => (
-    <MainTabNavigator data={data} />
-  );
+  //   fetchData();
+  // }, []);
+  const MainTabNavigatorComponent = () => <MainTabNavigator />;
 
   return (
     <NavigationContainer>

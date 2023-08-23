@@ -11,9 +11,14 @@ import axios from "axios";
 import * as Location from "expo-location";
 // rnfe
 
-const InvalidConsumptionComponent = ({ index, onHide, invalidDevices ,alertShown }) => {
+const InvalidConsumptionComponent = ({
+  index,
+  onHide,
+  invalidDevices,
+  alertShown,
+}) => {
   console.log("sherry", index);
-  const [isInvalidDevices,setIsInvalidDevices]=useState([]);
+  const [isInvalidDevices, setIsInvalidDevices] = useState([]);
   const handleHide = () => {
     onHide(); // Call the onHide function passed as a prop
   };
@@ -22,7 +27,6 @@ const InvalidConsumptionComponent = ({ index, onHide, invalidDevices ,alertShown
   const [isFound, setIsFound] = useState(false);
   //const [alertShown, setAlertShown] = useState(false);
 
-  
   // console.log(indexes);
   useEffect(() => {
     if (!isFound && !alertShown) {
@@ -33,17 +37,15 @@ const InvalidConsumptionComponent = ({ index, onHide, invalidDevices ,alertShown
             if (result === 1) {
               clearInterval(intervalRef.current);
               setIsFound(true);
-              
-
             }
           });
         }
       }, 5000);
     }
-  
+
     return () => clearInterval(intervalRef.current);
   }, [isFound, alertShown]);
-  
+
   const sendData = async (index) => {
     console.log("index from invalid : ", index);
     axios
@@ -77,32 +79,31 @@ const InvalidConsumptionComponent = ({ index, onHide, invalidDevices ,alertShown
                     console.log(response.data);
                     setConsumptionData(response.data);
                     axios
-                  .get(
-                    `http://35.169.65.234:9464/workshop/on_off_screen/getAllInvalidPlugs`
-                  ).then((response) => {
-                  
-                    console.log("in invliad:" , response.data);
-                    if(response.data)
-                    {
-                      setIsInvalidDevices(response.data);
-                    }
-
-                  
+                      .get(
+                        `http://35.169.65.234:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
+                      )
+                      .then((response) => {
+                        console.log(response.data);
+                      });
+                    axios
+                      .get(
+                        `http://35.169.65.234:9464/workshop/on_off_screen/getAllInvalidPlugs`
+                      )
+                      .then((response) => {
+                        console.log("in invliad:", response.data);
+                        if (response.data) {
+                          setIsInvalidDevices(response.data);
+                        }
+                      });
+                    handleHide();
                   });
-                handleHide();
-              })
-            }},
+              },
+            },
           ]
         );
         setIsFound(true);
         //console.log(isFound);
-        axios
-          .get(
-            `http://35.169.65.234:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
-          )
-          .then((response) => {
-            console.log(response.data);
-          });
+
         return 1;
       });
   };

@@ -23,7 +23,8 @@ export const Details = ({ route, navigation }) => {
   const [timerExpired, setTimerExpired] = useState(false);
   const [timerId, setTimerId] = useState(null);
   const [status, setStatusData] = useState([]);
-  const [isEnabled, setIsEnabled] = useState(data);
+  const [isEnabled, setIsEnabled] = useState(false); // Initialize with default value
+
   React.useEffect(() => {
     axios
       .get(
@@ -31,66 +32,55 @@ export const Details = ({ route, navigation }) => {
       )
       .then((response) => {
         setData(response.data);
-        console.log(data);
+        setIsEnabled(response.data["status:"] === "on"); // Update isEnabled here
+        console.log("sherry", response.data);
       });
   }, []);
 
-  let type = data["type:"];
-
-  axios
-    .get(
-      `http://35.169.65.234:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
-    )
-    .then((response) => {
-      setStatusData(response.data["status:"] === "on");
-      setIsEnabled(status);
-
-      if(type==="fridge")
-      {
-        console.log(status)
-      }
-      
-
-    });
-
   const toggleRememberPin = () => {
-    if (type === "fridge") {
+    console.log("degdegbedht");
+    if (data["type:"] === "fridge" && isEnabled) {
       Alert.alert(
         "Fridge Alert",
         "Be sure to take all products out of the refrigerator before turning it off.",
         [
           {
             text: "OK",
-            onPress: () => {     
-              axios.get(
-                `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
-              )
-              .then((response) => {
-                console.log("change fridge")
-                setIsEnabled(false);
-              });
+            onPress: () => {
+              // Turn off fridge
+              axios
+                .get(
+                  `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+                )
+                .then(() => {
+                  setIsEnabled(false);
+                });
             },
           },
           {
             text: "Cancel",
             onPress: () => {},
-          }
+          },
         ]
       );
     } else {
-      setIsEnabled((previousState) => !previousState);
-      axios.get(
-        `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
-      );
+      console.log("on off");
+      axios
+        .get(
+          `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+        )
+        .then(() => {
+          console.log("prevState", isEnabled);
+          if (isEnabled) {
+            setIsEnabled(false);
+          } else {
+            setIsEnabled(true);
+          }
+          console.log("isEnabled", isEnabled);
+        });
     }
-    //console.log("1", isEnabled);
-    //setIsEnabled((previousState) => !previousState);
-    //console.log("2", isEnabled);
-    // axios.get(
-    //   `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
-    // );
-    //console.log("3", isEnabled);
-    if (!timerStarted && !isEnabled && type!="fridge") {
+
+    if (!timerStarted && !isEnabled && data["type:"] != "fridge") {
       console.log("starting timer");
       setTimerStarted(true);
       const id = setTimeout(() => {
@@ -148,7 +138,7 @@ export const Details = ({ route, navigation }) => {
           <Text style={styles.labelsStyle}>{data["type:"]}</Text>
           <Text style={styles.labelsStyle}>Image:</Text>
           <Image
-            source={constants.IMAGES[constants.TYPES[type]]}
+            source={constants.IMAGES[constants.TYPES[data["type:"]]]}
             style={{
               width: 80,
               height: 80,

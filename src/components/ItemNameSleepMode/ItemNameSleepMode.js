@@ -7,19 +7,21 @@ import axios from "axios";
 export const ItemNameSleepMode = ({ name, index }) => {
   const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
-
-  axios
-    .get(
-      `http://35.169.65.234:9464/workshop/mainScreen/checkIfPlugRegisteredToSleepMode?i_UiIndex=${index}`
-    )
-    .then((response) => {
-      setData(response.data);
-      setIsEnabled(data);
-    });
+  React.useEffect(() => {
+    axios
+      .get(
+        `http://35.169.65.234:9464/workshop/mainScreen/checkIfPlugRegisteredToSleepMode?i_UiIndex=${index}`
+      )
+      .then((response) => {
+        setData(response.data);
+        setIsEnabled(data);
+      });
+  }, []);
 
   const toggleRememberPin = () => {
+    console.log("frffsgsgsgswg");
     setIsEnabled((previousState) => !previousState);
-   // console.log(isEnabled);
+    console.log(isEnabled);
     !isEnabled
       ? axios
           .get(

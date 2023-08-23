@@ -7,15 +7,16 @@ import axios from "axios";
 export const ItemNameSafeChild = ({ name, index }) => {
   const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
-
-  axios
-    .get(
-      `http://35.169.65.234:9464/workshop/mainScreen/checkIfPlugRegisteredToSafeMode?i_UiIndex=${index}`
-    )
-    .then((response) => {
-      setData(response.data);
-      setIsEnabled(response.data);
-    });
+  React.useEffect(() => {
+    axios
+      .get(
+        `http://35.169.65.234:9464/workshop/mainScreen/checkIfPlugRegisteredToSafeMode?i_UiIndex=${index}`
+      )
+      .then((response) => {
+        setData(response.data);
+        setIsEnabled(response.data);
+      });
+  }, []);
 
   //console.log(data);
 
