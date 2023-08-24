@@ -43,13 +43,30 @@ export const ItemNameSafeChild = ({ name, index }) => {
   return (
     <View style={styles.container}>
       <View style={styles.checkboxContainer}>
-        <Switch
-          trackColor={{ false: "red", true: "green" }}
-          thumbColor={"#f4f3f4"}
-          onValueChange={toggleRememberPin}
-          value={isEnabled}
-          style={styles.switch}
-        />
+        <View style={{ paddingTop: 10, paddingBottom: 10 }}>
+          <TouchableOpacity onPress={toggleRememberPin}>
+            <View
+              style={{
+                width: 60,
+                height: 30,
+                borderRadius: 20,
+                backgroundColor: isEnabled ? "green" : "gray",
+                justifyContent: "center",
+                alignItems: isEnabled ? "flex-end" : "flex-start",
+                paddingHorizontal: 5,
+              }}
+            >
+              <View
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 12,
+                  backgroundColor: "white",
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
         <Text style={styles.checkboxLabel}>{name}</Text>
       </View>
     </View>
