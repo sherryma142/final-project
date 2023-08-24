@@ -1,23 +1,37 @@
 import { View, Text, Alert, Switch } from "react-native";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Settings.style";
 import { Button } from "@ui-kitten/components";
 
 import axios from "axios";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
 
 const Settings = ({ navigation }) => {
-  const [isEnabled, setIsEnabled] = useState(true);
-  const [ind, setIndex] = useState(0);
-  const [isNotEmpty, setIsNotEmpty] = useState(false);
   const [indexInvalid, setIndexInvalid] = useState(-1);
   const [showInvalidConsumption, setShowInvalidConsumption] = useState(false);
-  const [isInvalidDevices,setIsInvalidDevices]=useState([]);
+  const [isInvalidDevices, setIsInvalidDevices] = useState([]);
   const [alertShown, setAlertShown] = useState(false);
+  const [data, setData] = useState([]);
+  const [deviceName, setDeviceName] = useState("");
+  const isFocused = useIsFocused(); // Get the focus status of the screen
 
+  React.useEffect(() => {
+    if (isFocused) {
+      // Only fetch data when the screen is focused
+      axios
+        .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
+        .then((response) => {
+          const newData = response.data.filter(
+            (object) => object.index !== "10"
+          );
+          newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+          setData(newData);
+        });
+    }
+  }, [isFocused]);
   const hideInvalidConsumption = () => {
-    console.log("yuval");
     setShowInvalidConsumption(false);
   };
   const fetchInvalidDevices = () => {
@@ -38,32 +52,13 @@ const Settings = ({ navigation }) => {
   };
 
   useEffect(() => {
-    fetchInvalidDevices(); // Fetch invalid devices when the component mounts
-  }, []);
+    if (isFocused) {
+      fetchInvalidDevices();
+    } // Fetch invalid devices when the component mounts
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
-      <Button
-        onPress={() =>
-          axios
-            .get(
-              `http://35.169.65.234:9464/workshop/mainScreen/DeleteAllPlugsFromDB`
-            )
-            .then((response) => {
-              Alert.alert("all devices removed");
-            })
-            .catch((e) => {
-              console.log(e);
-            })
-        }
-        style={styles.button}
-        textStyle={styles.buttonText}
-        status="success" // Green background colo
-        size="medium"
-      >
-        close all devices
-      </Button>
-
       <Button
         onPress={() =>
           axios
@@ -93,20 +88,25 @@ const Settings = ({ navigation }) => {
             .then((response) => {
               console.log("response index :", response.data);
               setIndexInvalid(response.data);
-              Alert.alert("simulate", "simulate consumption success", [
-                {
-                  text: "OK",
-                  onPress: () => {
-                    setAlertShown(false); // Hide the alert
+              setDeviceName(data[response.data].title);
+              Alert.alert(
+                "simulate",
+                `simulate consumption success. The invalid plug is:${
+                  data[response.data].title
+                } `,
+                [
+                  {
+                    text: "OK",
+                    onPress: () => {
+                      setAlertShown(false); // Hide the alert
+                    },
                   },
-                },
-              ]);
+                ]
+              );
             })
             .catch((e) => {
               console.log(e);
             })
-            
-          
         }
         style={styles.button}
         textStyle={styles.buttonText}
@@ -125,14 +125,14 @@ const Settings = ({ navigation }) => {
       >
         Sample consumption
       </Button>
-  
+
       {showInvalidConsumption && isInvalidDevices.length > 0 && (
         <InvalidConsumptionComponent
           index={indexInvalid}
+          title={deviceName}
           onHide={hideInvalidConsumption}
           invalidDevices={isInvalidDevices}
           alertShown={alertShown} // Pass alertShown as a prop
-
         />
       )}
     </View>

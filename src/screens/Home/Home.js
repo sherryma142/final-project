@@ -15,28 +15,28 @@ import itemsMock from "../../mocks/itemsMock";
 import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 
 // rnfe
 
 const Home = () => {
   const [data, setData] = useState([]);
-
-  let newData = [];
+  const isFocused = useIsFocused(); // Get the focus status of the screen
 
   React.useEffect(() => {
-    axios
-      .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
-      .then((response) => {
-        response.data.map((object) => {
-          if (object.index != "10") {
-            newData.push(object);
-          }
+    if (isFocused) {
+      // Only fetch data when the screen is focused
+      axios
+        .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
+        .then((response) => {
+          const newData = response.data.filter(
+            (object) => object.index !== "10"
+          );
+          newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+          setData(newData);
         });
-        newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
-
-        setData(newData);
-      });
-  }, []);
+    }
+  }, [isFocused]);
 
   // console.log(newData);
   return (

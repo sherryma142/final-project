@@ -23,6 +23,7 @@ import { Button as ButtonKitten } from "@ui-kitten/components";
 export const AddNew = ({ route }) => {
   const { index } = route.params;
   const { screen } = route.params;
+  const { data } = route.params;
   const [name, setName] = useState("");
   const [realIndex, setRealIndex] = useState(index);
   const [normalConsumption, setNormalConsumptio] = useState(220);
@@ -59,7 +60,23 @@ export const AddNew = ({ route }) => {
             placeholder="enter device name here"
             value={name}
             onChangeText={(text) => {
-              setName(text);
+              console.log("data:", data);
+
+              data.forEach((element) => {
+                if (element.title === text) {
+                  Alert.alert(
+                    "Error!",
+                    "The name that you tring to add, exist already, please rename the device name",
+                    [
+                      {
+                        text: "OK",
+                      },
+                    ]
+                  );
+                } else {
+                  setName(text);
+                }
+              });
             }}
             // onSubmitEditing={() => alert(`Welcome to ${message}`)}
           />

@@ -13,6 +13,7 @@ import * as Location from "expo-location";
 
 const InvalidConsumptionComponent = ({
   index,
+  title,
   onHide,
   invalidDevices,
   alertShown,
@@ -58,7 +59,7 @@ const InvalidConsumptionComponent = ({
         console.log("consumption:" + consumptionData);
         Alert.alert(
           "WARNNING",
-          "One of your devices has reached a higher than normal power consumption.\n do you want to turn off this device?",
+          `Device ${title} has reached a higher than normal power consumption.\n do you want to turn off this device?`,
           [
             {
               text: "No",
@@ -78,13 +79,7 @@ const InvalidConsumptionComponent = ({
                   .then((response) => {
                     console.log(response.data);
                     setConsumptionData(response.data);
-                    axios
-                      .get(
-                        `http://35.169.65.234:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
-                      )
-                      .then((response) => {
-                        console.log(response.data);
-                      });
+
                     axios
                       .get(
                         `http://35.169.65.234:9464/workshop/on_off_screen/getAllInvalidPlugs`
@@ -103,7 +98,11 @@ const InvalidConsumptionComponent = ({
         );
         setIsFound(true);
         //console.log(isFound);
-
+        axios
+          .get(
+            `http://35.169.65.234:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
+          )
+          .then((response) => {});
         return 1;
       });
   };

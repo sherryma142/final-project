@@ -19,6 +19,7 @@ import DevicesNamesButtons from "../../components/DevicesNamesButtons/DevicesNam
 import { SelectList } from "react-native-dropdown-select-list";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 
 // rnfe
 
@@ -30,24 +31,22 @@ const Statistics = () => {
   const [data, setData] = useState([]);
   const navigation = useNavigation(); // Use the useNavigation hook
 
-  let newData = [];
+  const isFocused = useIsFocused(); // Get the focus status of the screen
 
   React.useEffect(() => {
-    axios
-      .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
-      .then((response) => {
-        // console.log(response.data)
-        response.data.map((object) => {
-          if (object.index != "10") {
-            //   console.log(object);
-            newData.push(object);
-          }
+    if (isFocused) {
+      // Only fetch data when the screen is focused
+      axios
+        .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
+        .then((response) => {
+          const newData = response.data.filter(
+            (object) => object.index !== "10"
+          );
+          newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+          setData(newData);
         });
-        newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
-
-        setData(newData);
-      });
-  }, []);
+    }
+  }, [isFocused]);
   return (
     <ScrollView style={styles.container1}>
       <View style={styles.container2}>

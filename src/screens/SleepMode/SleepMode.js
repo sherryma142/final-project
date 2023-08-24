@@ -4,30 +4,29 @@ import styles from "./SleepMode.style";
 import SleepModeDevicesContainer from "../../components/sleepModeDevicesContainer/SleepModeDevicesContainer";
 import axios from "axios";
 import { Button } from "@ui-kitten/components";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 
 const SleepMode = ({ route }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const [data, setData] = useState([]);
 
-  let newData = [];
+  const isFocused = useIsFocused(); // Get the focus status of the screen
 
   React.useEffect(() => {
-    axios
-      .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
-      .then((response) => {
-        // console.log(response.data)
-        response.data.map((object) => {
-          if (object.index != "10") {
-            //   console.log(object);
-            newData.push(object);
-          }
+    if (isFocused) {
+      // Only fetch data when the screen is focused
+      axios
+        .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
+        .then((response) => {
+          const newData = response.data.filter(
+            (object) => object.index !== "10"
+          );
+          newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+          setData(newData);
         });
-        newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
-
-        setData(newData);
-      });
-  }, []);
+    }
+  }, [isFocused]);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>

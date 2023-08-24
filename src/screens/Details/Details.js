@@ -13,7 +13,7 @@ import {
   SafeAreaView,
   Button,
   Alert,
-  Switch,
+  TouchableOpacity,
 } from "react-native";
 
 export const Details = ({ route, navigation }) => {
@@ -33,7 +33,6 @@ export const Details = ({ route, navigation }) => {
       .then((response) => {
         setData(response.data);
         setIsEnabled(response.data["status:"] === "on"); // Update isEnabled here
-        console.log("sherry", response.data);
       });
   }, []);
 
@@ -123,15 +122,30 @@ export const Details = ({ route, navigation }) => {
           <Text style={styles.header}>Device details</Text>
 
           <Text style={styles.labelsStyle2}>device on/off:</Text>
-
-          <Switch
-            trackColor={{ false: "red", true: "green" }}
-            thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
-            onValueChange={toggleRememberPin}
-            value={isEnabled}
-            style={styles.switch}
-          />
-
+          <View style={{ paddingTop: 10, paddingBottom: 10 }}>
+            <TouchableOpacity onPress={toggleRememberPin}>
+              <View
+                style={{
+                  width: 60,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: isEnabled ? "green" : "red",
+                  justifyContent: "center",
+                  alignItems: isEnabled ? "flex-end" : "flex-start",
+                  paddingHorizontal: 5,
+                }}
+              >
+                <View
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: 12,
+                    backgroundColor: "white",
+                  }}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
           <Text style={styles.labelsStyle}>device Name:</Text>
           <Text style={styles.labelsStyle}>{data["title:"]}</Text>
           <Text style={styles.labelsStyle}>Device type:</Text>

@@ -24,7 +24,6 @@ const DevicesContainer = ({ listOfItems, screen }) => {
       chunkedData.push(rowData);
       currentIndex += cols;
     }
-    console.log("sherry");
     return chunkedData;
   };
 
@@ -58,6 +57,7 @@ const DevicesContainer = ({ listOfItems, screen }) => {
             status="success" // Green background colo
             onPress={() =>
               navigation.navigate("AddNew", {
+                data: listOfItems,
                 index: listOfItems.length,
                 screen: screen,
                 navigation: navigation,
