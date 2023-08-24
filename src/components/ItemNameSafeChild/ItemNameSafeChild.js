@@ -1,4 +1,4 @@
-import { View, Text, Switch } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import styles from "./ItemNameSafeChild.style";
 import { Ionicons } from "@expo/vector-icons";

@@ -9,13 +9,13 @@ import {
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
+import { useIsFocused } from '@react-navigation/native';
 
 // Home location (latitude and longitude) - Replace with your actual home coordinates
 
 // rnfe
 
 const GPSComponent = ({ route }) => {
-  const { data } = route.params;
   const [fetdata, setData] = useState([]);
 
   const initialLocation = {
@@ -33,19 +33,28 @@ const GPSComponent = ({ route }) => {
 
   const intervalRef = useRef(null); // create a mutable reference to the interval ID
   const [isFound, setIsFound] = useState(false);
-   console.log(isFound);
-  useEffect(() => {
-    if (!isFound) {
+   console.log("isfound:" ,isFound);
+
+   const isFocused = useIsFocused();
+
+   useEffect(() => {
+    if (isFocused) {
+      setIsFound(false); // Reset isFound to false whenever component receives focus
+      
       intervalRef.current = setInterval(() => {
-        if (getLocation() === 1) {
-          clearInterval(intervalRef.current); // clear the interval using the mutable reference
-          setIsFound(true);
-        }
+        getLocation().then(result => {
+          if (result === 1) {
+            clearInterval(intervalRef.current);
+            setIsFound(true);
+          }
+        });
       }, 5000);
+    } else {
+      clearInterval(intervalRef.current); // Clear the interval when component loses focus
     }
 
-    return () => clearInterval(intervalRef.current); // clear the interval on unmount using the mutable reference
-  }, [isFound]);
+    return () => clearInterval(intervalRef.current);
+  }, [isFocused]);
 
   const checkDevicesON = (data) => {
     //console.log(data);
@@ -103,6 +112,7 @@ const GPSComponent = ({ route }) => {
         ]
       );
       //setIsFound(true);
+      clearInterval(intervalRef.current); 
       setIsFound(true);
       //console.log(isFound);
 
