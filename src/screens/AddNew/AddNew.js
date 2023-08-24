@@ -45,7 +45,24 @@ export const AddNew = ({ route }) => {
   const toggleAdvancedSettings = () => {
     setShowAdvancedSettings(!showAdvancedSettings);
   };
-
+  const validateDeviceName = (text) => {
+    if (text !== "") {
+      const deviceExists = data.some((element) => element.title === text);
+      if (deviceExists) {
+        Alert.alert(
+          "Error!",
+          "The name that you are trying to add already exists. Please rename the device name.",
+          [
+            {
+              text: "OK",
+            },
+          ]
+        );
+      } else {
+        setName(text);
+      }
+    }
+  };
   //console.log("screen:", screen);
 
   return (
@@ -59,41 +76,15 @@ export const AddNew = ({ route }) => {
             style={styles.labelsStyle}
             placeholder="enter device name here"
             value={name}
+            onBlur={() => validateDeviceName(name)} // Check when focus is lost
             onChangeText={(text) => {
-              console.log("data:", data);
-
-              data.forEach((element) => {
-                if (element.title === text) {
-                  Alert.alert(
-                    "Error!",
-                    "The name that you tring to add, exist already, please rename the device name",
-                    [
-                      {
-                        text: "OK",
-                      },
-                    ]
-                  );
-                } else {
-                  setName(text);
-                }
-              });
+              setName(text);
             }}
             // onSubmitEditing={() => alert(`Welcome to ${message}`)}
           />
           <Text style={styles.labelsStyle}>Device type:</Text>
 
           <SelectList data={data1} setSelected={setSelected} />
-
-          {/* <Text style={styles.labelsStyle}>index:</Text> */}
-
-          {/* <TextInput
-            style={styles.labelsStyle}
-            placeholder="enter index if needed"
-            value={realIndex}
-            onChangeText={(text) => {
-              setRealIndex(text);
-            }}
-          /> */}
 
           <Text style={styles.labelsStyle}>Image:</Text>
 
