@@ -36,6 +36,8 @@ export const Details = ({ route, navigation }) => {
       });
   }, []);
 
+
+
   const toggleRememberPin = () => {
     console.log("degdegbedht");
     if (data["type:"] === "fridge" && isEnabled) {
@@ -96,16 +98,20 @@ export const Details = ({ route, navigation }) => {
             {
               text: "OK",
               onPress: () => {
-                axios
-                  .get(
-                    `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
-                  )
-                  .then((response) => {
-                    // console.log(response.data);
-                    setIsEnabled(false);
-                    setTimerExpired(false);
-                  });
+                  axios
+                    .get(
+                      `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+                    )
+                    .then((response) => {
+                      setIsEnabled(false);
+                      setTimerExpired(false);
+
+                      navigation.navigate("Home", { refresh: true }); // Pass a refresh param
+
+                    });
               },
+              
+
             },
           ]
         );

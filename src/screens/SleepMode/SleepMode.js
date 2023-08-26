@@ -17,10 +17,10 @@ const SleepMode = ({ route }) => {
     if (isFocused) {
       // Only fetch data when the screen is focused
       axios
-        .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
+        .get(`http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`)
         .then((response) => {
           const newData = response.data.filter(
-            (object) => object.index !== "10"
+            (object) =>  object.type!=="fridge"
           );
           newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
           setData(newData);

@@ -21,7 +21,7 @@ const Settings = ({ navigation }) => {
     if (isFocused) {
       // Only fetch data when the screen is focused
       axios
-        .get(`http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`)
+        .get(`http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`)
         .then((response) => {
           const newData = response.data.filter(
             (object) => object.index !== "10"
@@ -135,6 +135,27 @@ const Settings = ({ navigation }) => {
           alertShown={alertShown} // Pass alertShown as a prop
         />
       )}
+
+<Button
+        onPress={() =>
+          axios
+            .get(
+              `http://35.169.65.234:9464/workshop/mainScreen/safeCloseServer`
+            )
+            .then((response) => {
+              Alert.alert("safe close server success");
+            })
+            .catch((e) => {
+              console.log(e);
+            })
+        }
+        style={styles.button}
+        textStyle={styles.buttonText}
+        status="success" // Green background colo
+        size="medium"
+      >
+        safe close server
+      </Button>
     </View>
   );
 };

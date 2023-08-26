@@ -31,7 +31,7 @@ const RealHome = ({ navigation }) => {
   
   axios
     .get(
-      `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
+      `http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
     )
     .then((response) => {
 
