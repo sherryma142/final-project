@@ -18,18 +18,17 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
 import SampleConsumption from "../SampleConsumption/SampleConsumption";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 // rnfe
 
 const RealHome = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   const [isNotEmpty, setIsNotEmpty] = useState(true);
-  axios
-  .get(
-    `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
-  )
+  const isFocused = useIsFocused(); // Get the focus status of the screen
   
-  axios
+  React.useEffect(() =>{
+    axios
     .get(
       `http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
     )
@@ -45,6 +44,7 @@ const RealHome = ({ navigation }) => {
       }
         
     )})
+  },[isFocused]);
 
   return (
     <ScrollView style={styles.container}>
