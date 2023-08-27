@@ -18,6 +18,7 @@ import {
 
 export const Details = ({ route, navigation }) => {
   const { index } = route.params;
+  const {screen}=route.params;
   const [data, setData] = useState([]);
   const [timerStarted, setTimerStarted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
@@ -105,8 +106,7 @@ export const Details = ({ route, navigation }) => {
                     .then((response) => {
                       setIsEnabled(false);
                       setTimerExpired(false);
-
-                      navigation.navigate("Home", { refresh: true }); // Pass a refresh param
+                      navigation.navigate(screen, { refresh: true }); // Pass a refresh param
 
                     });
               },
@@ -168,12 +168,12 @@ export const Details = ({ route, navigation }) => {
               marginBottom: 15,
             }}
           />
-          <Text style={styles.labelsStyle}>Normal power consumption:</Text>
+          <Text style={styles.labelsStyle}>Min power consumption:</Text>
           <Text style={[styles.labelsStyle]}>
             {data["min electricity volt:"]}
           </Text>
 
-          <Text style={styles.labelsStyle}>Improper power consumption:</Text>
+          <Text style={styles.labelsStyle}>Max power consumption:</Text>
           <Text style={[styles.labelsStyle]}>
             {data["max electricity volt:"]}
           </Text>
@@ -188,11 +188,10 @@ export const Details = ({ route, navigation }) => {
                   `http://35.169.65.234:9464/workshop/mainScreen/RemoveExistPlug?i_UiIndex=${index}`
                 )
                 .then((response) => {
-                  //console.log("after delete", response);
                   Alert.alert("Device delete", "Device deleted succesfuly", [
                     {
                       text: "OK",
-                      onPress: () => navigation.navigate("Home"),
+                      onPress: () => navigation.navigate(screen, { refresh: true }),
                     },
                   ]);
                 })

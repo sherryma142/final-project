@@ -6,28 +6,14 @@ const logoWidth = windowWidth * 0.8; // Adjust the percentage as needed
 
 export default StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: "green",
-    //justifyContent: "flex-start",
-    // flexWrap: "wrap",
-   //  alignItems: "flex-end", // Move the logo to the right
-
+  
     flex: 1,
     backgroundColor: `#d3d3d3`,
     
   },
   container1: {
-    // flex: 1,
-    // backgroundColor: "green",
-   // justifyContent: "flex-start",
-    // flexWrap: "wrap",
-    // alignContent: "center",
-   // alignItems: "flex-end", // Move the logo to the right
-
 
     flex: 1,
-    //padding: 24,
-    //alignItems: 'center',
     backgroundColor: `#d3d3d3`,
   },
   titleContainer: {

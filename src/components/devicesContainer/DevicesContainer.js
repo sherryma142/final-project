@@ -41,6 +41,7 @@ const DevicesContainer = ({ listOfItems, screen }) => {
                     navigation={navigation}
                     index={cellData.index}
                     status={cellData.status}
+                    screen={screen}
                   />
                 ) : (
                   <View />

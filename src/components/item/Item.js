@@ -16,7 +16,7 @@ import axios from "axios";
 import Blink from "../item/Blink";
 import { useEffect } from "react";
 
-export const Item = ({ name, type, navigation, index, status }) => {
+export const Item = ({ name, type, navigation, index, status ,screen}) => {
   const [isfridge, setIsFridge] = useState(false);
   // React.useEffect(() => {
   //   if (type === "fridge") {
@@ -56,6 +56,7 @@ export const Item = ({ name, type, navigation, index, status }) => {
         onPress={() =>
           navigation.navigate("Details", {
             index: index,
+            screen:screen,
             navigation: navigation,
           })
         }

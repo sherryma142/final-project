@@ -21,49 +21,67 @@ import SampleConsumption from "../SampleConsumption/SampleConsumption";
 import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 // rnfe
 
-const RealHome = ({ navigation }) => {
+const RealHome = ({  navigation, route }) => {
   const [data, setData] = useState([]);
-  const [newData, setNewData] = useState([]);
-  const [isNotEmpty, setIsNotEmpty] = useState(true);
   const isFocused = useIsFocused(); // Get the focus status of the screen
-  
-  React.useEffect(() =>{
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  React.useEffect(() => {
+    if (route.params && route.params.refresh) {
+      console.log("refresh")
+      refreshData();
+    }
+  }, [route.params]);
+
+  const refreshData = () => {
+    setRefreshing(true);
+    // Fetch the data again and update the state
     axios
-    .get(
-      `http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`
-    )
-    .then((response) => {
+      .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+      .then((response) => {
 
-      response.data.map((object) => {
+        console.log("refresh data:" , response.data)
+        const newData = response.data.filter((object) => object.index === "10");
+        setData(newData);
+        setRefreshing(false);
+        console.log("after refresh data:" , data)
+      });
+  };
 
-          if(object.index==="10")
-          {
-            setNewData([object]);
 
-          }
+  React.useEffect(() => {
+
+    if (isFocused) {
+      axios
+            .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+            .then((response) => {
+              response.data.map((object) => {
+
+                if(object.index==="10")
+                {
+                  setData([object]);
+      
+                }
+            })
+            });
       }
-        
-    )})
-  },[isFocused]);
+  }, [isFocused]); // Include delayed as a dependency
 
+
+  // console.log(newData);
   return (
     <ScrollView style={styles.container}>
-    <View style={styles.container1}>
-    <View style={styles.titleContainer}>
-    <Text style={styles.hadder}>SaveEnergy</Text>
-    </View>
-      <View style={styles.container}>
-        <DevicesContainer listOfItems={newData} screen={"RealHome"} navigation={navigation} />
+      <View style={styles.container1}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.hadder}>SaveEnergy</Text>
+        </View>
+        <View style={styles.container}>
+          <DevicesContainer listOfItems={data} screen={"RealHome"} />
+        </View>
+        <View style={styles.Buttons}></View>
       </View>
-      <View style={styles.Buttons}>
-      
-       
-
-
-      </View>
-  
-    </View>
-  </ScrollView>
+    </ScrollView>
   );
 };
 
