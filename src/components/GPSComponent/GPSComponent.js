@@ -37,24 +37,26 @@ const GPSComponent = ({ route }) => {
 
    const isFocused = useIsFocused();
 
-   useEffect(() => {
+  useEffect(() => {
     if (isFocused) {
-      setIsFound(false); // Reset isFound to false whenever component receives focus
-      
-      intervalRef.current = setInterval(() => {
-        getLocation().then(result => {
-          if (result === 1) {
-            clearInterval(intervalRef.current);
-            setIsFound(true);
-          }
-        });
+      setIsFound(false);
+    }
+  }, [isFocused]);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (!isFound && isFocused) {
+      intervalId = setInterval(() => {
+        getLocation();
       }, 5000);
     } else {
-      clearInterval(intervalRef.current); // Clear the interval when component loses focus
+      clearInterval(intervalId);
     }
 
-    return () => clearInterval(intervalRef.current);
-  }, [isFocused]);
+    return () => clearInterval(intervalId);
+  }, [isFound]);
+
 
   const checkDevicesON = (data) => {
     //console.log(data);
@@ -118,7 +120,7 @@ const GPSComponent = ({ route }) => {
 
       return 1;
     } else {
-      //setIsFound(false);
+      setIsFound(false);
       //console.log(isFound);
 
       return 0;
