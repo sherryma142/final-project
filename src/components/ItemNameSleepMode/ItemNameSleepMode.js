@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import styles from "./ItemNameSleepMode.style";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 
 export const ItemNameSleepMode = ({ name, index }) => {
   const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
+  const navigation = useNavigation();
+
   React.useEffect(() => {
     axios
       .get(
@@ -28,6 +31,8 @@ export const ItemNameSleepMode = ({ name, index }) => {
           )
           .then((response) => {
             console.log("added");
+            navigation.navigate("SleepMode", { refresh: true });
+
           })
       : axios
           .delete(
@@ -36,6 +41,7 @@ export const ItemNameSleepMode = ({ name, index }) => {
           .then((response) => {
             console.log("removed");
             setIsEnabled(false);
+            navigation.navigate("SleepMode", { refresh: true });
           });
   };
 

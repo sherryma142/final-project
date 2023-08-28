@@ -12,26 +12,77 @@ import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 
 const SafeChild = ({ route }) => {
   const [isPress, setIsPress] = useState(false);
-  // console.log("safe app" ,data)
-
   const [data, setData] = useState([]);
+  const [isRegisterdNotEmpty, setIsRegisteredNotEmpty] = useState(false);
 
-  const isFocused = useIsFocused(); // Get the focus status of the screen
-//object.index !== "10" // from line 28
+  const isFocused = useIsFocused();
+  const [refreshing, setRefreshing] = useState(false);
+
   React.useEffect(() => {
-    if (isFocused) {
-      // Only fetch data when the screen is focused
+    if (route.params && route.params.refresh) {
+
+      console.log("refresh")
+      refreshData();
+    }
+  }, [route.params]);
+
+  const refreshData = () => {
+    setRefreshing(true);
+    // Fetch the data again and update the state
+    axios
+      .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+      .then((response) => {
+        const newData = response.data.filter(
+          (object) => object.type !== "fridge"
+        );
+        newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+        setData(newData);
+        setRefreshing(false);
+      });
+
       axios
-        .get(`http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen`)
+        .get(
+          "http://35.169.65.234:9464/workshop/mainScreen/checkRegisteredPlugsToSafeMode"
+        )
+        .then((response) => {
+          console.log("registered data: ", response.data)
+          setIsRegisteredNotEmpty(Object.keys(response.data).length > 0);
+
+        })
+  };
+
+  useEffect(() => {
+    if (isFocused) {
+
+      console.log("safe child is press:", isPress)
+      axios
+        .get(
+          "http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen"
+        )
         .then((response) => {
           const newData = response.data.filter(
-            (object) => object.type!=="fridge"
+            (object) => object.type !== "fridge"
           );
           newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
           setData(newData);
         });
+        setIsPress(false);
+        axios
+        .get(
+          "http://35.169.65.234:9464/workshop/mainScreen/checkRegisteredPlugsToSafeMode"
+        )
+        .then((response) => {
+          console.log("registered data: ", response.data)
+          setIsRegisteredNotEmpty(Object.keys(response.data).length > 0);
+
+        })
     }
   }, [isFocused]);
+
+  const handleConnectPress = () => {
+    setIsPress(true);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -48,15 +99,12 @@ const SafeChild = ({ route }) => {
             textStyle={styles.buttonText}
             status="success" // Green background colo
             size="medium"
-            onPress={() => {
-              //console.log("press");
-              //console.log(route);
-              setIsPress(true);
-            }}
+            onPress={handleConnectPress}
+            disabled={!isRegisterdNotEmpty}
           >
             Connect devices to safe child mode
           </Button>
-          {isPress && <GPSComponent route={route} />}
+          {isPress && <GPSComponent isPress={isPress}/>}
         </View>
       </ScrollView>
     </View>

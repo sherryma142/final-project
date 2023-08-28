@@ -10,9 +10,42 @@ const SleepMode = ({ route }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const [data, setData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [isRegisterdNotEmpty, setIsRegisteredNotEmpty] = useState(false);
 
   const isFocused = useIsFocused(); // Get the focus status of the screen
+  React.useEffect(() => {
+    if (route.params && route.params.refresh) {
 
+      console.log("refresh")
+      refreshData();
+    }
+  }, [route.params]);
+
+  const refreshData = () => {
+    setRefreshing(true);
+    // Fetch the data again and update the state
+    axios
+      .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+      .then((response) => {
+        const newData = response.data.filter(
+          (object) => object.type !== "fridge"
+        );
+        newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+        setData(newData);
+        setRefreshing(false);
+      });
+
+      axios
+        .get(
+          "http://35.169.65.234:9464/workshop/mainScreen/checkRegisteredPlugsToSleepMode"
+        )
+        .then((response) => {
+          console.log("registered data: ", response.data)
+          setIsRegisteredNotEmpty(Object.keys(response.data).length > 0);
+
+        })
+  };
   React.useEffect(() => {
     if (isFocused) {
       // Only fetch data when the screen is focused
@@ -25,7 +58,18 @@ const SleepMode = ({ route }) => {
           newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
           setData(newData);
         });
+
+        axios
+        .get(
+          "http://35.169.65.234:9464/workshop/mainScreen/checkRegisteredPlugsToSleepMode"
+        )
+        .then((response) => {
+          console.log("registered data: ", response.data)
+          setIsRegisteredNotEmpty(Object.keys(response.data).length > 0);
+
+        })
     }
+
   }, [isFocused]);
   return (
     <View style={styles.container}>
@@ -50,6 +94,7 @@ const SleepMode = ({ route }) => {
           textStyle={styles.buttonText}
           status="success" // Green background colo
           size="medium"
+          disabled={!isRegisterdNotEmpty}
           onPress={() => {
             Alert.alert("connect succesfully");
           }}

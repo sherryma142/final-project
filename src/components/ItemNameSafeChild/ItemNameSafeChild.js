@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import styles from "./ItemNameSafeChild.style";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
-
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 export const ItemNameSafeChild = ({ name, index }) => {
   const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
+  const navigation = useNavigation();
   React.useEffect(() => {
     axios
       .get(
@@ -30,6 +31,7 @@ export const ItemNameSafeChild = ({ name, index }) => {
           )
           .then((response) => {
             console.log("added");
+            navigation.navigate("SafeChild", { refresh: true });
           })
       : axios
           .delete(
@@ -37,6 +39,7 @@ export const ItemNameSafeChild = ({ name, index }) => {
           )
           .then((response) => {
             console.log("removed");
+            navigation.navigate("SafeChild", { refresh: true });
           });
   };
 

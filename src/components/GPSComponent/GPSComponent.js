@@ -9,14 +9,15 @@ import {
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 // Home location (latitude and longitude) - Replace with your actual home coordinates
 
 // rnfe
 
-const GPSComponent = ({ route }) => {
+const GPSComponent = ({ isPress="false" }) => {
   const [fetdata, setData] = useState([]);
+  const navigation=useNavigation();
 
   const initialLocation = {
     coords: {
@@ -37,7 +38,8 @@ const GPSComponent = ({ route }) => {
 
    const isFocused = useIsFocused();
 
-  useEffect(() => {
+ 
+   useEffect(() => {
     if (isFocused) {
       setIsFound(false);
     }
@@ -46,7 +48,8 @@ const GPSComponent = ({ route }) => {
   useEffect(() => {
     let intervalId;
 
-    if (!isFound && isFocused) {
+    console.log("press:", isPress)
+    if (!isFound && isFocused && isPress) {
       intervalId = setInterval(() => {
         getLocation();
       }, 5000);
@@ -56,7 +59,6 @@ const GPSComponent = ({ route }) => {
 
     return () => clearInterval(intervalId);
   }, [isFound]);
-
 
   const checkDevicesON = (data) => {
     //console.log(data);
@@ -95,6 +97,8 @@ const GPSComponent = ({ route }) => {
             onPress: () => {
               console.log("Cancel Pressed");
               //stopMonthChange(intervalId);
+              navigation.navigate("Home");
+
             },
             style: "cancel",
           },
@@ -108,6 +112,7 @@ const GPSComponent = ({ route }) => {
                 .then((response) => {
                   setData(response.data);
                   console.log("clicked eare ", response.data);
+                  navigation.navigate("Home");
                 });
             },
           },
