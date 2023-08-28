@@ -72,9 +72,9 @@ const AllDeviceStatisticsYearly = () => {
               height={Dimensions.get("window").height - 60}
               verticalLabelRotation={45}
               chartConfig={{
-                backgroundColor: "gray",
+                backgroundColor: "white",
                 backgroundGradientFrom: "gray",
-                backgroundGradientTo: "gray",
+                backgroundGradientTo: "green",
                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 style: {
