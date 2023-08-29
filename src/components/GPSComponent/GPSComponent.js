@@ -25,8 +25,8 @@ const GPSComponent = ({ isPress="false" }) => {
       altitude: 46.58914566040039,
       altitudeAccuracy: 4.18025541305542,
       heading: -1,
-      latitude: 31.972288252154485,
-      longitude: 34.7609471008618,
+      latitude: 32.047758,
+      longitude: 34.761397,
       speed: -1,
     },
   };
@@ -86,7 +86,7 @@ const GPSComponent = ({ isPress="false" }) => {
     );
 
     console.log("distance:", distance);
-    if (distance > 0.5) {
+    if (distance > 0.01) {
       // add && checkDevicesON(data)
       Alert.alert(
         "safe chiled mode",
