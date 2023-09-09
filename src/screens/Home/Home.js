@@ -1,126 +1,102 @@
 import {
   View,
-  Text,
   ScrollView,
   TouchableHighlight,
-  Button,
   Alert,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import styles from "./Home.style";
-import {
-  Button as ButtonKitten,
-  BottomNavigation,
-} from "@ui-kitten/components";
+
+import { Button, Text } from "@ui-kitten/components";
+
 import DevicesContainer from "../../components/devicesContainer/DevicesContainer";
 import itemsMock from "../../mocks/itemsMock";
 import LiveShowComponent from "../../components/LiveShowComponent/LiveShowComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
+import { useFocusEffect } from '@react-navigation/native';
 
-import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
 // rnfe
 
-const Home = ({ index, navigation }) => {
+const Home = ({ navigation, route }) => {
 
   const [data, setData] = useState([]);
-  const [isNotEmpty,setIsNotEmpty] = useState(true);
+  const isFocused = useIsFocused(); // Get the focus status of the screen
+  const [delayed, setDelayed] = useState(false); // Track whether delay has occurred
 
-  let newData=[];
+  const [refreshing, setRefreshing] = useState(false);
 
-  // axios
-  //   .get(
-  //     `http://35.169.65.234:9464/workshop/mainScreen/FetchPlugsFromDB`
-  //   )
-    
-  axios
-    .get(
-      `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
-    )
-    .then((response) => {
-     // console.log(response.data)
-     response.data.map((object) => {
-      if(object.index!="10")
+  React.useEffect(() => {
+    if (route.params && route.params.refresh) {
+      refreshData();
+    }
+  }, [route.params]);
+
+  const refreshData = () => {
+    setRefreshing(true);
+    // Fetch the data again and update the state
+    axios
+      .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+      .then((response) => {
+        const newData = response.data.filter((object) => object.index !== "10");
+        newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+        setData(newData);
+        setRefreshing(false);
+      });
+  };
+
+
+  React.useEffect(() => {
+    let timerId;
+
+    if (isFocused) {
+      if(!delayed)
       {
-     //   console.log(object);
-        newData.push(object);
+        timerId = setTimeout(() => {
+          axios
+            .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+            .then((response) => {
+              const newData = response.data.filter(
+                (object) => object.index !== "10"
+              );
+              newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+              setData(newData);
+              setDelayed(true); // Set delayed to true after the initial delay
+            });
+        }, 2000); // 2 seconds delay
       }
-  }
-
-
-)
-
-setData(newData);
-
-     
-    });
- 
-   // console.log(newData);
-  return (
-  
-    <ScrollView>
-      <View style={styles.container}>
-        <Ionicons
-          style={styles.settings}
-          ignoredStyles={["styles.container"]}
-          name="settings"
-          size={32}
-          onPress={() =>
-             navigation.navigate("Settings" , {navigation:navigation })
-            
-            }
-        />
-        <Text style={styles.hadder}>SaveEnergy</Text>
-        <View style={styles.container}>
-          <DevicesContainer listOfItems={data} navigation={navigation} />
-        </View>
-        <View style={styles.Buttons}>
-          <ButtonKitten
-            onPress={() =>
-              navigation.navigate("SafeChild", {
-                data: data,
-                navigation: navigation,
-              })
-            }
-            style={styles.Button}
-            size="medium"
-          >
-            Safe Child Mode
-          </ButtonKitten>
-          <ButtonKitten
-            onPress={() => navigation.navigate("SleepMode", { data: data })}
-            style={styles.Button}
-            size="medium"
-          >
-            Sleep Mode
-          </ButtonKitten>
-          <ButtonKitten
-            style={styles.Button}
-            size="medium"
-            onPress={() => navigation.navigate("Statistics", { data: data })}
-          >
-            Statistics
-          </ButtonKitten>
- 
-          <ButtonKitten
-            onPress={() => {
-              console.log("press");
-              console.log(index);
-
-            }}
-            style={styles.Button}
-            size="medium"
-          >
-            Sample consamption
-
-          </ButtonKitten>
-          {
-                isNotEmpty && <InvalidConsumptionComponent indexes={0} />
-              } 
-
-
-        </View>
+      else{
+        axios
+        .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+        .then((response) => {
+          const newData = response.data.filter(
+            (object) => object.index !== "10"
+          );
+          newData.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+          setData(newData);
+        });
+      }
+      }
     
+    return () => {
+      clearTimeout(timerId); // Clear the timer if the component unmounts or the effect re-runs
+    };
+  }, [isFocused]); // Include delayed as a dependency
+
+
+  // console.log(newData);
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.container1}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.hadder}>SaveEnergy</Text>
+        </View>
+        <View style={styles.container}>
+          <DevicesContainer listOfItems={data} screen={"Home"} />
+        </View>
+        <View style={styles.Buttons}></View>
       </View>
     </ScrollView>
   );

@@ -21,7 +21,6 @@ import AllDeviceStatisticsYearly from "../../components/AllDeviceStatisticsYearl
 import AllDeviceStatisticsWeekly from "../../components/AllDeviceStatisticsWeekly/AllDeviceStatisticsWeekly";
 const AllDevicesStatistic = ({ route, navigation }) => {
   const { typeStatistics } = route.params;
-  console.log("sherry", typeStatistics);
   const [isYearly, setIsYearly] = useState(false);
   const [isWeekly, setIsWeekly] = useState(false);
 
@@ -33,8 +32,12 @@ const AllDevicesStatistic = ({ route, navigation }) => {
 
   return (
     <View>
-      {isYearly && <AllDeviceStatisticsYearly />}
-      {isWeekly && <AllDeviceStatisticsWeekly />}
+      {isYearly && (
+        <AllDeviceStatisticsYearly route={route} navigation={navigation} />
+      )}
+      {isWeekly && (
+        <AllDeviceStatisticsWeekly route={route} navigation={navigation} />
+      )}
     </View>
   );
 };

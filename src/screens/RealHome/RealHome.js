@@ -18,80 +18,68 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 import InvalidConsumptionComponent from "../../components/InvalidConsumptionComponent/InvalidConsumptionComponent";
 import SampleConsumption from "../SampleConsumption/SampleConsumption";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 // rnfe
 
-const RealHome = ({ navigation }) => {
+const RealHome = ({  navigation, route }) => {
   const [data, setData] = useState([]);
-  const [newData, setNewData] = useState([]);
-  const [isNotEmpty, setIsNotEmpty] = useState(true);
+  const isFocused = useIsFocused(); // Get the focus status of the screen
 
-  axios
-    .get(
-      `http://35.169.65.234:9464/workshop/mainScreen/SeePlugsAtDB`
-    )
-    .then((response) => {
+  const [refreshing, setRefreshing] = useState(false);
 
-      response.data.map((object) => {
+  React.useEffect(() => {
+    if (route.params && route.params.refresh) {
+      console.log("refresh")
+      refreshData();
+    }
+  }, [route.params]);
 
-          if(object.index==="10")
-          {
-            setNewData([object]);
+  const refreshData = () => {
+    setRefreshing(true);
+    // Fetch the data again and update the state
+    axios
+      .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+      .then((response) => {
 
-          }
+        console.log("refresh data:" , response.data)
+        const newData = response.data.filter((object) => object.index === "10");
+        setData(newData);
+        setRefreshing(false);
+        console.log("after refresh data:" , data)
+      });
+  };
+
+
+  React.useEffect(() => {
+
+    if (isFocused) {
+      axios
+            .get("http://35.169.65.234:9464/workshop/mainScreen/GetTotalConnectedPlugsFromMainScreen")
+            .then((response) => {
+              response.data.map((object) => {
+
+                if(object.index==="10")
+                {
+                  setData([object]);
+      
+                }
+            })
+            });
       }
-        
-    )})
+  }, [isFocused]); // Include delayed as a dependency
 
+
+  // console.log(newData);
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Ionicons
-          style={styles.settings}
-          ignoredStyles={["styles.container"]}
-          name="settings"
-          size={32}
-          onPress={() =>
-            navigation.navigate("Settings", { navigation: navigation })
-          }
-        />
-        <Text style={styles.hadder}>SaveEnergy</Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.container1}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.hadder}>SaveEnergy</Text>
+        </View>
         <View style={styles.container}>
-          <DevicesContainer listOfItems={newData} navigation={navigation} />
+          <DevicesContainer listOfItems={data} screen={"RealHome"} />
         </View>
-        <View style={styles.Buttons}>
-          <ButtonKitten
-            onPress={() =>
-              navigation.navigate("SafeChild", {
-                data: newData,
-                navigation: navigation,
-              })
-            }
-            style={styles.Button}
-            size="medium"
-          >
-            Safe Child Mode
-          </ButtonKitten>
-          <ButtonKitten
-            style={styles.Button}
-            size="medium"
-            onPress={() => navigation.navigate("Statistics", { data: newData })}
-          >
-            Statistics
-          </ButtonKitten>
-
-          <ButtonKitten
-            onPress={() =>
-              navigation.navigate("SampleConsumption", {
-                data: newData,
-                navigation: navigation,
-              })
-            }
-            style={styles.Button}
-            size="medium"
-          >
-            Sample consumption
-          </ButtonKitten>
-        </View>
+        <View style={styles.Buttons}></View>
       </View>
     </ScrollView>
   );

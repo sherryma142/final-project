@@ -9,27 +9,24 @@ import {
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 // Home location (latitude and longitude) - Replace with your actual home coordinates
 
-
- 
 // rnfe
 
-const GPSComponent = ({ route }) => {
-  const { data } = route.params;
+const GPSComponent = ({ isPress="false" }) => {
   const [fetdata, setData] = useState([]);
+  const navigation=useNavigation();
 
-
-    
   const initialLocation = {
     coords: {
       accuracy: 24.940620582782653,
       altitude: 46.58914566040039,
       altitudeAccuracy: 4.18025541305542,
       heading: -1,
-      latitude: 31.972288252154485,
-      longitude: 34.7609471008618,
+      latitude: 32.047758,
+      longitude: 34.761397,
       speed: -1,
     },
   };
@@ -37,21 +34,34 @@ const GPSComponent = ({ route }) => {
 
   const intervalRef = useRef(null); // create a mutable reference to the interval ID
   const [isFound, setIsFound] = useState(false);
+   console.log("isfound:" ,isFound);
+
+   const isFocused = useIsFocused();
+
+ 
+   useEffect(() => {
+    if (isFocused) {
+      setIsFound(false);
+    }
+  }, [isFocused]);
+
   useEffect(() => {
-    if (!isFound) {
-      intervalRef.current = setInterval(() => {
-        if (getLocation() === 1) {
-          clearInterval(intervalRef.current); // clear the interval using the mutable reference
-          setIsFound(true);
-        }
+    let intervalId;
+
+    console.log("press:", isPress)
+    if (!isFound && isFocused && isPress) {
+      intervalId = setInterval(() => {
+        getLocation();
       }, 5000);
+    } else {
+      clearInterval(intervalId);
     }
 
-    return () => clearInterval(intervalRef.current); // clear the interval on unmount using the mutable reference
+    return () => clearInterval(intervalId);
   }, [isFound]);
 
   const checkDevicesON = (data) => {
-    console.log(data);
+    //console.log(data);
     let i = 0;
     for (i = 0; i < data.length; i++) {
       if (data[i].status === "on") {
@@ -76,17 +86,19 @@ const GPSComponent = ({ route }) => {
     );
 
     console.log("distance:", distance);
-    if (distance > 24.163) {
+    if (distance > 0.01) {
       // add && checkDevicesON(data)
       Alert.alert(
-        "safe chiled mode",
-        "Did you went outside? do you want to turn off all the registerd devices in safe chiled mode?",
+        "safe child mode",
+        "Did you go outside? do you want to turn off all the registerd devices in safe child mode?",
         [
           {
             text: "No",
             onPress: () => {
               console.log("Cancel Pressed");
               //stopMonthChange(intervalId);
+              navigation.navigate("Home");
+
             },
             style: "cancel",
           },
@@ -99,19 +111,22 @@ const GPSComponent = ({ route }) => {
                 )
                 .then((response) => {
                   setData(response.data);
+                  console.log("clicked eare ", response.data);
+                  navigation.navigate("Home");
                 });
             },
           },
         ]
       );
       //setIsFound(true);
+      clearInterval(intervalRef.current); 
       setIsFound(true);
-      console.log(isFound);
+      //console.log(isFound);
 
       return 1;
     } else {
-      //setIsFound(false);
-      console.log(isFound);
+      setIsFound(false);
+      //console.log(isFound);
 
       return 0;
     }
@@ -143,7 +158,7 @@ const GPSComponent = ({ route }) => {
     console.log("distance==?", d);
     return d;
   }
-     
+
   return <View></View>;
-}
+};
 export default GPSComponent;

@@ -8,21 +8,21 @@ export const ExistItem = ({ name, type, navigation, index }) => {
   const [data, setData] = useState([]);
   const [isEnabled, setIsEnabled] = useState(data);
 
-  axios
-    .get(
-      `http://35.169.65.234:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
-    )
-    .then((response) => {
-      setData(response.data["status:"] === "on");
-      setIsEnabled(data);
-    });
+  // axios
+  //   .get(
+  //     `http://35.169.65.234:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+  //   )
+  //   .then((response) => {
+  //     setData(response.data["status:"] === "on");
+  //     //setIsEnabled(data);
+  //   });
 
-  const toggleRememberPin = () => {
-    setIsEnabled((previousState) => !previousState);
-    axios.get(
-      `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
-    );
-  };
+  // const toggleRememberPin = () => {
+  //   setIsEnabled((previousState) => !previousState);
+  //   axios.get(
+  //     `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+  //   );
+  // };
 
   return (
     <View style={styles.container}>

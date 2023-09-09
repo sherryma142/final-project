@@ -20,7 +20,7 @@ const SampleConsumption = ({ route }) => {
         title="start sampling a rendom device consumption..."
         color="green"
         onPress={() => {
-          console.log("press");
+         // console.log("press");
           setIsPress(true);
         }}
       />

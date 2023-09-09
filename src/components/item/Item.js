@@ -14,8 +14,22 @@ import constants from "../../constants/itemTypes";
 import axios from "axios";
 
 import Blink from "../item/Blink";
+import { useEffect } from "react";
 
-export const Item = ({ name, type, navigation, index, status }) => {
+export const Item = ({ name, type, navigation, index, status ,screen}) => {
+  const [isfridge, setIsFridge] = useState(false);
+  // React.useEffect(() => {
+  //   if (type === "fridge") {
+  //     setIsFridge(true);
+  //     axios
+  //       .get(
+  //         `http://35.169.65.234:9464/workshop/mainScreen/getPlugInfo?i_UiIndex=${index}`
+  //       )
+  //       .then((response) => {
+  //         status = response.data["status:"];
+  //       });
+  //   }
+  // }, [isfridge]);
   const data = status !== "plus";
   let isOn;
 
@@ -40,15 +54,11 @@ export const Item = ({ name, type, navigation, index, status }) => {
 
       <TouchableHighlight
         onPress={() =>
-          type === "plus"
-            ? navigation.navigate("AddNew", {
-                index: index,
-                navigation: navigation,
-              })
-            : navigation.navigate("Details", {
-                index: index,
-                navigation: navigation,
-              })
+          navigation.navigate("Details", {
+            index: index,
+            screen:screen,
+            navigation: navigation,
+          })
         }
       >
         <Image source={constants.IMAGES[type]} style={styles.item_image} />

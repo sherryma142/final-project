@@ -11,30 +11,44 @@ import axios from "axios";
 import * as Location from "expo-location";
 // rnfe
 
-const InvalidConsumptionComponent = ({ indexes }) => {
+const InvalidConsumptionComponent = ({
+  index,
+  title,
+  onHide,
+  invalidDevices,
+  alertShown,
+}) => {
+  console.log("sherry", index);
+  const [isInvalidDevices, setIsInvalidDevices] = useState([]);
+  const handleHide = () => {
+    onHide(); // Call the onHide function passed as a prop
+  };
   const [consumptionData, setConsumptionData] = useState(0);
   const intervalRef = useRef(null); // create a mutable reference to the interval ID
   const [isFound, setIsFound] = useState(false);
+  //const [alertShown, setAlertShown] = useState(false);
 
- // console.log(indexes);
+  // console.log(indexes);
   useEffect(() => {
-    if (!isFound) {
+    if (!isFound && !alertShown) {
       intervalRef.current = setInterval(() => {
-        for (let i = 0; i < 2; i++) {
-          if (sendData(i) == 1) {
-            clearInterval(intervalRef.current); // clear the interval using the mutable reference
-            setIsFound(true);
-          }
+        if (!isFound && !alertShown) {
+          // Add this condition to prevent calling sendData multiple times
+          sendData(index).then((result) => {
+            if (result === 1) {
+              clearInterval(intervalRef.current);
+              setIsFound(true);
+            }
+          });
         }
       }, 5000);
     }
 
-    return () => clearInterval(intervalRef.current); // clear the interval on unmount using the mutable reference
-  }, [isFound]);
+    return () => clearInterval(intervalRef.current);
+  }, [isFound, alertShown]);
 
-  const sendData = (index) => {
+  const sendData = async (index) => {
     console.log("index from invalid : ", index);
-
     axios
       .get(
         `http://35.169.65.234:9464/workshop/statisticsScreen/GetLastElectricityUsageForPlugByType?i_UiIndex=${index}&i_StatisticsType=single`
@@ -43,48 +57,53 @@ const InvalidConsumptionComponent = ({ indexes }) => {
         console.log("res data: ", response.data);
         setConsumptionData(response.data);
         console.log("consumption:" + consumptionData);
-        if (response.data === 0.120930225) {
-          Alert.alert(
-            "WARNNING",
-            "One of your devices has reached a higher than normal power consumption.\n do you want to turn this device?",
-            [
-              {
-                text: "No",
-                onPress: () => {
-                  console.log("Cancel Pressed");
-                },
-                style: "cancel",
+        Alert.alert(
+          "WARNNING",
+          `Device ${title} has reached a higher than normal power consumption.\n do you want to turn off this device?`,
+          [
+            {
+              text: "No",
+              onPress: () => {
+                console.log("Cancel Pressed");
+                handleHide();
               },
-              {
-                text: "Yes",
-                onPress: () => {
-                  axios
-                    .get(
-                      `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
-                    )
-                    .then((response) => {
-                      console.log(response.data);
-                      setConsumptionData(response.data);
-                    });
-                },
-              },
-            ]
-          );
+              style: "cancel",
+            },
+            {
+              text: "Yes",
+              onPress: () => {
+                axios
+                  .get(
+                    `http://35.169.65.234:9464/workshop/plugMediator/flipPlugModeAccordingToIndex?i_UiIndex=${index}`
+                  )
+                  .then((response) => {
+                    console.log(response.data);
+                    setConsumptionData(response.data);
 
-          setIsFound(true);
-          console.log(isFound);
-          axios
-            .get(
-              `http://35.169.65.234:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
-            )
-            .then((response) => {
-              console.log(response.data);
-            });
-          return 1;
-        } else {
-          console.log(isFound);
-          return 0;
-        }
+                    axios
+                      .get(
+                        `http://35.169.65.234:9464/workshop/on_off_screen/getAllInvalidPlugs`
+                      )
+                      .then((response) => {
+                        console.log("in invliad:", response.data);
+                        if (response.data) {
+                          setIsInvalidDevices(response.data);
+                        }
+                      });
+                    handleHide();
+                  });
+              },
+            },
+          ]
+        );
+        setIsFound(true);
+        //console.log(isFound);
+        axios
+          .get(
+            `http://35.169.65.234:9464/workshop/on_off_screen/doNotTurnOffAfterOverTimeOrInvalidConsumption?i_UiIndex=${index}&i_Type=invalidConsumption`
+          )
+          .then((response) => {});
+        return 1;
       });
   };
 
