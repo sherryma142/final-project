@@ -21,7 +21,7 @@ const SleepMode = ({ route }) => {
       refreshData();
     }
   }, [route.params]);
-
+F
   const refreshData = () => {
     setRefreshing(true);
     // Fetch the data again and update the state

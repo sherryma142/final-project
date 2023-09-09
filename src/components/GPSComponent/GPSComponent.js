@@ -89,8 +89,8 @@ const GPSComponent = ({ isPress="false" }) => {
     if (distance > 0.01) {
       // add && checkDevicesON(data)
       Alert.alert(
-        "safe chiled mode",
-        "Did you went outside? do you want to turn off all the registerd devices in safe chiled mode?",
+        "safe child mode",
+        "Did you go outside? do you want to turn off all the registerd devices in safe child mode?",
         [
           {
             text: "No",
